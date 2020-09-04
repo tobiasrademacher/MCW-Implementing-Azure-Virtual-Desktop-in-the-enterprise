@@ -620,4 +620,4 @@ Design a Windows Virtual Desktop infrastructure that addresses the needs and req
 
 "Microsoft has designed a secure and manageable infrastructure that can grow with Contoso Healthcare. This depth and breadth will allow us to meet both our business needs and regulatory requirements for our applications. Not to mention ensuring that our healthcare practitioners will have access to the patient data that they need when they need it."
 
-- Ken Greenwald, CTO of Contoso Healthcare
+Ken Greenwald, CTO of Contoso Healthcare
