@@ -246,6 +246,7 @@ By default, Azure AD Connect does not synchronize the built-in domain administra
     Select **Exit**.
 
     ![Once installation is complete the Configuration complete window will be present.](images/AADCcomplete.png "The Configuration is completed window")
+    
 7.  Minimize the RDP session for the domain controller and wait a few minutes for the AD accounts to be synchronized to Azure AD.
 
 8.  Sign in to the [Azure Portal](https://portal.azure.com/).
@@ -256,7 +257,7 @@ By default, Azure AD Connect does not synchronize the built-in domain administra
 
 11. Review the list of user account objects and confirm the test accounts have synchronized.  
 
-    ![This image shows the list of users that you should see in Azure Active Directory that were synchronized from Active Directory with Azure AD Connect](images/adconnectsync.png)
+    ![This image shows the list of users that you should see in Azure Active Directory that were synchronized from Active Directory with Azure AD Connect](images/adconnectsync.png "Synchronized users list")
 
     >**Note**: It can take up to 15 minutes for the Active Directory objects to be synchronized to the Azure AD tenant.
 
@@ -321,9 +322,9 @@ It is also important to keep in mind that these groups can also originate from t
 
 7. Confirm that the groups have been added by going to **Azure Active Directory**, selecting **Groups**.  Scroll down to the bottom of the list of groups and the three groups that you created should be listed.
 
-    ![Go to Azure Active Directory Groups to view the list of groups.](images/aadgroups.png)
+    ![Go to Azure Active Directory Groups to view the list of groups.](images/aadgroups.png "Azure Active Directory Groups")
 
-    ![Scroll to the bottom of the list to view the three new groups that were created.](images/aadnewgroups.png)
+    ![Scroll to the bottom of the list to view the three new groups that were created.](images/aadnewgroups.png "Azure Active Directory Groups")
 
 ### Task 2: Assign users to groups
 
@@ -337,7 +338,7 @@ Now that the Azure AD groups are in place, we will assign users for testing. Onc
 
 4.  Select **Members** and **+ Add Members**
 
-    ![Add members to the persistent desktop user group from within the Azure AD blade.](images/newMember.png)
+    ![Add members to the persistent desktop user group from within the Azure AD blade.](images/newMember.png "Azure AD blade")
 
 5.  In the search field, enter the name of a User to add **Select** to add them to the group.
 
@@ -345,7 +346,7 @@ Now that the Azure AD groups are in place, we will assign users for testing. Onc
 
     At this point you have three new Azure AD groups with members assigned. Make a note of the group names and accounts you added for use later in this guide. These groups will be used to assign access to WVD application groups.
 
-    ![Here is the list of users that you should be adding to each of the groups.](images/aadwvdusers.png)
+    ![Here is the list of users that you should be adding to each of the groups.](images/aadwvdusers.png "Azure AD groups")
 
 
 ## Exercise 3: Create an Azure Files Share for FSLogix
@@ -438,7 +439,7 @@ In this task we will be completing the steps on the Domain Controller in Azure u
 
     **Link address**: https//github.com/Azure-Samples/azure-files-samples/releases   
 
-    ![Here is what you should see when you go to the github site for Azure samples](images/azfileshybriddownload.png)
+    ![Here is what you should see when you go to the github site for Azure samples](images/azfileshybriddownload.png "Azure samples")
 
 2. From the GitHub repository, select and download the AzFilesHybrid.zip file to the domain joined computer **Documents** folder.
 
@@ -472,7 +473,7 @@ In this task we will be completing the steps on the Domain Controller in Azure u
     cd C:\Users\ADAdmin\Documents\AzFilesHybrid
     ```
 
-    ![The path to the file should be the documents folder location in file explorer](images/filelocation.png)
+    ![The path to the file should be the documents folder location in file explorer](images/filelocation.png "Documents folder path")
 
 8.  Install the Az PowerShell module.
 
@@ -497,7 +498,7 @@ In this task we will be completing the steps on the Domain Controller in Azure u
     Import-Module -Name AzFilesHybrid
     ```
 
-    ![After running these commands, the results will look like this screenshot.](images/azimportresults.png)
+    ![After running these commands, the results will look like this screenshot.](images/azimportresults.png "Command results")
     
 11. Sign in with an account that meets the prerequisites.
 
@@ -520,7 +521,7 @@ In this task we will be completing the steps on the Domain Controller in Azure u
 
         >**Note**: You can run **Get-AzSubscription** to lookup the available subscription names.
 
-        ![Here is where you would find the subscription id when running the Get-AzSubscription command.](images/subscriptionid.png)
+        ![Here is where you would find the subscription Id when running the Get-AzSubscription command.](images/subscriptionid.png "Subscription Id)
 
 
 13.  Select the target subscription for the current session.
@@ -543,11 +544,11 @@ In this task we will be completing the steps on the Domain Controller in Azure u
 
 15. When the script completes, you will be provided with confirmation that you are connected to the storage account.
 
-    ![This is the confirmation of the storage account connection.](images/storageconfirmed.png)
+    ![This is the confirmation of the storage account connection.](images/storageconfirmed.png "Storage account confirmation")
 
 16. Confirm the object was created successfully in **Active Directory Users and Computers** by going to Domain controllers and looking for the computer object for Azure storage account.
 
-    ![Here is what the newly created computer object looks like in Active Directory.](images/confirmnewobject.png)
+    ![Here is what the newly created computer object looks like in Active Directory.](images/confirmnewobject.png "Active Directory object")
 
 17. Confirm that the feature is enabled.
 
@@ -567,12 +568,12 @@ In this task we will be completing the steps on the Domain Controller in Azure u
     $storageAccount.AzureFilesIdentityBasedAuth.ActiveDirectoryProperties
     ```
 
-    ![Here is what the responses should be when running the previous Powershell tasks.](images/confirmpowershell.png)
+    ![Here is what the responses should be when running the previous Powershell tasks.](images/confirmpowershell.png "PowerShell task responses")
 
 
 20. You can also confirm activation with your domain by navigating to the Azure portal, going to the storage account and selecting **Configuration** under **Settings**. Refer to the group on Active Directory (AD), as shown in the example below.
 
-    ![In the storage account configuration, you will see that Active Directory Domain Services is enabled](images/portalconfirm.png)
+    ![In the storage account configuration, you will see that Active Directory Domain Services is enabled](images/portalconfirm.png "Storage account configuation")
 
 You have now successfully enabled AD authentication over SMB and assigned a custom role that provides access to an Azure file share with an AD identity.
 
@@ -620,7 +621,7 @@ To simplify administration, create 4 new security groups in Active Directory to 
 
     ![Here is how to add the AZF FSLogix Elevated Contributor group to this user.](images/addadmin.png)
 
-5.  Add the group **WVD Users** to the group **AZF FSLogix Contributor** by going to the Builtin groups, locating WVDUsers and righ-click to **Add to a group**.
+5.  Add the group **WVD Users** to the group **AZF FSLogix Contributor** by going to the Builtin groups, locating WVDUsers and right-click to **Add to a group**.
   
     ![This shows how you would find the WVD Users group and add it to a group.](images/wvduseraddtogroup.png)
 
@@ -679,7 +680,7 @@ The first time you configure NTFS permission, do so using superuser permissions.
 
 >**Note**: In order to complete this task, you will need to disable secure transfer in the storage account.  This can be accessed from the storage account **Configuration** and selecting **Disabled** under **Secure transfer required**.  Select **Save** to save the changes.
 
-![In the configuration, you will disable secure transfer required and save](images/disablesecuretransfer.png)
+![In the configuration, you will disable secure transfer required and save.](images/disablesecuretransfer.png)
 
 1.  In the Azure portal, in the **Search resources** field, type **storage accounts** and select **Storage accounts** from the list.
 
@@ -848,7 +849,7 @@ For more information on how to setup a Bastion host in Azure|https://docs.micros
 
 4.  On the Create a virtual machine page, fill in the required fields and create the VM by selecting **Review + create**.
 
-    ![This is what your configuration should look like.](images/win10vmcreate.png)
+    ![This is what your configuration should look like.](images/win10vmcreate.png "Create virtual machine")
 
     >**Note**: Make a note of the **Username** and **Password** used to create the VM. This information will be required to access the VM after creation.
 
@@ -1366,7 +1367,8 @@ There are multiple clients available for you to access WVD resources. Refer to t
     >**Note**: You will be asked to login when you access the above URL.  The credentials that you use are those from the lab.
 
 3.  Sign in using a synchronized identity that has been assigned to an application group.
-    >**Note**: If you added the **AAD DC Administrators** to the groups in the previous exercises, you will be able to use your Global Administrator information.  This **must** be a user that is syncronized with the AD DS with Azure AD Connect.  To verify, go to Azure Active Directory users and verify the directory sync users.
+
+    >**Note**: If you added the **AAD DC Administrators** to the groups in the previous exercises, you will be able to use your Global Administrator information.  This **must** be a user that is synchronized with the AD DS with Azure AD Connect.  To verify, go to Azure Active Directory users and verify the directory sync users.
 
     ![Here is where you would verify that a user is syncronized with the domain controller.](images/confirmsync.png)
 
@@ -1661,25 +1663,25 @@ Duration:  15 minutes
    
 ### Task 1: Delete Resource groups to remove lab environment
 
-1. Go to the **Azure portal**
+1. Go to the **Azure portal**.
 
-2. Go to your **Resource groups**
+2. Go to your **Resource groups**.
 
     ![From the Azure portal search bar, search for resource groups and select the service.](images/searchresourcegroup.png "Search for Resource groups")
 
-3. Select the **Resource group** that you created your resources
+3. Select the **Resource group** that you created your resources.
 
-4. Select **Delete Resource group**
+4. Select **Delete Resource group**.
 
     ![Find and select the resource groups create for this lab, select one of these resource groups and select delete resource group.](images/resourcegroup1.png "Go to the Resource groups")
 
    
-5. Enter the name of the **Resource group** and select **Delete**
+5. Enter the name of the **Resource group** and select **Delete**.
 
     ![In the blade that opens, type the full name of the resource group and select delete.](images/deleteresourcegroup1.png "Delete the resource groups")
 
    
-6. Repeat these steps for all **Resource groups** created for this lab, including those for **Azure Monitor** and **Log Analytics**
+6. Repeat these steps for all **Resource groups** created for this lab, including those for **Azure Monitor** and **Log Analytics**.
    
 You should follow all steps provided *after* attending the Hands-on lab.
 
