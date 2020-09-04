@@ -61,7 +61,7 @@ Before you start setting up your Windows Virtual Desktop workspace, make sure yo
 
 ## Before the hands-on lab
 
-Duration:  X minutes
+Duration:  45 minutes
 
 ### Task 1: Deploying Azure Infrastructure and AD DS
 
@@ -103,11 +103,12 @@ deployment. To avoid confusion and deployment errors, **open an InPrivate browse
 
 3.  Under Quick Start, click **Deploy to Azure**. This will open a new browser tab to the Azure Portal for custom deployments.
     
-    ![Screenshop of the Deploy to Azure button within Github.](images/1.png)
+    ![Screenshop of the Deploy to Azure button within Github.](images/1.png "Deploy to Azure button")
 
 4.  If prompted, make sure to sign in with an account that is an owner for the Azure subscription.
 
 5.  Fill in the required ARM template parameters. Refer to the following example for more information on the parameters:
+
     - Create a new **Resource group**
     - Select a **Region**
     - Create an **Admin password**
@@ -116,13 +117,13 @@ deployment. To avoid confusion and deployment errors, **open an InPrivate browse
     - Create a **Default user password**
     - Select **Review + create**
 
-    >**Note**: Make sure that you save these inputs, they will be needed for reference when you go through the HOL Step-by-Step
-    
+    >**Note**: Make sure that you save these inputs, they will be needed for reference when you go through the HOL Step-by-Step.
+        
     ![This image shows the values to enter into the custom template for the setup of the WVD domain controller.](images/wvdcustomdeployment.png "Windows Virtual Desktop custom deployment template")
 
 6.  Agree to the Terms and conditions and click **Purchase**.
 
-    The deployment is now underway. On average this process can take 30 minutes to complete. It is important that you monitor the deployment progress to ensure there are no problems. You can monitor progress by clicking the **notification** bell in the upper right corner and clicking **Deployment in progress\...**.
+    The deployment is now underway. On average this process can take 30 minutes to complete. It is important that you monitor the deployment progress to ensure there are no problems. You can monitor progress by clicking the **notification** bell in the upper right corner and clicking **Deployment in progress...**.
 
     >**Note**: While automation can make things simpler and repeatable, sometimes it can fail. If at any time during the ARM template deployment there is a failure, review the failure, delete the Resource Group and try the ARM template again, adjusting for any possible errors.
 
