@@ -1002,7 +1002,7 @@ This will trigger the PowerShell form to launch. Select the appropriate options 
 
 -   Select **Install Microsoft Teams per Machine** to install the per machine Teams install.
 
--   Select **Install Microsoft Edge Chromium v80+** to install the Edge Enterprise browser based on Chromium.
+-   Select **Install Microsoft Edge Chromium v80+** to install the Microsoft Edge Enterprise browser based on Chromium.
 
 -   Select **Disable Windows Update** to disable Windows Update in the image.
 
