@@ -409,7 +409,7 @@ Before you can work with an Azure file share, you need to create an Azure storag
 
     ![Select the add icon in File shares to create a new file share.](images/addfileshare.png "Add file share")
 
-5.  Enter a Name the new file share, enter a quota in gigabits, and Select **Create**.
+5.  Enter a Name the new file share, enter a quota in gigabits, select **Hot** Tier,and Select **Create**.
 
     ![Give the file share a name and a storage quota in gigabits.](images/newfileshare.png "New File share")
     
@@ -437,7 +437,7 @@ In this task we will be completing the steps on the Domain Controller in Azure u
 
 1.  From a domain joined computer, download and unzip the [AzFilesHybrid module](https://github.com/Azure-Samples/azure-files-samples/releases).
 
-    **Link address**: https//github.com/Azure-Samples/azure-files-samples/releases   
+    **Link address**: https://github.com/Azure-Samples/azure-files-samples/releases   
 
     ![Here is what you should see when you go to the github site for Azure samples](images/azfileshybriddownload.png "Azure samples")
 
@@ -661,13 +661,17 @@ To simplify administration, create 4 new security groups in Active Directory to 
 
     -    **Select:** AZF FSLogix Contributor
 
+    ![Add the storage file data SMB share contributor role to the AZF FSLogix contributor role that were created within Active Directory.](images/azureadroleassigncontrib.png "Add FSLogix roles to Azure AD File share")
+
 15. Repeat steps 3-4 for the remaining two roles.
 
     -    Storage File Data SMB Share Elevated Contributor \> AZF FSLogix Elevated Contributor
 
+    ![Add the storage file data SMB share elevated contributor role to the AZF FSLogix elevated contributor role that were created within Active Directory.](images/azureadroleassignelev.png "Add FSLogix roles to Azure AD File share")
+
     -    Storage File Data SMB Share Reader \> AZF FSLogix Reader
 
-    ![Add the storage file data SMB share contributor role to the three AZF FSLogix users that were created within Active Directory.](images/azureadroleassign.png "Add FSLogix roles to Azure AD File share")
+    ![Add the storage file data SMB share reader role to the AZF FSLogix Reader role that were created within Active Directory.](images/azureadroleassignreader.png "Add FSLogix roles to Azure AD File share")
 
 ### Task 5: Configure NTFS permissions for the file share
 
