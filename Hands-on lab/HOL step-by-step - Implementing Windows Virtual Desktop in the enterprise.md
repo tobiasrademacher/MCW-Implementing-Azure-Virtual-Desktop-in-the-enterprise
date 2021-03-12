@@ -690,13 +690,15 @@ The first time you configure NTFS permission, do so using superuser permissions.
 
 2.  On the Storage accounts blade, Select on the Storage account you created in Task 1.
 
-3.  On the blade for your storage account, under **Settings**, select **Properties**. Locate the **Primary File Service Endpoint** address. This is the path you will use to access your file share. 
+3.  On the blade for the file share within your storage account, under **Settings**, select **Properties**. Locate the **URL** address. This is the path you will use to access your file share. 
 
     ![Use the storage account properties blade to find the storage account path.](images/storagefileendpoint.png)
 
+>**Note**: The base URL is also available under the **Properties** of the storage account itself under the **File service** entry.  
+
 4.  Reformat the path to UNC and copy it to a notepad file. For example:
 
-    https://mydomainazfiles.file.core.windows.net/ ==
+    https://mydomainazfiles.file.core.windows.net/\<file-share-name\> ==
     \\\mydomainazfiles.file.core.windows.net\\\<file-share-name\>
 
     ![Here is what the reformatted name should look like in notepad on the domain controller.](images/notepadreformatted.png)
@@ -734,6 +736,13 @@ The first time you configure NTFS permission, do so using superuser permissions.
     ![Select add in security settings to add new objects.](images/addsecurity.png)
 
     >**Note**: The images shows all of the objects that need to be added but only one can be added at a time.  Add one and then repeat the process until all four are added.
+
+    | AD Group | NTFS Permissions |
+    |----------|------------------|
+    | **AZF FSLogix Contributor** | Modify |
+    | **AZF FSLogix Elevated Contributor** | Full control |
+    | **AZF FSLogix Reader** | Read & execute |
+    | **WVD Users** | Modify (This folder only) |
 
 10. Select **OK** to save your changes.
 
@@ -1093,7 +1102,7 @@ The system will automatically shut down and disconnect your RDP session.
 
     ![Once the VM is stopped, you can select capture to capture the VM image.](images/vmcapture.png)
 
-6.  On the Create image blade, fill in the required fields and Select **Create**.
+6.  On the Create image wizard, fill in the required fields and Select **Review + create**.
 
     ![This will display the Create Image blade in Azure.](images/w10VMImage.png "Create Image blade in Azure")
 
@@ -1199,7 +1208,7 @@ In the new Windows Virtual Desktop ARM portal, we now have the ability to use Az
 
 3.  Under Manage, select **Application groups**.
     
-4.  Locate the Application group that was created as part of Task 1. Select on the name.
+4.  Locate the Application group that was created as part of Task 1 (**\<poolName\>-DAG**). Click on the name to manage the Application group.
 
     ![Here is where you will find the application group created in Task 1.](images/wvdappgroups.png)
 
@@ -1249,7 +1258,7 @@ In this exercise we will be creating a non-persistent host pool for publishing r
 
     ![In this blade, enter in the information for the virtual machines that will host the remote apps and select next for workspace.](images/remoteapppool.png)
 
-5.  When you configure **Virtual machine settings**, select **Browse all images and disks** and then select the tab option for **My Items** to select the image that was created.
+5.  When you configure **Virtual machine settings**, select **Browse all images and disks** and then select the tab option for **My Items** to select the image that was created earlier in **Exercise 4**.
 
     ![This is where you will find your custom image to add to the host pool.](images/hostpoolcustom.png)
 
@@ -1298,12 +1307,9 @@ The name of the Workspace is displayed when the user signs in. Available resourc
    
     ![From the Windows Virtual Desktop blade, select the host pool and then add to add an application groups.](images/newappgroup.png "Manage Application groups")
 
-4.  In the Basics tab, name the application group and select **Next: Assignments**.
+4.  In the Basics tab, name the application group 
    
     ![From this blade, enter a name for the application group.](images/appgroupname.png)
-
-5.  On the assignments tab, select **Add assignments**.  Search for the **WVD Remote App All Users** and **AAD DC Administrators** created earlier in this guide and choose **Select**.  
-    >**Note**: AAD DC Administrators will allow you to use your Azure tenant login to access resources in Exercise 7.
 
 6.  Select **Next: Applications**.
 
@@ -1328,6 +1334,10 @@ The name of the Workspace is displayed when the user signs in. Available resourc
     ![After selecting and saving each application, it will be populated in the list of applications.](images/selectapps.png)
 
     ![The final list of applications will look like this.](images/listofapps.png)
+
+6.  Select **Next: Assignments**.
+5.  On the assignments tab, select **Add assignments**.  Search for the **WVD Remote App All Users** and **AAD DC Administrators** created earlier in this guide and choose **Select**.  
+    >**Note**: AAD DC Administrators will allow you to use your Azure tenant login to access resources in Exercise 7.
 
 9.  Select **Next: Workspace**.
 
