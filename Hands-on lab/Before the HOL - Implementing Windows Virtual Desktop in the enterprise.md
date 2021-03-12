@@ -28,10 +28,10 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 <!-- TOC -->
 
 - [Implementing Windows Virtual Desktop in the enterprise before the hands-on lab setup guide](#implementing-windows-virtual-desktop-in-the-enterprise-before-the-hands-on-lab-setup-guide)
-    - [Requirements](#requirements)
-    - [Before the hands-on lab](#before-the-hands-on-lab)
-        - [Task 1: Deploying Azure Infrastructure and AD DS](#task-1-deploying-azure-infrastructure-and-ad-ds)
-        - [Task 2: Deploying the ARM template](#task-2-deploying-the-arm-template)
+  - [Requirements](#requirements)
+  - [Before the hands-on lab](#before-the-hands-on-lab)
+    - [Task 1: Deploying Azure Infrastructure and AD DS](#task-1-deploying-azure-infrastructure-and-ad-ds)
+    - [Task 2: Deploying the ARM template](#task-2-deploying-the-arm-template)
 
 <!-- /TOC -->
 
@@ -121,7 +121,7 @@ deployment. To avoid confusion and deployment errors, **open an InPrivate browse
         
     ![This image shows the values to enter into the custom template for the setup of the WVD domain controller.](images/wvdcustomdeployment.png "Windows Virtual Desktop custom deployment template")
 
-6.  Agree to the Terms and conditions and click **Purchase**.
+6.  Agree to the Terms and conditions and click **Create**.
 
     The deployment is now underway. On average this process can take 30 minutes to complete. It is important that you monitor the deployment progress to ensure there are no problems. You can monitor progress by clicking the **notification** bell in the upper right corner and clicking **Deployment in progress...**.
 
