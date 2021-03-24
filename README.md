@@ -1,3 +1,6 @@
+### Let us know how we’re doing!  
+Please take a moment to fill out the [Microsoft Cloud Workshop Survey](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbRyEtIpX7sDdChuWsXhzKJXJUNjFBVkROWDhSSVdYT0dSRkY4UVFCVzZBVy4u) and help us improve our offerings.
+
 # Implementing Windows Virtual Desktop in the enterprise
 
 Contoso Healthcare, headquartered in Los Angeles, California, is a national healthcare provider with a network of affiliate hospitals and doctor’s offices located throughout North America. These locations continue to grow through acquisition.  The nature of their business requires a high level of security of personal identifiable information (PII) for their employees.
