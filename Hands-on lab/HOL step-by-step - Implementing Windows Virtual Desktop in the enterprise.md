@@ -353,7 +353,7 @@ Now that the Azure AD groups are in place, we will assign users for testing. Onc
 
 Duration:  90 minutes
 
-In this exercise you will be creating an Azure File share and enabling SMB access via Active Directory authentication. Azure Files is a platform service (PaaS) and is one of the recommended solutions for hosting FSLogix containers for WVD users. At the end of this exercise you will have the following components:
+In this exercise you will be creating an Azure File share and enabling SMB access via Active Directory authentication. Azure Files is a platform service (PaaS) and is one of the recommended solutions for hosting FSLogix containers for WVD users. At the end of this exercise, you will have the following components:
 
 -   A new storage account in your Azure subscription.
 
@@ -409,7 +409,7 @@ Before you can work with an Azure file share, you need to create an Azure storag
 
     ![Select the add icon in File shares to create a new file share.](images/addfileshare.png "Add file share")
 
-5.  Enter a Name the new file share, enter a quota in gigabits, select **Hot** Tier,and Select **Create**.
+5.  Enter a Name the new file share, enter a quota in gigabits, select **Hot** Tier, and Select **Create**.
 
     ![Give the file share a name and a storage quota in gigabits.](images/newfileshare.png "New File share")
     
@@ -678,7 +678,7 @@ To simplify administration, create 4 new security groups in Active Directory to 
 After you assign share-level permissions with Azure RBAC, you must assign proper NTFS permissions at the root, directory, or file level. Think of share-level permissions as the high-level gatekeeper that
 determines whether a user can access the share. Whereas NTFS permissions act at a more granular level to determine what operations the user can do at the directory or file level.
 
-Azure Files supports the full set of NTFS basic and advanced permissions. You can view and configure NTFS permissions on directories and files in an Azure file share by mounting the share and then using Windows File Explorer or running the Windows icacls or Set-ACL command.
+Azure Files supports the full set of NTFS basic and advanced permissions. You can view and configure NTFS permissions on directories and files in an Azure file share by mounting the share and then using Windows File Explorer or running the Windows iCACLS or Set-ACL command.
 
 The first time you configure NTFS permission, do so using superuser permissions. This is accomplished by mounting the file share using your storage account key.
 
@@ -903,7 +903,7 @@ The script and related tools are maintained in GitHub - [Download Link](https://
 
 https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/shawntmeyer/WVD/tree/master/Image-Build/Customizations 
 
-For additional documentation about the script (e.g. parameters, functions, etc.), refer to the comments in **Prepare-WVDImage.ps1**.
+For additional documentation about the script (e.g., parameters, functions, etc.), refer to the comments in **Prepare-WVDImage.ps1**.
 
 For troubleshooting script execution, refer to the following log directory on the target machine: **C:\\Windows\\Logs\\ImagePrep**.
 
@@ -1441,7 +1441,7 @@ If the Web client keeps prompting for credentials, follow these instructions:
 
 Duration:  45 minutes
 
-In this exercise we will setup monitoring for our WVD host pools. There are multiple reasons why monitoring serves a critical role; troubleshooting, performance, security, etc. There are also multiple components that make up the WVD service, which can add some variation on how customers implement monitoring (e.g. adding additional third-party solutions). By the end of this exercise you will have the following monitoring capabilities enabled:
+In this exercise we will setup monitoring for our WVD host pools. There are multiple reasons why monitoring serves a critical role; troubleshooting, performance, security, etc. There are also multiple components that make up the WVD service, which can add some variation on how customers implement monitoring (e.g., adding additional third-party solutions). By the end of this exercise, you will have the following monitoring capabilities enabled:
 
 -   Diagnostic logging for the WVD service
 
@@ -1498,7 +1498,7 @@ Monitor the notification bell in the upper-right corner and wait for the deploym
 
 ### Task 2: Enabling diagnostic logging for WVD
 
-Like many other Azure services, WVD uses Azure Monitor for monitoring and alerts. In order to enable diagnostic data collection, you need to enable it for each ARM object that you want to monitor (e.g. Host pools, Application groups, and Workspaces). Once enabled, it can take a few hours for the data to appear in your workspace.
+Like many other Azure services, WVD uses Azure Monitor for monitoring and alerts. In order to enable diagnostic data collection, you need to enable it for each ARM object that you want to monitor (e.g., Host pools, Application groups, and Workspaces). Once enabled, it can take a few hours for the data to appear in your workspace.
 
 Each WVD ARM object has different diagnostic data categories available. For example, host pool objects will have a different set of options then Workspaces. Refer to the following table for a summary of each data category and their associated objects.
 
