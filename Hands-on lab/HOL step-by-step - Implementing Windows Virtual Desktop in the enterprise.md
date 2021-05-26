@@ -1734,14 +1734,15 @@ $Params = @{
 ```
 
 1. Now that the Azure Automation account is created, keep the PowerShell window open in the background, but go to the [Azure Portal](https://portal.azure.com/) in your browser to finish its setup.
+
     ![Going back to the Azure Portal web page](images/azureportal.png "Azure Portal")
+
 1. Go to the Azure Automation account
     ![Pull the the Azure Automation account in the portal](images/automationAccount.png "Azure Portal")
 1. Select Run As accounts under Account Settings
 1. Click **Create** to create a new account
     ![Select Run As of the Automation Account](images/createRunAs.png "Create Automation Run As Account")
 1. This process may take a few minutes, but you can track the progress.
-    ![Automation Run As Automation account progress](images/createRunAsProgress.png "Progress create automation Run As account")
 1. When it is complete, there will be a resource named **AzureRunAsConnection**.
 1. Clicking the **Azure Run As account**, you can see the application ID, tenant ID, subscription ID, and certificate thumbprint.
     ![Completed Run As Automation account ](images/AutomationRunAsDetails.png "Azure automation Run As account")
@@ -1811,14 +1812,22 @@ $Params = @{
 ```
 
 1. After this script completes, go back to the [Azure Portal](https://portal.azure.com/)
+
     ![Going back to the Azure Portal web page](images/azureportal.png "Azure Portal")
+
 1. Find the Logic App that was created by the script
-    ![Azure Portal Logic App](images/automationAccount.png "Azure Portal")
+
+    ![Azure Portal Logic App](images/logicApps.png "Azure Portal")
+
 1. If you click on the **Logic app designer** link under Development Tools, you will see the graphical representation of the workflow created by the script.
 1. You can click on the **Recurrence** to change how often the script runs
 1. Click on the **Run** button to trigger the scaling immediately
+
     ![Logic App graphical design view](images/logicAppDesigner.png "Logic App Designer")
+
 1. You can veiw the occurances of your runs by going back to the **Overview** of the Logic App
+
+    ![Opening the Logic App overview will show the Run History and see previous runs](images/logicAppOverview.png "Logic App Overview")
 
 At this point, your WVD Host Pool that is Pooled will spin up and down hosts based on the load of the environment.
 
@@ -1837,7 +1846,7 @@ In this task, we will take a **MSIX package** created from the [MSIX packaging t
 
 1. Click the **+ Add directory** button to create a new folder and name it **msix**
 
-    ![Add directory on storage account](images/wvdFileShare.png "File Share add directory")
+    ![Add directory on storage account](images/wvdFileShareAdd.png "File Share add directory")
 
 > **NOTE:** Normally in production you would create an additional share for MSIX files and place the files there.  You would need to make sure the share or container the MSIX files are in you follow the same steps you use for the FSLogix storage account and apply the appropriate permissions to them (users normally only need Read access) and make sure there is enough room to store them.  We are placing it on the same share for this exercise for expidency sake and easier setup. It is not uncommon to have a central MSIX storage with permissions to each MSIX file based on groups assigned to the appropriate application and the MSIX repository used by multiple pools or deployments, but ensure network connectivity and speed are kept consistant.
 
@@ -1857,7 +1866,7 @@ $SAShare = Read-Host "What is the name of the file share in the storage account 
 $sa = Get-AzStorageAccount | ? StorageAccountName -eq $SAName
 $SAS = New-AzStorageAccountSASToken -Context $sa.Context -Service File -ResourceType Object -Permission rwd -Protocol HttpsOnly -ExpiryTime ((Get-Date).AddHours(4))
 
-.\azcopy.exe copy 'https://raw.githubusercontent.com/microsoft/MCW-Implementing-Windows-Virtual-Desktop-in-the-enterprise/main/Hands-on%20lab/resources/MCW-WVD-MSIX.vhd' "https://$($sa.StorageAccountName).file.core.windows.net/$SAShare/msix/MCW-WVD-MSIX.vhd$SAS"
+.\azcopy.exe copy 'https://openhackpublic.blob.core.windows.net/windows-virtual-desktop/msix/MCW-WVD-MSIX.vhd' "https://$($sa.StorageAccountName).file.core.windows.net/$SAShare/msix/MCW-WVD-MSIX.vhd$SAS"
 
 "\\$($sa.StorageAccountName).file.core.windows.net\$SAShare\msix\MCW-WVD-MSIX.vhd" | scb
 Write-Output "Use the path [\\$($sa.StorageAccountName).file.core.windows.net\$SAShare\msix\MCW-WVD-MSIX.vhd] later in this exercise"
