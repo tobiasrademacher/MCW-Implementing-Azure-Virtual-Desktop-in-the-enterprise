@@ -72,6 +72,10 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
     - [Task 4: Enable logging for application groups](#task-4-enable-logging-for-application-groups)
     - [Task 5: Enable logging for workspaces](#task-5-enable-logging-for-workspaces)
     - [Task 6: Enabling Azure Monitor for the session hosts](#task-6-enabling-azure-monitor-for-the-session-hosts)
+  - [Exercise 9: Improving your WVD environment](#Exercise-9-improving-your-wvd-environment)
+    - [Task 1: Enabling autoscaling](#task-1-enabling-autoscaling)
+    - [Task 2: Utilizing Application Packages (MSIX)](#task-2-utilizing-application-packages-msix)
+    - [Task 3: Protect WVD with Defender Endpoint](#task-3-protect-wvd-with-defender-endpoint)
   - [After the hands-on lab](#after-the-hands-on-lab)
     - [Task 1: Delete Resource groups to remove lab environment](#task-1-delete-resource-groups-to-remove-lab-environment)
 
