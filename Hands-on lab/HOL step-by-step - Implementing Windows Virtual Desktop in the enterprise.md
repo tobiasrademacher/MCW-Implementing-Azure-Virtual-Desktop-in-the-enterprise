@@ -123,6 +123,12 @@ Before you start setting up your Windows Virtual Desktop workspace, make sure yo
 
 -   Regions and locations, make sure to stay consistent as much as possible.
 
+## Troubleshooting
+
+If you run into issues with your Windows Virtual Desktop (WVD) environment, there will periodically be troubleshooting tips at the end of the current exercise.  If the issues are not directly addressed, please feel free to reach out to your instructor or teacher.
+
+Also, review the please see the article [WVD troubleshooting article](https://docs.microsoft.com/en-us/azure/virtual-desktop/troubleshoot-set-up-overview). Part of the article will also cover the steps covered in [Exercise 8](#exercise-8-setup-monitoring-for-wvd) that can be used to help diagnose an issue you're running into.
+
 ## Exercise 1: Configuring Azure AD Connect with AD DS
 
 Duration:  60 minutes
@@ -1129,7 +1135,7 @@ The system will automatically shut down and disconnect your RDP session.
 
 Duration:  45 minutes
 
-In this exercise we will be creating a Windows Virtual Desktop host pool for pooled desktops. This is a set of computers or hosts which operate on an as-needed basis. In a pooled configuration we will be hosting multiple non-persistent sessions, with no user profile information stored locally. This is where FSLogix Profile Containers provide the users profile to the host dynamically. This provides the ability for an organization to fully utilize the compute resources on a single host and lower the total overhead, cost, and number of remote workstations.
+In this exercise we will be creating a Windows Virtual Desktop host pool for personal desktops. This is a set of computers or hosts which operate on an as-needed basis. In a pooled configuration we will be hosting multiple non-persistent sessions, with no user profile information stored locally. This is where FSLogix Profile Containers provide the users profile to the host dynamically. This provides the ability for an organization to fully utilize the compute resources on a single host and lower the total overhead, cost, and number of remote workstations.
 
 **Additional Resources**
 
@@ -1667,6 +1673,286 @@ For a list of example queries, refer to the following Docs article:
 
 Often during the deployment of WVD there may be challenges with either having machines join the domain or installing the agent via automation.
 
+## Exercise 9: Improving your WVD environment
+
+Duration:  60 minutes
+
+In this exercise we will our WVD expierecne bay utilizing additional features or tools with the host pools. WVD is designed to be a versatile platform to distribute and build your solution from, and these optional features allow you to enhance and/or secure the environment depending on your needs. By the end of this exercise, you will have the following features enabled:
+
+- Autoscale pooled pool based on connections
+
+- Centralized Application Management (MSIX App Attach)
+
+- Protect your environment via Defender Endpoint
+
+
+**Additional Resources**
+
+| Description | Links |
+|----------|:-------------:|
+| Scale session hosts using Azure Automation | https://docs.microsoft.com/en-us/azure/virtual-desktop/set-up-scaling-script |
+| Set up MSIX app attach with the Azure portal |  https://docs.microsoft.com/en-us/azure/virtual-desktop/app-attach-azure-portal |
+| Prepare an MSIX image for Windows Virtual Desktop | https://docs.microsoft.com/en-us/azure/virtual-desktop/app-attach-image-prep |
+| MSIX Packaging Tool | https://docs.microsoft.com/en-us/windows/msix/packaging-tool/tool-overview |
+| Onboard Windows 10 multi-session devices in Windows Virtual Desktop | https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/Onboard-Windows-10-multi-session-device?view=o365-worldwide |
+| Azure Cloud Shell | https://docs.microsoft.com/en-us/azure/cloud-shell/overview |
+
+
+### Task 1: Enabling autoscaling
+
+In this task, you will create an Azure Automation account and Logic App that will be regularly update the scaling of your pool based on the number of connections.  Azure Automation allows for the execution of scripts and commands within an identity related to the automation.  Logic App allows for regular execution of commands and tasks.  By combining these two resources, we allow for repeative tasks of a detailed nature which will allow us to automatically increaese and decrease the number of hosts in a WVD host pool based on demand of the environment.
+
+1. Use PowerShell on a system with the [Azure Module](https://docs.microsoft.com/en-us/powershell/azure/install-az-ps?view=azps-5.9.0) installed (such as from Exercise 3, Task 3)
+1. Run the following command connect to Azure using the subscription of your WVD:
+
+```powershell
+Connect-AzAccount
+```
+
+1.  Use the following commands to download installation script for the Automation Account:
+
+```powershell
+New-Item -ItemType Directory -Path ".\WVDTemp" -Force
+Set-Location -Path ".\WVDTemp"
+$Uri = "https://raw.githubusercontent.com/Azure/RDS-Templates/master/wvd-templates/wvd-scaling-script/CreateOrUpdateAzAutoAccount.ps1"
+# Download the script
+Invoke-WebRequest -Uri $Uri -OutFile ".\CreateOrUpdateAzAutoAccount.ps1"
+```
+
+1. Use the following to call the installation script with the appropriate parameters:
+
+```powershell
+$LAWorkspace = Get-AzOperationalInsightsWorkspace | ?{ $_.name -notlike "DefaultWork*" }
+$Params = @{
+     "UseARMAPI"             = $true
+     "Location"              = $LAWorkspace.location
+     "WorkspaceName"         = $LAWorkspace.name       # Optional. If specified, Log Analytics will be used to configure the custom log table that the runbook PowerShell script can send logs to
+}
+
+.\CreateOrUpdateAzAutoAccount.ps1 @Params
+
+```
+
+1. Now that the Azure Automation account is created, keep the PowerShell window open in the background, but go to the [Azure Portal](https://portal.azure.com/) in your browser to finish its setup.
+    ![Going back to the Azure Portal web page](images/azureportal.png "Azure Portal")
+1. Go to the Azure Automation account
+    ![Pull the the Azure Automation account in the portal](images/automationAccount.png "Azure Portal")
+1. Select Run As accounts under Account Settings
+1. Click **Create** to create a new account
+    ![Select Run As of the Automation Account](images/createRunAs.png "Create Automation Run As Account")
+1. This process may take a few minutes, but you can track the progress.
+    ![Automation Run As Automation account progress](images/createRunAsProgress.png "Progress create automation Run As account")
+1. When it is complete, there will be a resource named **AzureRunAsConnection**.
+1. Clicking the **Azure Run As account**, you can see the application ID, tenant ID, subscription ID, and certificate thumbprint.
+    ![Completed Run As Automation account ](images/AutomationRunAsDetails.png "Azure automation Run As account")
+1. Go back to the PowerShell window from earlier.
+1. Run the following code to download a script to create the Logic App:
+
+```powershell
+$Uri = "https://raw.githubusercontent.com/Azure/RDS-Templates/master/wvd-templates/wvd-scaling-script/CreateOrUpdateAzLogicApp.ps1"
+# Download the script
+Invoke-WebRequest -Uri $Uri -OutFile ".\CreateOrUpdateAzLogicApp.ps1"
+```
+
+1. Run the following code to use the script to create your Logic App:
+
+```powershell
+$AADTenantId = (Get-AzContext).Tenant.Id
+
+$AzSubscription = (Get-AzContext).Subscription
+
+$ResourceGroup = Get-AzResourceGroup  "WVDAutoScaleResourceGroup"
+
+$WVDHostPool = Get-AzWvdHostPool | ?{ $_.HostPoolType -eq "Pooled" } | Select -First 1 | Get-AzResource
+
+$LogAnalyticsWorkspaceId = $LAWorkspace.CustomerId.Guid
+$LogAnalyticsPrimaryKey =  ($LAWorkspace | Get-AzOperationalInsightsWorkspaceSharedKey).PrimarySharedKey
+$RecurrenceInterval = 15
+$BeginPeakTime = "09:00"
+$EndPeakTime = "18:00"
+$TimeDifference = "-7:00"
+$SessionThresholdPerCPU = 2 #this number is abnormally low for the lab; this is not what you would use in most production environments
+$MinimumNumberOfRDSH = 1
+$MaintenanceTagName = "NoScaling"
+$LimitSecondsToForceLogOffUser = 1 #this number is abnormally low for the lab; this is not what you would use in most production environments
+$LogOffMessageTitle = "Automation Log Off for Scaling"
+$LogOffMessageBody = "To improve resource utilization we need to move your session to a new host. Please save your work and log back in to WVD continue working on a new host. For assistance, please contact the Help Desk."
+
+$AutoAccount =  Get-AzAutomationAccount -Name "WVDAutoScaleAutomationAccount" -ResourceGroupName $ResourceGroup.ResourceGroupName
+$AutoAccountConnection = Get-AzAutomationConnection -ResourceGroupName $AutoAccount.ResourceGroupName -AutomationAccountName $AutoAccount.AutomationAccountName | Select -first 1
+
+$WebhookURIAutoVar = Get-AzAutomationVariable -Name 'WebhookURIARMBased' -ResourceGroupName $AutoAccount.ResourceGroupName -AutomationAccountName $AutoAccount.AutomationAccountName
+
+$Params = @{
+     "AADTenantId"                   = $AADTenantId                             # Optional. If not specified, it will use the current Azure context
+     "SubscriptionID"                = $AzSubscription.Id                       # Optional. If not specified, it will use the current Azure context
+     "ResourceGroupName"             = $ResourceGroup.ResourceGroupName         # Optional. Default: "WVDAutoScaleResourceGroup"
+     "Location"                      = $ResourceGroup.Location                  # Optional. Default: "West US2"
+     "UseARMAPI"                     = $true
+     "HostPoolName"                  = $WVDHostPool.Name
+     "HostPoolResourceGroupName"     = $WVDHostPool.ResourceGroupName           # Optional. Default: same as ResourceGroupName param value
+     "LogAnalyticsWorkspaceId"       = $LogAnalyticsWorkspaceId                 # Optional. If not specified, script will not log to the Log Analytics
+     "LogAnalyticsPrimaryKey"        = $LogAnalyticsPrimaryKey                  # Optional. If not specified, script will not log to the Log Analytics
+     "ConnectionAssetName"           = $AutoAccountConnection.Name              # Optional. Default: "AzureRunAsConnection"
+     "RecurrenceInterval"            = $RecurrenceInterval                      # Optional. Default: 15
+     "BeginPeakTime"                 = $BeginPeakTime                           # Optional. Default: "09:00"
+     "EndPeakTime"                   = $EndPeakTime                             # Optional. Default: "17:00"
+     "TimeDifference"                = $TimeDifference                          # Optional. Default: "-7:00"
+     "SessionThresholdPerCPU"        = $SessionThresholdPerCPU                  # Optional. Default: 1
+     "MinimumNumberOfRDSH"           = $MinimumNumberOfRDSH                     # Optional. Default: 1
+     "MaintenanceTagName"            = $MaintenanceTagName                      # Optional.
+     "LimitSecondsToForceLogOffUser" = $LimitSecondsToForceLogOffUser           # Optional. Default: 1
+     "LogOffMessageTitle"            = $LogOffMessageTitle                      # Optional. Default: "Machine is about to shutdown."
+     "LogOffMessageBody"             = $LogOffMessageBody                       # Optional. Default: "Your session will be logged off. Please save and close everything."
+     "WebhookURI"                    = $WebhookURIAutoVar.Value
+}
+
+.\CreateOrUpdateAzLogicApp.ps1 @Params
+```
+
+1. After this script completes, go back to the [Azure Portal](https://portal.azure.com/)
+    ![Going back to the Azure Portal web page](images/azureportal.png "Azure Portal")
+1. Find the Logic App that was created by the script
+    ![Azure Portal Logic App](images/automationAccount.png "Azure Portal")
+1. If you click on the **Logic app designer** link under Development Tools, you will see the graphical representation of the workflow created by the script.
+1. You can click on the **Recurrence** to change how often the script runs
+1. Click on the **Run** button to trigger the scaling immediately
+    ![Logic App graphical design view](images/logicAppDesigner.png "Logic App Designer")
+1. You can veiw the occurances of your runs by going back to the **Overview** of the Logic App
+
+At this point, your WVD Host Pool that is Pooled will spin up and down hosts based on the load of the environment.
+
+### Task 2: Utilizing Application Packages (MSIX)
+
+In this task, we will take a **MSIX package** created from the [MSIX packaging tool](https://docs.microsoft.com/en-us/windows/msix/packaging-tool/tool-overview) and utilize the Azure portal to attach the MSIX package dynamically to WVD pools as users login.  MSIX Packages are disk images containing all files, configurations, and publication details needed to run supported applactions that can be mounted by Windows systems on the fly to allow users to run the application without having to install the application to the host machine. By utilizing this technique, we can minimize the footprint and management needs of the WVD hosts while still putilizing multiple applications on the systems without installing the applications permanent on the system.
+
+1. Go to the [Azure Portal](https://portal.azure.com/)
+
+    ![Going back to the Azure Portal web page](images/azureportal.png "Azure Portal")
+
+1. Go to the **Storage Account** created in Exercise 3 for the FSLogix profiles that was already joined to Active Directory
+1. Click on the **File shares** under data storage and click on the share created for WVD files
+
+    ![Open share for WVD File Share on storage account](images/wvdFileShare.png "WVD File Share")
+
+1. Click the **+ Add directory** button to create a new folder and name it **msix**
+
+    ![Add directory on storage account](images/wvdFileShare.png "File Share add directory")
+
+> **NOTE:** Normally in production you would create an additional share for MSIX files and place the files there.  You would need to make sure the share or container the MSIX files are in you follow the same steps you use for the FSLogix storage account and apply the appropriate permissions to them (users normally only need Read access) and make sure there is enough room to store them.  We are placing it on the same share for this exercise for expidency sake and easier setup. It is not uncommon to have a central MSIX storage with permissions to each MSIX file based on groups assigned to the appropriate application and the MSIX repository used by multiple pools or deployments, but ensure network connectivity and speed are kept consistant.
+
+1. Take note of the storage account (ie: `dncloudwvdstorage` ) and the name of the file share (ie: `labwvdfileshare`)
+1. Open a PowerShell window with the Azure Module installed and connect to the Azure subscription with this command if it is not already connected:
+
+```powershell
+Connect-AzAccount
+```
+
+1. Run this command to upload the MSIX file to the folder:
+
+```powershell
+$SAName = Read-Host "What is the name of the storage account with WVD file shares? (ie: mystorageacct1592)" # Provide the name to the storage account here instead of prompting
+$SAShare = Read-Host "What is the name of the file share in the storage account used for WVD? (ie: labwvdfilesshare)"
+
+$sa = Get-AzStorageAccount | ? StorageAccountName -eq $SAName
+$SAS = New-AzStorageAccountSASToken -Context $sa.Context -Service File -ResourceType Object -Permission rwd -Protocol HttpsOnly -ExpiryTime ((Get-Date).AddHours(4))
+
+.\azcopy.exe copy 'https://raw.githubusercontent.com/microsoft/MCW-Implementing-Windows-Virtual-Desktop-in-the-enterprise/main/Hands-on%20lab/resources/MCW-WVD-MSIX.vhd' "https://$($sa.StorageAccountName).file.core.windows.net/$SAShare/msix/MCW-WVD-MSIX.vhd$SAS"
+
+"\\$($sa.StorageAccountName).file.core.windows.net\$SAShare\msix\MCW-WVD-MSIX.vhd" | scb
+Write-Output "Use the path [\\$($sa.StorageAccountName).file.core.windows.net\$SAShare\msix\MCW-WVD-MSIX.vhd] later in this exercise"
+pause
+```
+
+1. Find the **Windos Virtual Desktop** resources
+1. Select the **Host pools** and select the Pooled host pool
+
+    ![Selecting Host Pools of Windows Virtual Desktop](images/wvdHostPools.png "WVD Host Pools")
+
+1. Select the **Pooled** host pool
+
+    ![Selecting Pooled host pools of Windows Virtual Desktop](images/wvdPooledPool.png "Pooled host pool")
+
+1. Go to  **MSIX packages** under the Manage section and click **+ Add** to add an MSIX package to the pool
+
+    ![Go the MSIX packages section and click add a pacakge](images/wvdAddMSIXPackages.png "WVD add MSIX package")
+
+1. In the MSIX image path, put the following path replacing `<storageacctname>` with the name ove the Storage Account and `<shareName>` with the share that holds the MSIX above:
+
+```markdown
+\\<storageacctname>.file.core.windows.net\<shareName>\msix\MCW-WVD-MSIX.vhd
+``` 
+
+1. Select the **MSIX Package**  to add
+
+    ![Select the MSIX package to add](images/wvdAddMSIXPackage.png "Add MSIX package")
+
+1. Ensure there is an application listed under **Package applications**
+1. For **Registration type**, select **On-demand registration**
+1. Under **State**, select **Active**
+1. Click **Add** to add the package
+
+    ![Settings for adding application package to WVD](images/wvdAddPackageSettings.png "Add MSIX settings")
+
+1. Go to the **Application groups** and select **remoteapps**
+
+    ![Select WVD Application Group](images/wvdApplicationGroup.png "Go to Application group")
+
+1. Click **+ Add** to add an application
+
+    ![Add Application Group](images/wvdAddApplication.png "Add application")
+
+1. Choose **MSIX package** from the Application source
+1. Select the MSIX pacakge and MSIX application you just added
+1. Ensure the **Application name** matches the name
+1. Click **Save** to include
+
+    ![Set the MSIX application settings and click Save](images/wvdSaveMSIXApp.png "Setup MSIX application")
+
+1. Go to the [WVD Web Client](https://rdweb.wvd.microsoft.com/arm/webclient) (or WVD client if installed locally)
+1. Click the new application icon to launch the application (refresh the page if the new application does not show up yet)
+
+This application is now running on the host pool although the application itself is not installed to the host system.  This allows for the application to also be updated by changing which MSIX package the application points to and the next time a user logs into the application. 
+
+### Task 3: Protect WVD with Defender Endpoint
+
+In this task, you will enable Defender for Endpoint service and deployment the Endpoint protection via Azure. This will allow for all systems to be protected by the Defender service from potential vulnerabilities and alert in the event of suspcious execution or activity.
+
+> **NOTE:** This will require signing up for [Azure Defender trial](https://docs.microsoft.com/en-us/azure/security-center/enable-azure-defender#to-enable-azure-defender-on-your-subscriptions-and-workspaces) on your subscription.  If this is a Visual Studio subscription or you do not want to sign up for the time trial yet, you will need to wait and deploy this when you can sign up for the Azure Defender trial.
+
+
+1. Go to the [Azure Portal](https://portal.azure.com/)
+
+    ![Going back to the Azure Portal web page](images/azureportal.png "Azure Portal")
+
+1. Open the Azure **Security Center** (ASC) service
+
+    ![Find the Azure Security Center (ASC)](images/findAsc.png "Azure Security Center")
+
+1. Go the **Azure Defender** under the Cloud Security section
+1. Click **Enable Azure Defender** to setup the trial edition of Azure Defender for your Subscription
+
+    ![Go to the Azure Defender section to enable the trial of Azure Defender](images/enableAzureDefender.png "Enable Azure Defender")
+
+1. Go back to **Azure Defender** 
+1. Under the Advanced protection section, select the **VM vulnerability assessment** where it lists the unprotected count of systems
+
+    ![Select the VM assesment of Security Center to deploy to VMs](images/defenderVMassesment.png "VM assessment")
+
+1. Check the boxes next to all the VMs that host the WVD Host pools
+1. Click **Fix** to proceed to deployment of the agent
+
+    ![Choose all the hosts of the WVD and fix VMs](images/defenderFixVMs.png "Fix defender")
+
+1. Selec the **Qualys** agent for deploying to Azure Defender and click **Proceed**
+
+    !["Choose the Qualys agent that is included with teh Azure Defender for servers"](images/defenderSelectQualys.png "Choose Qualys")
+
+1. Click **Fix X resources** to begin the deployment of the agent
+
+    !["Ensure the VMs expeected and click Fix X resources"](images/deployDefenderByFix.png "Fix VMs with defender")
+
+This will begin deploying Azure Defender to the Virtual Machines currently deployed.  Depending on your WVD environment, you can deploy them to systems as they are added to your domain in the WVD OU by utilizing Group Policies using the [domain group policy scenario](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/onboard-windows-10-multi-session-device?view=o365-worldwide#scenario-2-using-domain-group-policy).  Alternatively, if your hosts may be none persistent or deployed from an image, you can use the instructions for [onboarding non-persistent VDI devices](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/configure-endpoints-vdi?view=o365-worldwide). 
 
 
 ## After the hands-on lab
