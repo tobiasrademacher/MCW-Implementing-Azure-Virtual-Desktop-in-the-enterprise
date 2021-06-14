@@ -1,7 +1,7 @@
 ![Microsoft Cloud Workshops](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/main/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
 
 <div class="MCWHeader1">
-Implementing Windows Virtual Desktop in the enterprise
+Implementing Azure Virtual Desktop in the enterprise
 </div>
 
 <div class="MCWHeader2">
@@ -27,7 +27,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 
 <!-- TOC -->
 
-- [Implementing Windows Virtual Desktop for the enterprise hands-on lab step-by-step](#implementing-windows-virtual-desktop-for-the-enterprise-hands-on-lab-step-by-step)
+- [Implementing Azure Virtual Desktop for the enterprise hands-on lab step-by-step](#implementing-azure-virtual-desktop-for-the-enterprise-hands-on-lab-step-by-step)
   - [Abstract and learning objectives](#abstract-and-learning-objectives)
   - [Overview](#overview)
   - [Solution architecture](#solution-architecture)
@@ -38,7 +38,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
     - [Task 2: Disabling IE Enhanced Security](#task-2-disabling-ie-enhanced-security)
     - [Task 3: Creating a domain admin account](#task-3-creating-a-domain-admin-account)
     - [Task 4: Configuring Azure AD Connect](#task-4-configuring-azure-ad-connect)
-  - [Exercise 2: Create Azure AD groups for WVD](#exercise-2-create-azure-ad-groups-for-wvd)
+  - [Exercise 2: Create Azure AD groups for AVD](#exercise-2-create-azure-ad-groups-for-avd)
     - [Task 1: Creating Azure AD groups](#task-1-creating-azure-ad-groups)
     - [Task 2: Assign users to groups](#task-2-assign-users-to-groups)
   - [Exercise 3: Create an Azure Files Share for FSLogix](#exercise-3-create-an-azure-files-share-for-fslogix)
@@ -48,10 +48,10 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
     - [Task 4: Configure share permissions](#task-4-configure-share-permissions)
     - [Task 5: Configure NTFS permissions for the file share](#task-5-configure-ntfs-permissions-for-the-file-share)
     - [Task 6: Configure NTFS permissions for the containers](#task-6-configure-ntfs-permissions-for-the-containers)
-  - [Exercise 4: Create a master image for WVD](#exercise-4-create-a-master-image-for-wvd)
+  - [Exercise 4: Create a master image for AVD](#exercise-4-create-a-master-image-for-avd)
     - [Task 1: Create a new Virtual Machine (VM) in Azure](#task-1-create-a-new-virtual-machine-vm-in-azure)
     - [Task 2: Run Windows Update](#task-2-run-windows-update)
-    - [Task 3: Prepare WVD image](#task-3-prepare-wvd-image)
+    - [Task 3: Prepare AVD image](#task-3-prepare-avd-image)
     - [Task 4: Run Sysprep](#task-4-run-sysprep)
     - [Task 5: Create a managed image from the Master Image VM](#task-5-create-a-managed-image-from-the-master-image-vm)
     - [Task 6: Provision a Host Pool with a custom image](#task-6-provision-a-host-pool-with-a-custom-image)
@@ -63,51 +63,51 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
     - [Task 1: Create a new host pool and workspace](#task-1-create-a-new-host-pool-and-workspace-1)
     - [Task 2: Create a friendly name for the workspace](#task-2-create-a-friendly-name-for-the-workspace-1)
     - [Task 3: Add Remote Apps to your Host Pool](#task-3-add-remote-apps-to-your-host-pool)
-  - [Exercise 7: Connect to WVD with the web client](#exercise-7-connect-to-wvd-with-the-web-client)
+  - [Exercise 7: Connect to AVD with the web client](#exercise-7-connect-to-avd-with-the-web-client)
     - [Task 1: Connecting with the HTML5 web client](#task-1-connecting-with-the-html5-web-client)
-  - [Exercise 8: Setup monitoring for WVD](#exercise-8-setup-monitoring-for-wvd)
+  - [Exercise 8: Setup monitoring for AVD](#exercise-8-setup-monitoring-for-avd)
     - [Task 1: Create a Log Analytics workspace](#task-1-create-a-log-analytics-workspace)
-    - [Task 2: Enabling diagnostic logging for WVD](#task-2-enabling-diagnostic-logging-for-wvd)
+    - [Task 2: Enabling diagnostic logging for AVD](#task-2-enabling-diagnostic-logging-for-avd)
     - [Task 3: Enable logging for host pools](#task-3-enable-logging-for-host-pools)
     - [Task 4: Enable logging for application groups](#task-4-enable-logging-for-application-groups)
     - [Task 5: Enable logging for workspaces](#task-5-enable-logging-for-workspaces)
     - [Task 6: Enabling Azure Monitor for the session hosts](#task-6-enabling-azure-monitor-for-the-session-hosts)
-  - [Exercise 9: Improving your WVD environment](#Exercise-9-improving-your-wvd-environment)
-    - [Task 1: Enabling autoscaling](#task-1-enabling-autoscaling)
+  - [Exercise 9: Improving your AVD environment](#Exercise-9-improving-your-avd-environment)
+    - [Task 1: Enabling Autoscale](#task-1-enabling-autoscale)
     - [Task 2: Utilizing Application Packages (MSIX)](#task-2-utilizing-application-packages-msix)
-    - [Task 3: Protect WVD with Defender Endpoint](#task-3-protect-wvd-with-defender-endpoint)
+    - [Task 3: Protect AVD with Microsoft Defender for Endpoint](#task-3-protect-avd-with-microsoft-defender-for-endpoint)
   - [After the hands-on lab](#after-the-hands-on-lab)
     - [Task 1: Delete Resource groups to remove lab environment](#task-1-delete-resource-groups-to-remove-lab-environment)
 
 <!-- /TOC -->
 
-# Implementing Windows Virtual Desktop for the enterprise hands-on lab step-by-step
+# Implementing Azure Virtual Desktop for the enterprise hands-on lab step-by-step
 
 ## Abstract and learning objectives
 
-In this hands-on lab, you will implement a Windows Virtual Desktop Infrastructure and learn how-to setup a working WVD environment end-to-end in a typical Enterprise model. At the end of the lab, attendees will have deployed an Azure Active Directory Tenant with Azure AD Connect to an Active Directory Domain Controller that is running in Azure. You will also deploy the Azure infrastructure for the Windows Virtual Desktop Tenant(s), Host Pool(s) and session host(s), and connect to a WVD session utilizing different supported devices and browsers. You will publish Windows Virtual Desktops and remote apps, and configure user profiles and file shares with FSLogix.  Finally, you will configure monitoring and security for the Windows Virtual Desktop infrastructure and understand the steps to manage the master images.
+In this hands-on lab, you will implement a Azure Virtual Desktop (formerly Windows Virtual Desktop) Infrastructure and learn how-to setup a working AVD environment end-to-end in a typical Enterprise model. At the end of the lab, attendees will have deployed an Azure Active Directory Tenant with Azure AD Connect to an Active Directory Domain Controller that is running in Azure. You will also deploy the Azure infrastructure for the Azure Virtual Desktop Tenant(s), Host Pool(s) and session host(s), and connect to a AVD session utilizing different supported devices and browsers. You will publish Azure Virtual Desktops and remote apps, and configure user profiles and file shares with FSLogix.  Finally, you will configure monitoring and security for the Azure Virtual Desktop infrastructure and understand the steps to manage the master images.
 
 ## Overview
 
-In this lab, attendees will deploy the [Windows Virtual Desktop (WVD)](https://azure.microsoft.com/en-us/services/virtual-desktop/) solution. Exclusively available as an Azure cloud service, Windows Virtual Desktop allows you to choose a flexible end user virtualized application or desktop delivery model that best aligns with your enterprise Azure cloud strategy. WVD simplifies the IT model to virtualize and deploy modern and legacy desktop app experiences with unified management---without needing to host, install, configure and manage components such as diagnostics, networking, connection brokering, and gateway. WVD brings together Microsoft Office 365 and Azure to provide users with the only multi-session Windows 10 experience with exceptional scale and reduced IT costs while empowering today's modern digital workspace.
+In this lab, attendees will deploy the [Azure Virtual Desktop (AVD)](https://azure.microsoft.com/en-us/services/virtual-desktop/) solution. Exclusively available as an Azure cloud service, Azure Virtual Desktop allows you to choose a flexible end user virtualized application or desktop delivery model that best aligns with your enterprise Azure cloud strategy. AVD simplifies the IT model to virtualize and deploy modern and legacy desktop app experiences with unified management---without needing to host, install, configure and manage components such as diagnostics, networking, connection brokering, and gateway. AVD brings together Microsoft Office 365 and Azure to provide users with the only multi-session Windows 10 experience with exceptional scale and reduced IT costs while empowering today's modern digital workspace.
 
 ## Solution architecture
 
-![This is the Solution architecture diagram as described in the text below.](images/wvdsolutiondiagramv2.png "Solution architecture") 
+![This is the Solution architecture diagram as described in the text below.](images/avdsolutiondiagramv2.png "Solution architecture") 
 
-This diagram shows a Windows Virtual Desktop architecture with on-premises servers for Active Directory.  In the diagram, the host pools are providing the WVD session to the different supported devices. Azure Monitor, Network Watcher, and Log Analytics are monitoring and logging activity and performance metrics.
+This diagram shows a Azure Virtual Desktop architecture with on-premises servers for Active Directory.  In the diagram, the host pools are providing the AVD session to the different supported devices. Azure Monitor, Network Watcher, and Log Analytics are monitoring and logging activity and performance metrics.
 
 ## Requirements
 
-Before you start setting up your Windows Virtual Desktop workspace, make sure you have the following items:
+Before you start setting up your Azure Virtual Desktop workspace, make sure you have the following items:
 
--   The Azure Active Directory tenant ID for Windows Virtual Desktop users.
+-   The Azure Active Directory tenant ID for Azure Virtual Desktop users.
 
 -   A global administrator account within the Azure Active Directory tenant.
 
-    -   This also applies to Cloud Solution Provider (CSP) organizations that are creating a Windows Virtual Desktop workspace for their customers. If you are in a CSP organization, you must be able to sign in as global administrator of the customer\'s Azure Active Directory tenant.
+    -   This also applies to Cloud Solution Provider (CSP) organizations that are creating a Azure Virtual Desktop workspace for their customers. If you are in a CSP organization, you must be able to sign in as global administrator of the customer\'s Azure Active Directory tenant.
 
-    -   The administrator account must be sourced from the Azure Active Directory tenant in which you are trying to create the Windows Virtual Desktop workspace. This process does not support Azure Active Directory B2B (guest) accounts.
+    -   The administrator account must be sourced from the Azure Active Directory tenant in which you are trying to create the Azure Virtual Desktop workspace. This process does not support Azure Active Directory B2B (guest) accounts.
 
     -   The administrator account must be a work or school account.
 
@@ -129,15 +129,15 @@ Before you start setting up your Windows Virtual Desktop workspace, make sure yo
 
 ## Troubleshooting
 
-If you run into issues with your Windows Virtual Desktop (WVD) environment, there will periodically be troubleshooting tips at the end of the current exercise.  If the issues are not directly addressed, please feel free to reach out to your instructor or teacher.
+If you run into issues with your Azure Virtual Desktop (AVD) environment, there will periodically be troubleshooting tips at the end of the current exercise.  If the issues are not directly addressed, please feel free to reach out to your instructor or teacher.
 
-Also, review the please see the article [WVD troubleshooting article](https://docs.microsoft.com/en-us/azure/virtual-desktop/troubleshoot-set-up-overview). Part of the article will also cover the steps covered in [Exercise 8](#exercise-8-setup-monitoring-for-wvd) that can be used to help diagnose an issue you're running into.
+Also, review the please see the article [AVD troubleshooting article](https://docs.microsoft.com/en-us/azure/virtual-desktop/troubleshoot-set-up-overview). Part of the article will also cover the steps covered in [Exercise 8](#exercise-8-setup-monitoring-for-wvd) that can be used to help diagnose an issue you're running into.
 
 ## Exercise 1: Configuring Azure AD Connect with AD DS
 
 Duration:  60 minutes
 
-In this exercise you will be configuring [Azure AD Connect](https://docs.microsoft.com/en-us/azure/active-directory/hybrid/whatis-azure-ad-connect). With Windows Virtual Desktop, all session host VMs within the WVD tenant environment are required to be domain joined to AD DS, and the domain must be synchronized with Azure AD. To manage the synchronization of objects, you will configure Azure AD Connect on the domain controller deployed in Azure.
+In this exercise you will be configuring [Azure AD Connect](https://docs.microsoft.com/en-us/azure/active-directory/hybrid/whatis-azure-ad-connect). With Azure Virtual Desktop, all session host VMs within the AVD tenant environment are required to be domain joined to AD DS, and the domain must be synchronized with Azure AD. To manage the synchronization of objects, you will configure Azure AD Connect on the domain controller deployed in Azure.
 
 >**Note**: RDP access to a domain controller using a public IP address is not a best practice and is only done to simplify this lab. Better security practices such as removing the PIP, enabling just-in-time access and/or leveraging a bastion host should be applied enhance security.
 
@@ -272,11 +272,11 @@ By default, Azure AD Connect does not synchronize the built-in domain administra
     >**Note**: It can take up to 15 minutes for the Active Directory objects to be synchronized to the Azure AD tenant.
 
 
-## Exercise 2: Create Azure AD groups for WVD
+## Exercise 2: Create Azure AD groups for AVD
 
 Duration:  30 minutes
 
-In this exercise you will be working with groups in Azure Active Directory (Azure AD) to assist in managing access assignment to your application groups in WVD. The new ARM portal for WVD supports access assignment using Azure AD groups. This capability greatly simplifies access management. Groups will also be leveraged in this guide to manage
+In this exercise you will be working with groups in Azure Active Directory (Azure AD) to assist in managing access assignment to your application groups in AVD. The new ARM portal for AVD supports access assignment using Azure AD groups. This capability greatly simplifies access management. Groups will also be leveraged in this guide to manage
 share permissions in Azure Files for FSLogix.
 
 You will be creating three Azure AD groups to manage access to the different application groups; Personal, Pooled, and RemoteApp. For this guide we will only create a single group for RemoteApps, but in a production scenario it is more common to use separate groups based on the app or persona defined by the customer. Be sure to make note of the groups you create, as they will be used in later exercises.
@@ -304,31 +304,31 @@ It is also important to keep in mind that these groups can also originate from t
 
     -    **Group type:** Security
 
-    -    **Group name:** WVD Pooled Desktop User
+    -    **Group name:** AVD Pooled Desktop User
 
     -    **Membership type:** Assigned
 
-    ![Create a new security group type and provide the WVD Pooled Desktop user for the group name.](images/newGroup2.png "New Group Window")
+    ![Create a new security group type and provide the AVD Pooled Desktop user for the group name.](images/newGroup2.png "New Group Window")
 
 5.  Select **+ New group** again, fill in the following options and Select **Create**.
 
     -    **Group type:** Security
 
-    -    **Group name:** WVD Remote App All Users
+    -    **Group name:** AVD Remote App All Users
 
     -    **Membership type:** Assigned
 
-    ![Create a new security group type and provide the WVD Remote App All users for the group name.](images/newGroup1.png "New Group Window")
+    ![Create a new security group type and provide the AVD Remote App All users for the group name.](images/newGroup1.png "New Group Window")
 
 6.  Select **+ New group** again, fill in the following options and Select **Create**.
 
     -    **Group type:** Security
 
-    -    **Group name:** WVD Persistent Desktop User
+    -    **Group name:** AVD Persistent Desktop User
 
     -    **Membership type:** Assigned
 
-    ![Create a new security group type and provide the WVD Persistent Desktop user for the group name.](images/newGroup3.png "New Group Window")
+    ![Create a new security group type and provide the AVD Persistent Desktop user for the group name.](images/newGroup3.png "New Group Window")
 
 7. Confirm that the groups have been added by going to **Azure Active Directory**, selecting **Groups**.  Scroll down to the bottom of the list of groups and the three groups that you created should be listed.
 
@@ -338,13 +338,13 @@ It is also important to keep in mind that these groups can also originate from t
 
 ### Task 2: Assign users to groups
 
-Now that the Azure AD groups are in place, we will assign users for testing. Once the groups are populated, we can leverage them for assigning access to WVD resources once they are created.
+Now that the Azure AD groups are in place, we will assign users for testing. Once the groups are populated, we can leverage them for assigning access to AVD resources once they are created.
 
 1.  Sign in to the [Azure Portal](https://portal.azure.com/).
 
 2.  At the top of the page, in the **Search resources** field, type **Azure Active Directory**. Select **Azure Active Directory** from the list.
 
-3.  On the **Azure Active Directory** page, select **Groups** on the left and select the **WVD Persistent Desktop User** group.
+3.  On the **Azure Active Directory** page, select **Groups** on the left and select the **AVD Persistent Desktop User** group.
 
 4.  Select **Members** and **+ Add Members**
 
@@ -352,18 +352,18 @@ Now that the Azure AD groups are in place, we will assign users for testing. Onc
 
 5.  In the search field, enter the name of a User to add **Select** to add them to the group.
 
-6.  Repeat steps 4-6 for the **WVD Pooled Desktop User** and **WVD Remote App All Users** groups.
+6.  Repeat steps 4-6 for the **AVD Pooled Desktop User** and **AVD Remote App All Users** groups.
 
-    At this point you have three new Azure AD groups with members assigned. Make a note of the group names and accounts you added for use later in this guide. These groups will be used to assign access to WVD application groups.
+    At this point you have three new Azure AD groups with members assigned. Make a note of the group names and accounts you added for use later in this guide. These groups will be used to assign access to AVD application groups.
 
-    ![Here is the list of users that you should be adding to each of the groups.](images/aadwvdusers.png "Azure AD groups")
+    ![Here is the list of users that you should be adding to each of the groups.](images/aadavdusers.png "Azure AD groups")
 
 
 ## Exercise 3: Create an Azure Files Share for FSLogix
 
 Duration:  90 minutes
 
-In this exercise you will be creating an Azure File share and enabling SMB access via Active Directory authentication. Azure Files is a platform service (PaaS) and is one of the recommended solutions for hosting FSLogix containers for WVD users. At the end of this exercise, you will have the following components:
+In this exercise you will be creating an Azure File share and enabling SMB access via Active Directory authentication. Azure Files is a platform service (PaaS) and is one of the recommended solutions for hosting FSLogix containers for AVD users. At the end of this exercise, you will have the following components:
 
 -   A new storage account in your Azure subscription.
 
@@ -619,27 +619,27 @@ To simplify administration, create 4 new security groups in Active Directory to 
 
         ![Create a new group object named AZF FSLogix Reader.](images/azfreader.png "AZF FSLogix Reader")
 
-    -   **WVD Users**
+    -   **AVD Users**
 
-        ![Create a new group object named WVD User.](images/wvduser.png "WVD User")
+        ![Create a new group object named AVD User.](images/avduser.png "AVD User")
 
-3.  Add the WVD administrative account that you created previously to the group **AZF FSLogix Elevated Contributor**. This account will have permissions to modify file share permissions.
+3.  Add the AVD administrative account that you created previously to the group **AZF FSLogix Elevated Contributor**. This account will have permissions to modify file share permissions.
 
-    ![Find the WVD admin user that you created previously and right-click to add to a group](images/chooseadmin.png)
+    ![Find the AVD admin user that you created previously and right-click to add to a group](images/chooseadmin.png)
 
 4.  Type **AZF FSLogix Elevated Contributor** and select **Check Names** to verify. Select **Ok** to save.
 
     ![Here is how to add the AZF FSLogix Elevated Contributor group to this user.](images/addadmin.png)
 
-5.  Add the group **WVD Users** to the group **AZF FSLogix Contributor** by going to the Builtin groups, locating WVDUsers and right-click to **Add to a group**.
+5.  Add the group **AVD Users** to the group **AZF FSLogix Contributor** by going to the Builtin groups, locating AVDUsers and right-click to **Add to a group**.
   
-    ![This shows how you would find the WVD Users group and add it to a group.](images/wvduseraddtogroup.png)
+    ![This shows how you would find the AVD Users group and add it to a group.](images/avduseraddtogroup.png)
 
-    ![Here is where you enter the FSLogix contributor group and check the name before adding.](images/wvduseraddgroup.png)
+    ![Here is where you enter the FSLogix contributor group and check the name before adding.](images/avduseraddgroup.png)
 
-6.  Add user accounts to the group **WVD Users** by selecting **OrgUsers** and choosing all of the users in the list.  Select all of the users and right-click to add them to a group. These users will have access to use FSLogix profiles. Also be sure to add the **ADAdmin** user to these groups.
+6.  Add user accounts to the group **AVD Users** by selecting **OrgUsers** and choosing all of the users in the list.  Select all of the users and right-click to add them to a group. These users will have access to use FSLogix profiles. Also be sure to add the **ADAdmin** user to these groups.
 
-    ![Go to the list of users in the organization, select the users and add them to the WVD Users group.](images/wvdaddusers.png "Add users to the WVD users group")
+    ![Go to the list of users in the organization, select the users and add them to the AVD Users group.](images/avdaddusers.png "Add users to the AVD users group")
 
 7.  Wait for the new groups to synchronize with Azure AD.  These groups can be verified by going to **Groups** within **Azure Active Directory** and looking for the names in the list.
 
@@ -752,7 +752,7 @@ The first time you configure NTFS permission, do so using superuser permissions.
     | **AZF FSLogix Contributor** | Modify |
     | **AZF FSLogix Elevated Contributor** | Full control |
     | **AZF FSLogix Reader** | Read & execute |
-    | **WVD Users** | Modify (This folder only) |
+    | **AVD Users** | Modify (This folder only) |
 
 10. Select **OK** to save your changes.
 
@@ -800,7 +800,7 @@ In this task we will create directories for each of the FSLogix profile types an
 
     ![These are the permissions for full control to the creator owner.](images/addfullcontrolcreator.png)
 
-8.  Select **Add** and add **WVD Users**. Grant the following special permissions to **Only apply these permissions to objects and/or containers within this container**. Select **OK**.
+8.  Select **Add** and add **AVD Users**. Grant the following special permissions to **Only apply these permissions to objects and/or containers within this container**. Select **OK**.
 
     -   Traverse folder / execute file
 
@@ -810,7 +810,7 @@ In this task we will create directories for each of the FSLogix profile types an
 
     -   Create folders / append data
 
-    ![This is what the special permissions for WVD user should look like.](images/userfolderpermissions.png)
+    ![This is what the special permissions for AVD user should look like.](images/userfolderpermissions.png)
 
 9.  Select **OK** on both property windows to apply your changes.
 
@@ -830,9 +830,9 @@ In this task we will create directories for each of the FSLogix profile types an
 
     ![These are the selections that should be complete before selecting ok.](images/addfullcontrol.png)
 
-15. Select **Add** and add **WVD Users**. Grant **Read & execute** to **Only apply these permissions to objects and/or containers within this container**. Select **OK**.
+15. Select **Add** and add **AVD Users**. Grant **Read & execute** to **Only apply these permissions to objects and/or containers within this container**. Select **OK**.
 
-    ![These are the custom permissions for the WVD users on the MSIX folder](images/msixwvdusers.png)
+    ![These are the custom permissions for the AVD users on the MSIX folder](images/msixavdusers.png)
 
 16. Confirm your permissions match the screenshots below.
 
@@ -840,11 +840,11 @@ In this task we will create directories for each of the FSLogix profile types an
 
 Your Azure Files Share is now ready for FSLogix profile containers. Copy the UNC path and add it to your FSLogix deployment (image, GPO, etc..).
 
-## Exercise 4: Create a master image for WVD
+## Exercise 4: Create a master image for AVD
 
 Duration:  90 minutes
 
-In this exercise we are going to walk through the process of creating a master image for your WVD host pools. The basic concept for a master image is to start with a clean base install of Windows and layer on mandatory updates, applications and configurations. There are many ways to create and manage images for WVD. The steps covered in this exercise are going to walk you through a basic build and capture process that includes core applications and recommended configuration options for WVD.
+In this exercise we are going to walk through the process of creating a master image for your AVD host pools. The basic concept for a master image is to start with a clean base install of Windows and layer on mandatory updates, applications and configurations. There are many ways to create and manage images for AVD. The steps covered in this exercise are going to walk you through a basic build and capture process that includes core applications and recommended configuration options for AVD.
 
 **Additional Resources**
 
@@ -902,7 +902,7 @@ Despite the Azure support teams best efforts, the Marketplace images are not alw
 
     ![After checking for and running any updates, the settings window showing that Windows update is up to date.](images/w10vmSettingsUpToDate.png "The settings window showing that Windows update is up to date")
 
-### Task 3: Prepare WVD image
+### Task 3: Prepare AVD image
 
 **Introduction to the script**
 
@@ -959,7 +959,7 @@ The UI form offers the following actions:
 
 **OS Settings**
 
--   Apply the recommended WVD settings for image capture.
+-   Apply the recommended AVD settings for image capture.
 
 -   Source documentation: [Prepare and customize a master VHD image](https://docs.microsoft.com/en-us/azure/virtual-desktop/set-up-customize-master-image).
 
@@ -1013,7 +1013,7 @@ The UI form offers the following actions:
 
 This will trigger the PowerShell form to launch. Select the appropriate options based on the following input information.
 
-![This script will open the WVD golden image preparation window.](images/wvdgoldenimage.png)
+![This script will open the AVD golden image preparation window.](images/avdgoldenimage.png)
 
 -   Select **Install Office 365** to Install Office 365 ProPlus while excluding Teams, Groove and Skype. This will enable the Email and Calendar Caching settings below.
 
@@ -1045,11 +1045,11 @@ This will trigger the PowerShell form to launch. Select the appropriate options 
 
 -   If you selected to run System Clean Up, you will see the Disk Cleanup wizard during execution. This window may stay on the \"Windows Update Cleanup\" task for a few minutes while it cleans out older files in the Windows Side by Side.
 
-    ![The Window for the WVD Image Preparation Script will open for you to execute.](images/WVHScript.png "The Window for the WVD Image Preparation Script")
+    ![The Window for the AVD Image Preparation Script will open for you to execute.](images/WVHScript.png "The Window for the AVD Image Preparation Script")
 
     >**Note**: This script takes some time to run, so be patient as it may seem like nothing is happening for a while, and then applications will begin to install. You can watch the status from within PowerShell. After the Disk Cleanup Wizard closes, you may notice the PowerShell window does not update. It is waiting for the cleanmgr.exe process to close, which can take some time. You can select the PowerShell window and continue to hit the up arrow on your keyboard until you are presented with an active prompt.
 
-    ![This is what you will see in PowerShell while the applications are being installed on the WVD golden image.](images/powershellstatus.png)
+    ![This is what you will see in PowerShell while the applications are being installed on the AVD golden image.](images/powershellstatus.png)
 
 
 10.  After the script has completed, select the Window start icon and note that Office, Microsoft Edge Chromium, and Microsoft Teams have been installed.
@@ -1139,7 +1139,7 @@ The system will automatically shut down and disconnect your RDP session.
 
 Duration:  45 minutes
 
-In this exercise we will be creating a Windows Virtual Desktop host pool for personal desktops. This is a set of computers or hosts which operate on an as-needed basis. In a pooled configuration we will be hosting multiple non-persistent sessions, with no user profile information stored locally. This is where FSLogix Profile Containers provide the users profile to the host dynamically. This provides the ability for an organization to fully utilize the compute resources on a single host and lower the total overhead, cost, and number of remote workstations.
+In this exercise we will be creating a Azure Virtual Desktop host pool for personal desktops. This is a set of computers or hosts which operate on an as-needed basis. In a pooled configuration we will be hosting multiple non-persistent sessions, with no user profile information stored locally. This is where FSLogix Profile Containers provide the users profile to the host dynamically. This provides the ability for an organization to fully utilize the compute resources on a single host and lower the total overhead, cost, and number of remote workstations.
 
 **Additional Resources**
 
@@ -1153,13 +1153,13 @@ In this exercise we will be creating a Windows Virtual Desktop host pool for per
 
 1.  Sign in to the [Azure Portal](https://portal.azure.com/).
 
-2.  Search for **Windows Virtual Desktop** and select it from the list.
+2.  Search for **Azure Virtual Desktop** and select it from the list.
 
-    ![From the Azure portal search bar, search for windows virtual desktop and select the service.](images/searchwvd.png "Search for Windows Virtual Desktop")    
+    ![From the Azure portal search bar, search for azure virtual desktop and select the service.](images/searchavd.png "Search for Azure Virtual Desktop")    
 
 3.  Under Manage, select **Host pools** and Select **+ Add**.
    
-    ![Select host pools under manage and select add to add a new host pool.](images/wvdHostPool.png "Windows Virtual Desktop blade")
+    ![Select host pools under manage and select add to add a new host pool.](images/avdHostPool.png "Azure Virtual Desktop blade")
 
 4.  On the Basics page, refer to the following screenshot to fill in the required fields. Once complete, Select **Next: Virtual Machines**.
 
@@ -1188,9 +1188,9 @@ The name of the Workspace is displayed when the user signs in. Available resourc
 
 1.  Sign in to the [Azure Portal](https://portal.azure.com/).
 
-2.  Search for **Windows Virtual Desktop** and select it from the list.
+2.  Search for **Azure Virtual Desktop** and select it from the list.
 
-    ![From the Azure portal search bar, search for windows virtual desktop and select the service.](images/searchwvd.png "Search for Windows Virtual Desktop")
+    ![From the Azure portal search bar, search for azure virtual desktop and select the service.](images/searchavd.png "Search for Azure Virtual Desktop")
 
 3.  Under Manage, select **Workspaces**. Locate the Workspace you want to update and Select on the name.
 
@@ -1208,32 +1208,32 @@ The name of the Workspace is displayed when the user signs in. Available resourc
 
 ### Task 3: Assign an Azure AD group to an application group
 
-In the new Windows Virtual Desktop ARM portal, we now have the ability to use Azure Active Directory groups to manage access to our host pools.
+In the new Azure Virtual Desktop ARM portal, we now have the ability to use Azure Active Directory groups to manage access to our host pools.
 
 1.  Sign in to the [Azure Portal](https://portal.azure.com/).
 
-2.  Search for **Windows Virtual Desktop** and select it from the list.
+2.  Search for **Azure Virtual Desktop** and select it from the list.
 
-    ![From the Azure portal search bar, search for windows virtual desktop and select the service.](images/searchwvd.png "Search for Windows Virtual Desktop")
+    ![From the Azure portal search bar, search for azure virtual desktop and select the service.](images/searchavd.png "Search for Azure Virtual Desktop")
 
 3.  Under Manage, select **Application groups**.
     
 4.  Locate the Application group that was created as part of Task 1 (**\<poolName\>-DAG**). Click on the name to manage the Application group.
 
-    ![Here is where you will find the application group created in Task 1.](images/wvdappgroups.png)
+    ![Here is where you will find the application group created in Task 1.](images/avdappgroups.png)
 
 5.  Under Manage, select **Assignments** and Select **+ Add**.
 
     ![Find manage in the menu and select assignments and add.](images/addassignments.png)
 
-6.  In the fly out, enter **WVD** in the search to find the name of your Azure AD group. In this exercise we will select **WVD Pooled Desktop Users** and **AAD DC Administrators**.
+6.  In the fly out, enter **AVD** in the search to find the name of your Azure AD group. In this exercise we will select **AVD Pooled Desktop Users** and **AAD DC Administrators**.
     >**Note**: AAD DC Administrators will allow you to use your Azure tenant login to access resources in Exercise 7.
 
-    ![Here are the groups that you need to select and save.](images/wvdpooleduseradd.png)
+    ![Here are the groups that you need to select and save.](images/avdpooleduseradd.png)
 
 7.  Choose **Select** to save your changes.
 
-    ![Find and select the WVD Pooled desktop users in the list of users and groups.](images/hostpoolusers.png "Host pool users for WVD")
+    ![Find and select the AVD Pooled desktop users in the list of users and groups.](images/hostpoolusers.png "Host pool users for AVD")
 
 With the assignment added, you can move on to the next exercise. The users in the Azure AD group can be used to validate access to the new host pool in a later exercise.
 
@@ -1241,14 +1241,14 @@ With the assignment added, you can move on to the next exercise. The users in th
 
 Duration:  45 minutes
 
-In this exercise we will be creating a non-persistent host pool for publishing remote apps. This enables you to assign users access to specific applications rather than an entire desktop. This type of application deployment serves many purposes and is not new to WVD, but has existed in Windows Server Remote Desktop Services for many years.
+In this exercise we will be creating a non-persistent host pool for publishing remote apps. This enables you to assign users access to specific applications rather than an entire desktop. This type of application deployment serves many purposes and is not new to AVD, but has existed in Windows Server Remote Desktop Services for many years.
 
 **Additional Resources**
 
   |              |            |  
 |----------|:-------------:|
 | Description | Links |
-| Publish built-in apps in Windows Virtual Desktop | https://docs.microsoft.com/en-us/azure/virtual-desktop/publish-apps |
+| Publish built-in apps in Azure Virtual Desktop | https://docs.microsoft.com/en-us/azure/virtual-desktop/publish-apps |
 | Manage app groups with the Azure portal | https://docs.microsoft.com/en-us/azure/virtual-desktop/manage-app-groups |
   |              |            | 
 
@@ -1256,13 +1256,13 @@ In this exercise we will be creating a non-persistent host pool for publishing r
 
 1.  Sign in to the [Azure Portal](https://portal.azure.com/).
 
-2.  Search for **Windows Virtual Desktop** and select it from the list.
+2.  Search for **Azure Virtual Desktop** and select it from the list.
 
-    ![From the Azure portal search bar, search for windows virtual desktop and select the service.](images/searchwvd.png "Search for Windows Virtual Desktop")
+    ![From the Azure portal search bar, search for azure virtual desktop and select the service.](images/searchavd.png "Search for Azure Virtual Desktop")
 
 3.  Under Manage, select **Host pools** and Select **+ Add**.
 
-    ![Select host pools under manage and select add to add a new host pool.](images/wvdHostPool.png "Windows Virtual Desktop blade")
+    ![Select host pools under manage and select add to add a new host pool.](images/avdHostPool.png "Azure Virtual Desktop blade")
 
 4.  On the Basics page, refer to the following screenshot to fill in the required fields. Selecting **Pooled** for host pool type. Once complete, Select **Next: Virtual Machine**.
 
@@ -1288,9 +1288,9 @@ The name of the Workspace is displayed when the user signs in. Available resourc
 
 1.  Sign in to the [Azure Portal](https://portal.azure.com/).
 
-2.  Search for **Windows Virtual Desktop** and select it from the list.
+2.  Search for **Azure Virtual Desktop** and select it from the list.
 
-    ![From the Azure portal search bar, search for windows virtual desktop and select the service.](images/searchwvd.png "Search for Windows Virtual Desktop")
+    ![From the Azure portal search bar, search for azure virtual desktop and select the service.](images/searchavd.png "Search for Azure Virtual Desktop")
 
 3.  Under Manage, select **Workspaces**. Locate the Workspace that was created for remote apps and Select on the name.
 
@@ -1311,11 +1311,11 @@ The name of the Workspace is displayed when the user signs in. Available resourc
 
 1.  Sign in to the [Azure Portal](https://portal.azure.com/).
 
-2.  Search for **Windows Virtual Desktop** and select it from the list.
+2.  Search for **Azure Virtual Desktop** and select it from the list.
 
 3.  Under Manage, select **Host pools** and select the host pool that you created in Task 1.  Select **Application groups** and select **Add** to create a new application group.
    
-    ![From the Windows Virtual Desktop blade, select the host pool and then add to add an application groups.](images/newappgroup.png "Manage Application groups")
+    ![From the Azure Virtual Desktop blade, select the host pool and then add to add an application groups.](images/newappgroup.png "Manage Application groups")
 
 4.  In the Basics tab, name the application group 
    
@@ -1323,7 +1323,7 @@ The name of the Workspace is displayed when the user signs in. Available resourc
 
 6.  Select **Next: Applications**.
 
-    ![From the application group blade, you will select to add users or user groups and select the WVD Remote App All users from the blade that opens next.](images/assigngroup.png)
+    ![From the application group blade, you will select to add users or user groups and select the AVD Remote App All users from the blade that opens next.](images/assigngroup.png)
 
 7.  On the Applications page, Select **+ Add Application**.
 
@@ -1346,7 +1346,7 @@ The name of the Workspace is displayed when the user signs in. Available resourc
     ![The final list of applications will look like this.](images/listofapps.png)
 
 6.  Select **Next: Assignments**.
-5.  On the assignments tab, select **Add assignments**.  Search for the **WVD Remote App All Users** and **AAD DC Administrators** created earlier in this guide and choose **Select**.  
+5.  On the assignments tab, select **Add assignments**.  Search for the **AVD Remote App All Users** and **AAD DC Administrators** created earlier in this guide and choose **Select**.  
     >**Note**: AAD DC Administrators will allow you to use your Azure tenant login to access resources in Exercise 7.
 
 9.  Select **Next: Workspace**.
@@ -1363,15 +1363,15 @@ The name of the Workspace is displayed when the user signs in. Available resourc
 
 You have successfully created a Remote App non-persistent Host Pool with published apps. You can validate this configuration when we connect to the environment in a later exercise.
 
-## Exercise 7: Connect to WVD with the web client
+## Exercise 7: Connect to AVD with the web client
 
 Duration:  30 minutes
 
-In this exercise we are going to walk through connecting to your WVD environment using the HTML5 web client and validating your deployment. The following operating systems and browsers are supported:
+In this exercise we are going to walk through connecting to your AVD environment using the HTML5 web client and validating your deployment. The following operating systems and browsers are supported:
 
 **Additional Resources**
 
-There are multiple clients available for you to access WVD resources. Refer to the following Docs for more information about each client:
+There are multiple clients available for you to access AVD resources. Refer to the following Docs for more information about each client:
   |              |            |  
 |----------|:-------------:|
 | Description | Links |
@@ -1412,7 +1412,7 @@ There are multiple clients available for you to access WVD resources. Refer to t
 
 6.  On the **Enter your credentials** prompt, sign in using the same account from Step 3 and Select **Submit**. 
    
-    >**Note**: The username and password to login to the WVD desktop will be credentials from the domain controller user name and password created upon initial deployment.  If you need the user email, RDP into the domain controller VM and find the user in the **Active Directory Users and Groups** and **OrgUsers**.
+    >**Note**: The username and password to login to the AVD desktop will be credentials from the domain controller user name and password created upon initial deployment.  If you need the user email, RDP into the domain controller VM and find the user in the **Active Directory Users and Groups** and **OrgUsers**.
 
     ![On the domain controller VM, you can find the username here.](images/dcusername.png)
 
@@ -1420,7 +1420,7 @@ There are multiple clients available for you to access WVD resources. Refer to t
 
 7.  Once connected, validate the components relative to your configuration. The desktop should show icons for Microsoft Edge and Microsoft Teams.  When you go to the Windows start menu, you can find the Office applications.
 
-    ![The desktop WVD image should look like this.](images/wvddesktopimage.png)
+    ![The desktop AVD image should look like this.](images/avddesktopimage.png)
 
 
 **Troubleshooting**
@@ -1437,7 +1437,7 @@ If the Web client keeps prompting for credentials, follow these instructions:
 
 1.  Confirm the web client URL is correct.
 
-2.  Confirm that the credentials you\'re using are for the Windows Virtual Desktop environment tied to the URL.
+2.  Confirm that the credentials you\'re using are for the Azure Virtual Desktop environment tied to the URL.
 
 3.  Clear browser cookies.
 
@@ -1447,13 +1447,13 @@ If the Web client keeps prompting for credentials, follow these instructions:
 
 
 
-## Exercise 8: Setup monitoring for WVD
+## Exercise 8: Setup monitoring for AVD
 
 Duration:  45 minutes
 
-In this exercise we will setup monitoring for our WVD host pools. There are multiple reasons why monitoring serves a critical role; troubleshooting, performance, security, etc. There are also multiple components that make up the WVD service, which can add some variation on how customers implement monitoring (e.g., adding additional third-party solutions). By the end of this exercise, you will have the following monitoring capabilities enabled:
+In this exercise we will setup monitoring for our AVD host pools. There are multiple reasons why monitoring serves a critical role; troubleshooting, performance, security, etc. There are also multiple components that make up the AVD service, which can add some variation on how customers implement monitoring (e.g., adding additional third-party solutions). By the end of this exercise, you will have the following monitoring capabilities enabled:
 
--   Diagnostic logging for the WVD service
+-   Diagnostic logging for the AVD service
 
 -   Azure Monitor for the session host VMs
 
@@ -1475,7 +1475,7 @@ In this exercise we will setup monitoring for our WVD host pools. There are mult
 
 ### Task 1: Create a Log Analytics workspace
 
-A Log Analytics workspace is required for each of the monitoring capabilities covered in this exercise. You have the option to stream log data into different workspaces if desired. There are several factors to consider around a single workspace versus multiple. For example, RBAC controls, query performance, report development, etc. For WVD
+A Log Analytics workspace is required for each of the monitoring capabilities covered in this exercise. You have the option to stream log data into different workspaces if desired. There are several factors to consider around a single workspace versus multiple. For example, RBAC controls, query performance, report development, etc. For AVD
 environments, it is common to have all monitor data pointing to a single dedicated workspace.
 
 In this exercise we will create a dedicated workspace for our environment. If you already have a workspace created, move on to Task 2.
@@ -1506,11 +1506,11 @@ In this exercise we will create a dedicated workspace for our environment. If yo
 
 Monitor the notification bell in the upper-right corner and wait for the deployment to complete. Once complete, move on to task 2.
 
-### Task 2: Enabling diagnostic logging for WVD
+### Task 2: Enabling diagnostic logging for AVD
 
-Like many other Azure services, WVD uses Azure Monitor for monitoring and alerts. In order to enable diagnostic data collection, you need to enable it for each ARM object that you want to monitor (e.g., Host pools, Application groups, and Workspaces). Once enabled, it can take a few hours for the data to appear in your workspace.
+Like many other Azure services, AVD uses Azure Monitor for monitoring and alerts. In order to enable diagnostic data collection, you need to enable it for each ARM object that you want to monitor (e.g., Host pools, Application groups, and Workspaces). Once enabled, it can take a few hours for the data to appear in your workspace.
 
-Each WVD ARM object has different diagnostic data categories available. For example, host pool objects will have a different set of options then Workspaces. Refer to the following table for a summary of each data category and their associated objects.
+Each AVD ARM object has different diagnostic data categories available. For example, host pool objects will have a different set of options then Workspaces. Refer to the following table for a summary of each data category and their associated objects.
 
   |              |            |     |
 |----------|:-------------:|:-------------:|
@@ -1520,19 +1520,19 @@ Each WVD ARM object has different diagnostic data categories available. For exam
   Error       |        Are users encountering any issues with specific activities? This feature can generate a table that tracks activity data for you as long as the information is joined with the activities.     |               Host pools, Application groups, Workspaces |
   Feed   |             Can users successfully subscribe to workspaces? Do users see all resources published in the Remote Desktop client?      |                                                                                     Workspaces |
   Host Registration  | Was the session host successfully registered with the service upon connecting?       |                                                                                 Host pools| 
-  Management     |     Track whether attempts to change Windows Virtual Desktop objects using APIs or PowerShell are successful. For example, can someone successfully create a host pool using PowerShell?       |                  Host pools, Application groups, Workspaces
+  Management     |     Track whether attempts to change Azure Virtual Desktop objects using APIs or PowerShell are successful. For example, can someone successfully create a host pool using PowerShell?       |                  Host pools, Application groups, Workspaces
 
 ### Task 3: Enable logging for host pools
 
 1.  Sign in to the [Azure Portal](https://portal.azure.com/).
 
-2.  At the top of the page, in the **Search resources** field, type \"**windows virtual desktop**\". Select **Windows Virtual Desktop** from the list.
+2.  At the top of the page, in the **Search resources** field, type \"**azure virtual desktop**\". Select **Azure Virtual Desktop** from the list.
 
-    ![From the Azure portal search bar, search for windows virtual desktop and select the service.](images/searchwvd.png "Search for Windows Virtual Desktop")
+    ![From the Azure portal search bar, search for azure virtual desktop and select the service.](images/searchavd.png "Search for Azure Virtual Desktop")
 
-3.  On the Windows Virtual Desktop blade, under **Manage**, select **Host pools**.
+3.  On the Azure Virtual Desktop blade, under **Manage**, select **Host pools**.
 
-4.  On the Windows Virtual Desktop \| Host pools blade, locate a host pool and Select on the name.
+4.  On the Azure Virtual Desktop \| Host pools blade, locate a host pool and Select on the name.
 
 5.  On the blade for your host pool, under **Monitoring**, select **Diagnostic settings**.
 
@@ -1559,13 +1559,13 @@ Each WVD ARM object has different diagnostic data categories available. For exam
 
 1.  Sign in to the [Azure Portal](https://portal.azure.com/).
 
-2.  At the top of the page, in the **Search resources** field, type \"**windows virtual desktop**\". Select **Windows Virtual Desktop** from the list.
+2.  At the top of the page, in the **Search resources** field, type \"**azure virtual desktop**\". Select **Azure Virtual Desktop** from the list.
 
-    ![From the Azure portal search bar, search for windows virtual desktop and select the service.](images/searchwvd.png "Search for Windows Virtual Desktop")
+    ![From the Azure portal search bar, search for azure virtual desktop and select the service.](images/searchavd.png "Search for Azure Virtual Desktop")
 
-3.  On the Windows Virtual Desktop blade, under **Manage**, select **Application groups**.
+3.  On the Azure Virtual Desktop blade, under **Manage**, select **Application groups**.
 
-4.  On the Windows Virtual Desktop \| Application groups blade, locate an application group and Select on the name.
+4.  On the Azure Virtual Desktop \| Application groups blade, locate an application group and Select on the name.
 
 5.  On the blade for your application group, under **Monitoring**, select **Diagnostic settings**.
 
@@ -1591,13 +1591,13 @@ Each WVD ARM object has different diagnostic data categories available. For exam
 
 1.  Sign in to the [Azure Portal](https://portal.azure.com/).
 
-2.  At the top of the page, in the **Search resources** field, type \"**windows virtual desktop**\". Select **Windows Virtual Desktop** from the list.
+2.  At the top of the page, in the **Search resources** field, type \"**azure virtual desktop**\". Select **Azure Virtual Desktop** from the list.
 
-    ![From the Azure portal search bar, search for windows virtual desktop and select the service.](images/searchwvd.png "Search for Windows Virtual Desktop")
+    ![From the Azure portal search bar, search for azure virtual desktop and select the service.](images/searchavd.png "Search for Azure Virtual Desktop")
 
-3.  On the Windows Virtual Desktop blade, under **Manage**, select **Workspaces**.
+3.  On the Azure Virtual Desktop blade, under **Manage**, select **Workspaces**.
 
-4.  On the Windows Virtual Desktop \| Workspaces blade, locate a workspace and Select on the name.
+4.  On the Azure Virtual Desktop \| Workspaces blade, locate a workspace and Select on the name.
 
 5.  On the blade for your workspace, under **Monitoring**, select **Diagnostic settings**.
 
@@ -1619,11 +1619,11 @@ Each WVD ARM object has different diagnostic data categories available. For exam
 
     ![In the diagnostics settings blade, create a name, select logs, and select to send to Log Analytics.](images/appgroupdiagsettings.png "Workspace diagnostic settings")
 
-At this point you should have diagnostic data enabled on at least 1 WVD ARM object of each type. To enable monitoring for additional objects, rinse and repeat the above steps.
+At this point you should have diagnostic data enabled on at least 1 AVD ARM object of each type. To enable monitoring for additional objects, rinse and repeat the above steps.
 
 ### Task 6: Enabling Azure Monitor for the session hosts
 
-Azure Monitor is leveraged with WVD to monitor the performance and health of your session host VMs. This feature can be enabled for Azure VMs in a number of ways. In this exercise we will walk through enabling Azure Monitor on VMs using the Azure portal. Refer to the following links for guidance on automation.
+Azure Monitor is leveraged with AVD to monitor the performance and health of your session host VMs. This feature can be enabled for Azure VMs in a number of ways. In this exercise we will walk through enabling Azure Monitor on VMs using the Azure portal. Refer to the following links for guidance on automation.
 
 
 1.  Sign in to the [Azure Portal](https://portal.azure.com/).
@@ -1672,22 +1672,22 @@ For a list of example queries, refer to the following Docs article:
 
 - Go to your Log Analytics workspace, and then select **Logs**. The example query UI is shown automatically.
 - Change the filter to **Category**.
-- Select **Windows Virtual Desktop** to review available queries.
+- Select **Azure Virtual Desktop** to review available queries.
 - Select **Run** to run the selected query.
 
-Often during the deployment of WVD there may be challenges with either having machines join the domain or installing the agent via automation.
+Often during the deployment of AVD there may be challenges with either having machines join the domain or installing the agent via automation.
 
-## Exercise 9: Improving your WVD environment
+## Exercise 9: Improving your AVD environment
 
 Duration:  60 minutes
 
-In this exercise we will our WVD expierecne bay utilizing additional features or tools with the host pools. WVD is designed to be a versatile platform to distribute and build your solution from, and these optional features allow you to enhance and/or secure the environment depending on your needs. By the end of this exercise, you will have the following features enabled:
+In this exercise we will our AVD experience bay utilizing additional features or tools with the host pools. AVD is designed to be a versatile platform to distribute and build your solution from, and these optional features allow you to enhance and/or secure the environment depending on your needs. By the end of this exercise, you will have the following features enabled:
 
 - Autoscale pooled pool based on connections
 
 - Centralized Application Management (MSIX App Attach)
 
-- Protect your environment via Defender Endpoint
+- Protect your environment via Microsoft Defender for Endpoint
 
 
 **Additional Resources**
@@ -1696,18 +1696,18 @@ In this exercise we will our WVD expierecne bay utilizing additional features or
 |----------|:-------------:|
 | Scale session hosts using Azure Automation | https://docs.microsoft.com/en-us/azure/virtual-desktop/set-up-scaling-script |
 | Set up MSIX app attach with the Azure portal |  https://docs.microsoft.com/en-us/azure/virtual-desktop/app-attach-azure-portal |
-| Prepare an MSIX image for Windows Virtual Desktop | https://docs.microsoft.com/en-us/azure/virtual-desktop/app-attach-image-prep |
+| Prepare an MSIX image for Azure Virtual Desktop | https://docs.microsoft.com/en-us/azure/virtual-desktop/app-attach-image-prep |
 | MSIX Packaging Tool | https://docs.microsoft.com/en-us/windows/msix/packaging-tool/tool-overview |
 | Onboard Windows 10 multi-session devices in Windows Virtual Desktop | https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/Onboard-Windows-10-multi-session-device?view=o365-worldwide |
 | Azure Cloud Shell | https://docs.microsoft.com/en-us/azure/cloud-shell/overview |
 
 
-### Task 1: Enabling autoscaling
+### Task 1: Enabling Autoscale
 
-In this task, you will create an Azure Automation account and Logic App that will be regularly update the scaling of your pool based on the number of connections.  Azure Automation allows for the execution of scripts and commands within an identity related to the automation.  Logic App allows for regular execution of commands and tasks.  By combining these two resources, we allow for repeative tasks of a detailed nature which will allow us to automatically increaese and decrease the number of hosts in a WVD host pool based on demand of the environment.
+In this task, you will create an Azure Automation account and Logic App that will regularly update the scaling of your pool based on the number of connections.  Azure Automation allows for the execution of scripts and commands with an identity related to the automation.  Logic App allows for regular execution of commands and tasks.  By combining these two resources, we allow for repititive tasks of a detailed nature which will allow us to automatically increaese and decrease the number of hosts in a AVD host pool based on demand of the environment.
 
 1. Use PowerShell on a system with the [Azure Module](https://docs.microsoft.com/en-us/powershell/azure/install-az-ps?view=azps-5.9.0) installed (such as from Exercise 3, Task 3)
-1. Run the following command connect to Azure using the subscription of your WVD:
+1. Run the following command connect to Azure using the subscription of your AVD:
 
 ```powershell
 Connect-AzAccount
@@ -1716,8 +1716,8 @@ Connect-AzAccount
 1.  Use the following commands to download installation script for the Automation Account:
 
 ```powershell
-New-Item -ItemType Directory -Path ".\WVDTemp" -Force
-Set-Location -Path ".\WVDTemp"
+New-Item -ItemType Directory -Path ".\AVDTemp" -Force
+Set-Location -Path ".\AVDTemp"
 $Uri = "https://raw.githubusercontent.com/Azure/RDS-Templates/master/wvd-templates/wvd-scaling-script/CreateOrUpdateAzAutoAccount.ps1"
 # Download the script
 Invoke-WebRequest -Uri $Uri -OutFile ".\CreateOrUpdateAzAutoAccount.ps1"
@@ -1737,7 +1737,7 @@ $Params = @{
 
 ```
 
-1. Now that the Azure Automation account is created, keep the PowerShell window open in the background, but go to the [Azure Portal](https://portal.azure.com/) in your browser to finish its setup.
+1. Now that the Azure Automation account is created, keep the PowerShell window open in the background and go to the [Azure Portal](https://portal.azure.com/) in your browser to finish the setup.
 
     ![Going back to the Azure Portal web page](images/azureportal.png "Azure Portal")
 
@@ -1766,9 +1766,9 @@ $AADTenantId = (Get-AzContext).Tenant.Id
 
 $AzSubscription = (Get-AzContext).Subscription
 
-$ResourceGroup = Get-AzResourceGroup  "WVDAutoScaleResourceGroup"
+$ResourceGroup = Get-AzResourceGroup  "AVDAutoScaleResourceGroup"
 
-$WVDHostPool = Get-AzWvdHostPool | ?{ $_.HostPoolType -eq "Pooled" } | Select -First 1 | Get-AzResource
+$AVDHostPool = Get-AzWvdHostPool | ?{ $_.HostPoolType -eq "Pooled" } | Select -First 1 | Get-AzResource
 
 $LogAnalyticsWorkspaceId = $LAWorkspace.CustomerId.Guid
 $LogAnalyticsPrimaryKey =  ($LAWorkspace | Get-AzOperationalInsightsWorkspaceSharedKey).PrimarySharedKey
@@ -1781,9 +1781,9 @@ $MinimumNumberOfRDSH = 1
 $MaintenanceTagName = "NoScaling"
 $LimitSecondsToForceLogOffUser = 1 #this number is abnormally low for the lab; this is not what you would use in most production environments
 $LogOffMessageTitle = "Automation Log Off for Scaling"
-$LogOffMessageBody = "To improve resource utilization we need to move your session to a new host. Please save your work and log back in to WVD continue working on a new host. For assistance, please contact the Help Desk."
+$LogOffMessageBody = "To improve resource utilization we need to move your session to a new host. Please save your work and log back in to AVD continue working on a new host. For assistance, please contact the Help Desk."
 
-$AutoAccount =  Get-AzAutomationAccount -Name "WVDAutoScaleAutomationAccount" -ResourceGroupName $ResourceGroup.ResourceGroupName
+$AutoAccount =  Get-AzAutomationAccount -Name "AVDAutoScaleAutomationAccount" -ResourceGroupName $ResourceGroup.ResourceGroupName
 $AutoAccountConnection = Get-AzAutomationConnection -ResourceGroupName $AutoAccount.ResourceGroupName -AutomationAccountName $AutoAccount.AutomationAccountName | Select -first 1
 
 $WebhookURIAutoVar = Get-AzAutomationVariable -Name 'WebhookURIARMBased' -ResourceGroupName $AutoAccount.ResourceGroupName -AutomationAccountName $AutoAccount.AutomationAccountName
@@ -1791,11 +1791,11 @@ $WebhookURIAutoVar = Get-AzAutomationVariable -Name 'WebhookURIARMBased' -Resour
 $Params = @{
      "AADTenantId"                   = $AADTenantId                             # Optional. If not specified, it will use the current Azure context
      "SubscriptionID"                = $AzSubscription.Id                       # Optional. If not specified, it will use the current Azure context
-     "ResourceGroupName"             = $ResourceGroup.ResourceGroupName         # Optional. Default: "WVDAutoScaleResourceGroup"
+     "ResourceGroupName"             = $ResourceGroup.ResourceGroupName         # Optional. Default: "AVDAutoScaleResourceGroup"
      "Location"                      = $ResourceGroup.Location                  # Optional. Default: "West US2"
      "UseARMAPI"                     = $true
-     "HostPoolName"                  = $WVDHostPool.Name
-     "HostPoolResourceGroupName"     = $WVDHostPool.ResourceGroupName           # Optional. Default: same as ResourceGroupName param value
+     "HostPoolName"                  = $AVDHostPool.Name
+     "HostPoolResourceGroupName"     = $AVDHostPool.ResourceGroupName           # Optional. Default: same as ResourceGroupName param value
      "LogAnalyticsWorkspaceId"       = $LogAnalyticsWorkspaceId                 # Optional. If not specified, script will not log to the Log Analytics
      "LogAnalyticsPrimaryKey"        = $LogAnalyticsPrimaryKey                  # Optional. If not specified, script will not log to the Log Analytics
      "ConnectionAssetName"           = $AutoAccountConnection.Name              # Optional. Default: "AzureRunAsConnection"
@@ -1823,7 +1823,7 @@ $Params = @{
 
     ![Azure Portal Logic App](images/logicApps.png "Azure Portal")
 
-1. If you click on the **Logic app designer** link under Development Tools, you will see the graphical representation of the workflow created by the script.
+1. Click on the **Logic app designer** link under Development Tools, you will see the graphical representation of the workflow created by the script.
 1. You can click on the **Recurrence** to change how often the script runs
 1. Click on the **Run** button to trigger the scaling immediately
 
@@ -1833,24 +1833,24 @@ $Params = @{
 
     ![Opening the Logic App overview will show the Run History and see previous runs](images/logicAppOverview.png "Logic App Overview")
 
-At this point, your WVD Host Pool that is Pooled will spin up and down hosts based on the load of the environment.
+At this point, your AVD Host Pool that is Pooled will spin up and down hosts based on the load of the environment.
 
 ### Task 2: Utilizing Application Packages (MSIX)
 
-In this task, we will take a **MSIX package** created from the [MSIX packaging tool](https://docs.microsoft.com/en-us/windows/msix/packaging-tool/tool-overview) and utilize the Azure portal to attach the MSIX package dynamically to WVD pools as users login.  MSIX Packages are disk images containing all files, configurations, and publication details needed to run supported applactions that can be mounted by Windows systems on the fly to allow users to run the application without having to install the application to the host machine. By utilizing this technique, we can minimize the footprint and management needs of the WVD hosts while still putilizing multiple applications on the systems without installing the applications permanent on the system.
+In this task, we will take a **MSIX package** created from the [MSIX packaging tool](https://docs.microsoft.com/en-us/windows/msix/packaging-tool/tool-overview) and utilize the Azure portal to attach the MSIX package dynamically to AVD pools as users login.  MSIX Packages are disk images containing all files, configurations, and publication details needed to run supported applactions that can be mounted by Windows systems on the fly to allow users to run the application without having to install the application to the host machine. By utilizing this technique, we can minimize the footprint and management needs of the AVD hosts while still putilizing multiple applications on the systems without installing the applications permanent on the system.
 
 1. Go to the [Azure Portal](https://portal.azure.com/)
 
     ![Going back to the Azure Portal web page](images/azureportal.png "Azure Portal")
 
 1. Go to the **Storage Account** created in Exercise 3 for the FSLogix profiles that was already joined to Active Directory
-1. Click on the **File shares** under data storage and click on the share created for WVD files
+1. Click on the **File shares** under data storage and click on the share created for AVD files
 
-    ![Open share for WVD File Share on storage account](images/wvdFileShare.png "WVD File Share")
+    ![Open share for AVD File Share on storage account](images/avdFileShare.png "AVD File Share")
 
 1. Click the **+ Add directory** button to create a new folder and name it **msix**
 
-    ![Add directory on storage account](images/wvdFileShareAdd.png "File Share add directory")
+    ![Add directory on storage account](images/avdFileShareAdd.png "File Share add directory")
 
 > **NOTE:** Normally in production you would create an additional share for MSIX files and place the files there.  You would need to make sure the share or container the MSIX files are in you follow the same steps you use for the FSLogix storage account and apply the appropriate permissions to them (users normally only need Read access) and make sure there is enough room to store them.  We are placing it on the same share for this exercise for expidency sake and easier setup. It is not uncommon to have a central MSIX storage with permissions to each MSIX file based on groups assigned to the appropriate application and the MSIX repository used by multiple pools or deployments, but ensure network connectivity and speed are kept consistant.
 
@@ -1864,8 +1864,8 @@ Connect-AzAccount
 1. Run this command to upload the MSIX file to the folder:
 
 ```powershell
-$SAName = Read-Host "What is the name of the storage account with WVD file shares? (ie: mystorageacct1592)" # Provide the name to the storage account here instead of prompting
-$SAShare = Read-Host "What is the name of the file share in the storage account used for WVD? (ie: labwvdfilesshare)"
+$SAName = Read-Host "What is the name of the storage account with AVD file shares? (ie: mystorageacct1592)" # Provide the name to the storage account here instead of prompting
+$SAShare = Read-Host "What is the name of the file share in the storage account used for AVD? (ie: labwvdfilesshare)"
 
 $sa = Get-AzStorageAccount | ? StorageAccountName -eq $SAName
 $SAS = New-AzStorageAccountSASToken -Context $sa.Context -Service File -ResourceType Object -Permission rwd -Protocol HttpsOnly -ExpiryTime ((Get-Date).AddHours(4))
@@ -1880,15 +1880,15 @@ pause
 1. Find the **Windos Virtual Desktop** resources
 1. Select the **Host pools** and select the Pooled host pool
 
-    ![Selecting Host Pools of Windows Virtual Desktop](images/wvdHostPools.png "WVD Host Pools")
+    ![Selecting Host Pools of Azure Virtual Desktop](images/avdHostPools.png "AVD Host Pools")
 
 1. Select the **Pooled** host pool
 
-    ![Selecting Pooled host pools of Windows Virtual Desktop](images/wvdPooledPool.png "Pooled host pool")
+    ![Selecting Pooled host pools of Azure Virtual Desktop](images/avdPooledPool.png "Pooled host pool")
 
 1. Go to  **MSIX packages** under the Manage section and click **+ Add** to add an MSIX package to the pool
 
-    ![Go the MSIX packages section and click add a pacakge](images/wvdAddMSIXPackages.png "WVD add MSIX package")
+    ![Go the MSIX packages section and click add a pacakge](images/avdAddMSIXPackages.png "AVD add MSIX package")
 
 1. In the MSIX image path, put the following path replacing `<storageacctname>` with the name ove the Storage Account and `<shareName>` with the share that holds the MSIX above:
 
@@ -1898,36 +1898,36 @@ pause
 
 1. Select the **MSIX Package**  to add
 
-    ![Select the MSIX package to add](images/wvdAddMSIXPackage.png "Add MSIX package")
+    ![Select the MSIX package to add](images/avdAddMSIXPackage.png "Add MSIX package")
 
 1. Ensure there is an application listed under **Package applications**
 1. For **Registration type**, select **On-demand registration**
 1. Under **State**, select **Active**
 1. Click **Add** to add the package
 
-    ![Settings for adding application package to WVD](images/wvdAddPackageSettings.png "Add MSIX settings")
+    ![Settings for adding application package to AVD](images/avdAddPackageSettings.png "Add MSIX settings")
 
 1. Go to the **Application groups** and select **remoteapps**
 
-    ![Select WVD Application Group](images/wvdApplicationGroup.png "Go to Application group")
+    ![Select AVD Application Group](images/avdApplicationGroup.png "Go to Application group")
 
 1. Click **+ Add** to add an application
 
-    ![Add Application Group](images/wvdAddApplication.png "Add application")
+    ![Add Application Group](images/avdAddApplication.png "Add application")
 
 1. Choose **MSIX package** from the Application source
 1. Select the MSIX pacakge and MSIX application you just added
 1. Ensure the **Application name** matches the name
 1. Click **Save** to include
 
-    ![Set the MSIX application settings and click Save](images/wvdSaveMSIXApp.png "Setup MSIX application")
+    ![Set the MSIX application settings and click Save](images/avdSaveMSIXApp.png "Setup MSIX application")
 
-1. Go to the [WVD Web Client](https://rdweb.wvd.microsoft.com/arm/webclient) (or WVD client if installed locally)
+1. Go to the [AVD Web Client](https://rdweb.wvd.microsoft.com/arm/webclient) (or AVD client if installed locally)
 1. Click the new application icon to launch the application (refresh the page if the new application does not show up yet)
 
 This application is now running on the host pool although the application itself is not installed to the host system.  This allows for the application to also be updated by changing which MSIX package the application points to and the next time a user logs into the application. 
 
-### Task 3: Protect WVD with Defender Endpoint
+### Task 3: Protect AVD with Microsoft Defender for Endpoint
 
 In this task, you will enable Defender for Endpoint service and deployment the Endpoint protection via Azure. This will allow for all systems to be protected by the Defender service from potential vulnerabilities and alert in the event of suspcious execution or activity.
 
@@ -1952,10 +1952,10 @@ In this task, you will enable Defender for Endpoint service and deployment the E
 
     ![Select the VM assesment of Security Center to deploy to VMs](images/defenderVMassesment.png "VM assessment")
 
-1. Check the boxes next to all the VMs that host the WVD Host pools
+1. Check the boxes next to all the VMs that host the AVD Host pools
 1. Click **Fix** to proceed to deployment of the agent
 
-    ![Choose all the hosts of the WVD and fix VMs](images/defenderFixVMs.png "Fix defender")
+    ![Choose all the hosts of the AVD and fix VMs](images/defenderFixVMs.png "Fix defender")
 
 1. Selec the **Qualys** agent for deploying to Azure Defender and click **Proceed**
 
@@ -1965,7 +1965,7 @@ In this task, you will enable Defender for Endpoint service and deployment the E
 
     !["Ensure the VMs expeected and click Fix X resources"](images/deployDefenderByFix.png "Fix VMs with defender")
 
-This will begin deploying Azure Defender to the Virtual Machines currently deployed.  Depending on your WVD environment, you can deploy them to systems as they are added to your domain in the WVD OU by utilizing Group Policies using the [domain group policy scenario](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/onboard-windows-10-multi-session-device?view=o365-worldwide#scenario-2-using-domain-group-policy).  Alternatively, if your hosts may be none persistent or deployed from an image, you can use the instructions for [onboarding non-persistent VDI devices](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/configure-endpoints-vdi?view=o365-worldwide). 
+This will begin deploying Azure Defender to the Virtual Machines currently deployed.  Depending on your AVD environment, you can deploy them to systems as they are added to your domain in the AVD OU by utilizing Group Policies using the [domain group policy scenario](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/onboard-windows-10-multi-session-device?view=o365-worldwide#scenario-2-using-domain-group-policy).  Another option if your host is not persistent or deployed from an image, is to use the instructions for [onboarding non-persistent VDI devices](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/configure-endpoints-vdi?view=o365-worldwide). 
 
 
 ## After the hands-on lab
