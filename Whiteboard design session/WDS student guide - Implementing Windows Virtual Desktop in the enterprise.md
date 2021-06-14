@@ -1,7 +1,7 @@
 ![Microsoft Cloud Workshops](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/main/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
 
 <div class="MCWHeader1">
-Implementing Windows Virtual Desktop in the enterprise
+Implementing Azure Virtual Desktop in the enterprise
 </div>
 
 <div class="MCWHeader2">
@@ -26,7 +26,7 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
 
 <!-- TOC -->
 
-- [Implementing Windows Virtual Desktop in the enterprise whiteboard design session student guide](#implementing-windows-virtual-desktop-in-the-enterprise-whiteboard-design-session-student-guide)
+- [Implementing Azure Virtual Desktop in the enterprise whiteboard design session student guide](#implementing-azure-virtual-desktop-in-the-enterprise-whiteboard-design-session-student-guide)
   - [Abstract and learning objectives](#abstract-and-learning-objectives)
   - [Step 1: Review the customer case study](#step-1-review-the-customer-case-study)
     - [Customer situation](#customer-situation)
@@ -40,13 +40,13 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
 
 <!-- /TOC -->
 
-# Implementing Windows Virtual Desktop in the enterprise whiteboard design session student guide
+# Implementing Azure Virtual Desktop in the enterprise whiteboard design session student guide
 
 ## Abstract and learning objectives
 
-In the whiteboard design session you will work in groups to design a Windows Virtual Desktop solution using Microsoft 365 and Azure technologies. Your solution will consider the necessary Microsoft 365 subscription required for Windows 10 Enterprise multi-user licensing, as well as the Azure Active Directory and security needs for a healthcare provider. You will need to determine how to connect Azure to the current VMware and Citrix on-premises infrastructure and the connections needed to connect this infrastructure to Azure for application access. Finally, you will need to design the Windows Virtual Desktop solution utilizing Azure virtual machines with availability and scalability to handle 24x7 operations without performance degradation.
+In the whiteboard design session you will work in groups to design a Azure Virtual Desktop (formerly Windows Virtual Desktop) solution using Microsoft 365 and Azure technologies. Your solution will consider the necessary Microsoft 365 subscription required for Windows 10 Enterprise multi-user licensing, as well as the Azure Active Directory and security needs for a healthcare provider. You will need to determine how to connect Azure to the current VMware and Citrix on-premises infrastructure and the connections needed to connect this infrastructure to Azure for application access. Finally, you will need to design the Azure Virtual Desktop solution utilizing Azure virtual machines with availability and scalability to handle 24x7 operations without performance degradation.
 
-At the end of the whiteboard design session, you will be better able to design a solution that leverages Microsoft 365 and Azure technologies together to build a secure and robust Windows Virtual Desktop infrastructure.
+At the end of the whiteboard design session, you will be better able to design a solution that leverages Microsoft 365 and Azure technologies together to build a secure and robust Azure Virtual Desktop infrastructure.
 
 ## Step 1: Review the customer case study
 
@@ -115,7 +115,7 @@ Contoso Healthcare has completed an initial cloud assessment of their current in
 ### Security Scenarios
 The security scenario applies to the potential security, monitoring, and compliance auditing options needed to design the solution.
 
-![Common scenario of how Azure Monitor and Network Watcher can be used for both Azure and non-Azure VMs and network connections.  On the right, the on-premises servers are connected to Azure Monitor with an agent and Network Watcher is monitoring the connection between the on-premises datacenter and Azure.  In Azure, Azure Monitor is connected to the Windows Virtual Desktop host pool instances, and network watcher is monitoring the connect to these hosts and the VNET.  The metric and activity log information is then fed into Azure Monitor, Log Analytics, Azure Policy, and Azure Security Center for managing these resources for performance, activity, and compliance.](images/security.png "Security Scenario")
+![Common scenario of how Azure Monitor and Network Watcher can be used for both Azure and non-Azure VMs and network connections.  On the right, the on-premises servers are connected to Azure Monitor with an agent and Network Watcher is monitoring the connection between the on-premises datacenter and Azure.  In Azure, Azure Monitor is connected to the Azure Virtual Desktop host pool instances, and network watcher is monitoring the connect to these hosts and the VNET.  The metric and activity log information is then fed into Azure Monitor, Log Analytics, Azure Policy, and Azure Security Center for managing these resources for performance, activity, and compliance.](images/security.png "Security Scenario")
 
 
 ### Network Scenarios
@@ -124,10 +124,10 @@ Network scenarios diagram the potential options for connecting from Microsoft Az
 ![Diagram presenting the site-to-site connection configuration for the on-premises datacenter to connect to Azure through a VPN connection between the on-premises firewall and the Azure firewall.](images/network.png "Network Scenario")
 
 
-### Windows Virtual Desktop standard architecture
-This diagram outlines a simple Windows Virtual Desktop architecture with Azure and Microsoft 365. This includes the Windows Virtual Desktop user connection and the Windows Virtual Desktop host pools.
+### Azure Virtual Desktop standard architecture
+This diagram outlines a simple Azure Virtual Desktop architecture with Azure and Microsoft 365. This includes the Azure Virtual Desktop user connection and the Azure Virtual Desktop host pools.
 
-![Diagram referencing that there are multiple devices that will need to connect to the Windows desktop virtual image for Windows 10 and Microsoft 365 applications via the WVD hostpool.](images/wvdarchitecture.png "Windows Virtual Desktop standard architecture")
+![Diagram referencing that there are multiple devices that will need to connect to the Windows desktop virtual image for Windows 10 and Microsoft 365 applications via the AVD hostpool.](images/avdarchitecture.png "Azure Virtual Desktop standard architecture")
 
 
 ## Step 2: Design a proof of concept solution
@@ -152,7 +152,7 @@ Directions: With all participants at your table, respond to the following questi
 
 *High-level architecture*
 
-Design a Windows Virtual Desktop infrastructure that addresses the needs and requirements of the organization. Provide details of your implementation. Make sure to document your design with a diagram along with addressing the questions.  Address the requirements in the following areas:
+Design a Azure Virtual Desktop infrastructure that addresses the needs and requirements of the organization. Provide details of your implementation. Make sure to document your design with a diagram along with addressing the questions.  Address the requirements in the following areas:
 
 *Microsoft 365*
 
@@ -196,17 +196,17 @@ Design a Windows Virtual Desktop infrastructure that addresses the needs and req
    
 7. How would you monitor network throughput and latency over the network?
 
-*Windows Virtual Desktop image*
+*Azure Virtual Desktop image*
 
 1. How will the standardized desktop image be created?
    
 2. How will applications be delivered to the desktop image?
    
-3. What are the connection options for users to access the Windows Virtual Desktop image?
+3. What are the connection options for users to access the Azure Virtual Desktop image?
    
-4. What are the minimum system requirements for users to access the Windows Virtual Desktop image?   
+4. What are the minimum system requirements for users to access the Azure Virtual Desktop image?   
 
-*Windows Virtual Desktop host pool*
+*Azure Virtual Desktop host pool*
        
 1. How many concurrent sessions will be required to access the virtual desktop image?
    
@@ -261,17 +261,17 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 |    |            |
 |----------|:-------------:|
 | **Description** | **Links** |
-| Overview of Windows Virtual Desktop | <https://docs.microsoft.com/en-us/azure/virtual-desktop/overview> |
-| Windows Virtual Desktop environment setup | <https://docs.microsoft.com/en-us/azure/virtual-desktop/environment-setup> |
+| Overview of Azure Virtual Desktop | <https://docs.microsoft.com/en-us/azure/virtual-desktop/overview> |
+| Azure Virtual Desktop environment setup | <https://docs.microsoft.com/en-us/azure/virtual-desktop/environment-setup> |
 | Create a virtual desktop host pool | <https://docs.microsoft.com/en-us/azure/virtual-desktop/create-host-pools-azure-marketplace> |
-| Windows Virtual Desktop licensing requirements and pricing | <https://azure.microsoft.com/en-us/pricing/details/virtual-desktop/> |
+| Azure Virtual Desktop licensing requirements and pricing | <https://azure.microsoft.com/en-us/pricing/details/virtual-desktop/> |
 | Prepare and customize a master VHD image | <https://docs.microsoft.com/en-us/azure/virtual-desktop/set-up-customize-master-image> |
 | Azure Policy overview | <https://docs.microsoft.com/en-us/azure/governance/policy/overview> |
 | Azure Security Center | <https://docs.microsoft.com/en-us/azure/security-center/> |
 | Azure Active Directory | <https://docs.microsoft.com/en-us/azure/active-directory/> |
-| File Storage in Windows Virtual Desktop | <https://docs.microsoft.com/en-us/azure/virtual-desktop/fslogix-containers-azure-files> |
-| Connect WVD with a web client | <https://docs.microsoft.com/en-us/azure/virtual-desktop/connect-web> |
-| WVD security best practices | <https://docs.microsoft.com/en-us/azure/virtual-desktop/security-guide> |
+| File Storage in Azure Virtual Desktop | <https://docs.microsoft.com/en-us/azure/virtual-desktop/fslogix-containers-azure-files> |
+| Connect AVD with a web client | <https://docs.microsoft.com/en-us/azure/virtual-desktop/connect-web> |
+| AVD security best practices | <https://docs.microsoft.com/en-us/azure/virtual-desktop/security-guide> |
 | Microsoft 365 enterprise plans | <https://www.microsoft.com/en-us/microsoft-365/compare-microsoft-365-enterprise-plans> |
 | Microsoft 365 enterprise mobility + security plans | <https://www.microsoft.com/en-us/microsoft-365/enterprise-mobility-security/compare-plans-and-pricing?rtc=1> |
 | Virtual Desktop partners | <https://docs.microsoft.com/en-us/azure/virtual-desktop/partners> |
