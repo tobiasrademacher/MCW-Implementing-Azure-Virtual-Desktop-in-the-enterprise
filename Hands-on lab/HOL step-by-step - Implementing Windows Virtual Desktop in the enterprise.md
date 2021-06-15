@@ -85,7 +85,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 
 ## Abstract and learning objectives
 
-In this hands-on lab, you will implement a Azure Virtual Desktop (formerly Windows Virtual Desktop) Infrastructure and learn how-to setup a working AVD environment end-to-end in a typical Enterprise model. At the end of the lab, attendees will have deployed an Azure Active Directory Tenant with Azure AD Connect to an Active Directory Domain Controller that is running in Azure. You will also deploy the Azure infrastructure for the Azure Virtual Desktop Tenant(s), Host Pool(s) and session host(s), and connect to a AVD session utilizing different supported devices and browsers. You will publish Azure Virtual Desktops and remote apps, and configure user profiles and file shares with FSLogix.  Finally, you will configure monitoring and security for the Azure Virtual Desktop infrastructure and understand the steps to manage the master images.
+In this hands-on lab, you will implement an Azure Virtual Desktop (formerly Windows Virtual Desktop) Infrastructure and learn how-to setup a working AVD environment end-to-end in a typical Enterprise model. At the end of the lab, attendees will have deployed an Azure Active Directory Tenant with Azure AD Connect to an Active Directory Domain Controller that is running in Azure. You will also deploy the Azure infrastructure for the Azure Virtual Desktop Tenant(s), Host Pool(s) and session host(s), and connect to a AVD session utilizing different supported devices and browsers. You will publish Azure Virtual Desktops and remote apps, and configure user profiles and file shares with FSLogix.  Finally, you will configure monitoring and security for the Azure Virtual Desktop infrastructure and understand the steps to manage the master images.
 
 ## Overview
 
@@ -137,7 +137,7 @@ Also, review the please see the article [AVD troubleshooting article](https://do
 
 Duration:  60 minutes
 
-In this exercise you will be configuring [Azure AD Connect](https://docs.microsoft.com/en-us/azure/active-directory/hybrid/whatis-azure-ad-connect). With Azure Virtual Desktop, all session host VMs within the AVD tenant environment are required to be domain joined to AD DS, and the domain must be synchronized with Azure AD. To manage the synchronization of objects, you will configure Azure AD Connect on the domain controller deployed in Azure.
+In this exercise, you will be configuring [Azure AD Connect](https://docs.microsoft.com/en-us/azure/active-directory/hybrid/whatis-azure-ad-connect). With Azure Virtual Desktop, all session host VMs within the AVD tenant environment are required to be domain joined to AD DS, and the domain must be synchronized with Azure AD. To manage the synchronization of objects, you will configure Azure AD Connect on the domain controller deployed in Azure.
 
 >**Note**: RDP access to a domain controller using a public IP address is not a best practice and is only done to simplify this lab. Better security practices such as removing the PIP, enabling just-in-time access and/or leveraging a bastion host should be applied enhance security.
 
@@ -164,7 +164,7 @@ In this exercise you will be configuring [Azure AD Connect](https://docs.microso
 
 5.  On the Overview page for AdPubIP1, locate the **IP address** field. Copy the IP address to a safe location.
 
-6.  On your local machine, open the **RUN** dialog window, type **MSTSC** and hit enter.
+6.  On your local machine, open the **RUN** dialog window, type **MSTSC** and select enter.
 
     ![Open the Run dialog window to run MSTSC](images/run.png "Run on Windows") 
 
@@ -276,7 +276,7 @@ By default, Azure AD Connect does not synchronize the built-in domain administra
 
 Duration:  30 minutes
 
-In this exercise you will be working with groups in Azure Active Directory (Azure AD) to assist in managing access assignment to your application groups in AVD. The new ARM portal for AVD supports access assignment using Azure AD groups. This capability greatly simplifies access management. Groups will also be leveraged in this guide to manage
+In this exercise, you will be working with groups in Azure Active Directory (Azure AD) to assist in managing access assignment to your application groups in AVD. The new ARM portal for AVD supports access assignment using Azure AD groups. This capability greatly simplifies access management. Groups will also be leveraged in this guide to manage
 share permissions in Azure Files for FSLogix.
 
 You will be creating three Azure AD groups to manage access to the different application groups; Personal, Pooled, and RemoteApp. For this guide we will only create a single group for RemoteApps, but in a production scenario it is more common to use separate groups based on the app or persona defined by the customer. Be sure to make note of the groups you create, as they will be used in later exercises.
@@ -338,7 +338,7 @@ It is also important to keep in mind that these groups can also originate from t
 
 ### Task 2: Assign users to groups
 
-Now that the Azure AD groups are in place, we will assign users for testing. Once the groups are populated, we can leverage them for assigning access to AVD resources once they are created.
+Now that the Azure AD groups are in place, you will assign users for testing. Once the groups are populated, you can leverage them for assigning access to AVD resources once they are created.
 
 1.  Sign in to the [Azure Portal](https://portal.azure.com/).
 
@@ -363,7 +363,7 @@ Now that the Azure AD groups are in place, we will assign users for testing. Onc
 
 Duration:  90 minutes
 
-In this exercise you will be creating an Azure File share and enabling SMB access via Active Directory authentication. Azure Files is a platform service (PaaS) and is one of the recommended solutions for hosting FSLogix containers for AVD users. At the end of this exercise, you will have the following components:
+In this exercise, you will be creating an Azure File share and enabling SMB access via Active Directory authentication. Azure Files is a platform service (PaaS) and is one of the recommended solutions for hosting FSLogix containers for AVD users. At the end of this exercise, you will have the following components:
 
 -   A new storage account in your Azure subscription.
 
@@ -441,7 +441,7 @@ Before you can work with an Azure file share, you need to create an Azure storag
 
     -    Owner or Contributor rights on the Storage account.
 
-In this task we will be completing the steps on the Domain Controller in Azure using an account that has been assigned Global Administrator and Domain Administrator. In a production environment, you can scale this back as long as you meet the minimum requirements above.
+In this task, you will be completing the steps on the Domain Controller in Azure using an account that has been assigned Global Administrator and Domain Administrator. In a production environment, you can scale this back as long as you meet the minimum requirements above.
 
 **Setup**
 
@@ -784,7 +784,7 @@ In this task we will create directories for each of the FSLogix profile types an
 
 3.  Right-click on the **Profiles** directory and select **Properties**.
 
-4.  On the properties window, select the **Security** tab and Select **Advanced**.
+4.  On the properties window, select the **Security** tab and select **Advanced**.
 
 5.  Select **Disable inheritance** and select **Remove all inherited permissions from this object**.
 
@@ -820,7 +820,7 @@ In this task we will create directories for each of the FSLogix profile types an
 
 11. Right-click on the **MSIX** directory and select **Properties**.
 
-12. On the properties window, select the **Security** tab and Select **Advanced**.
+12. On the properties window, select the **Security** tab and select **Advanced**.
 
 13. Select **Disable inheritance** and select **Remove all inherited permissions from this object**.
 
@@ -844,7 +844,7 @@ Your Azure Files Share is now ready for FSLogix profile containers. Copy the UNC
 
 Duration:  90 minutes
 
-In this exercise we are going to walk through the process of creating a master image for your AVD host pools. The basic concept for a master image is to start with a clean base install of Windows and layer on mandatory updates, applications and configurations. There are many ways to create and manage images for AVD. The steps covered in this exercise are going to walk you through a basic build and capture process that includes core applications and recommended configuration options for AVD.
+In this exercise, you are going to walk through the process of creating a master image for your AVD host pools. The basic concept for a master image is to start with a clean base install of Windows and layer on mandatory updates, applications and configurations. There are many ways to create and manage images for AVD. The steps covered in this exercise are going to walk you through a basic build and capture process that includes core applications and recommended configuration options for AVD.
 
 **Additional Resources**
 
@@ -1157,11 +1157,11 @@ In this exercise we will be creating a Azure Virtual Desktop host pool for perso
 
     ![From the Azure portal search bar, search for azure virtual desktop and select the service.](images/searchavd.png "Search for Azure Virtual Desktop")    
 
-3.  Under Manage, select **Host pools** and Select **+ Add**.
+3.  Under Manage, select **Host pools** and select **+ Add**.
    
     ![Select host pools under manage and select add to add a new host pool.](images/avdHostPool.png "Azure Virtual Desktop blade")
 
-4.  On the Basics page, refer to the following screenshot to fill in the required fields. Once complete, Select **Next: Virtual Machines**.
+4.  On the Basics page, refer to the following screenshot to fill in the required fields. Once complete, select **Next: Virtual Machines**.
 
     ![Here is where you will enter the information for the host pool.](images/createhostpool.png "Create host pool page")
 
@@ -1178,7 +1178,7 @@ In this exercise we will be creating a Azure Virtual Desktop host pool for perso
 
     ![From the create a host pool workspace tab, enter the required information.](images/hostpoolWorkspace.png "Create a host pool workspace tab")
 
-8.  On the Create a host pool page, Select **Create**.
+8.  On the Create a host pool page, select **Create**.
 
 ### Task 2: Create a friendly name for the workspace
 
@@ -1222,7 +1222,7 @@ In the new Azure Virtual Desktop ARM portal, we now have the ability to use Azur
 
     ![Here is where you will find the application group created in Task 1.](images/avdappgroups.png)
 
-5.  Under Manage, select **Assignments** and Select **+ Add**.
+5.  Under Manage, select **Assignments** and select **+ Add**.
 
     ![Find manage in the menu and select assignments and add.](images/addassignments.png)
 
@@ -1241,7 +1241,7 @@ With the assignment added, you can move on to the next exercise. The users in th
 
 Duration:  45 minutes
 
-In this exercise we will be creating a non-persistent host pool for publishing remote apps. This enables you to assign users access to specific applications rather than an entire desktop. This type of application deployment serves many purposes and is not new to AVD, but has existed in Windows Server Remote Desktop Services for many years.
+In this exercise, you will be creating a non-persistent host pool for publishing remote apps. This enables you to assign users access to specific applications rather than an entire desktop. This type of application deployment serves many purposes and is not new to AVD, but has existed in Windows Server Remote Desktop Services for many years.
 
 **Additional Resources**
 
@@ -1280,7 +1280,7 @@ In this exercise we will be creating a non-persistent host pool for publishing r
 
     ![In this blade, select yes and create a new workspace.  Select review and create when complete.](images/newworkspaceremoteapps.png)
 
-7.  On the Create a host pool page, Select **Create**.
+7.  On the Create a host pool page, select **Create**.
 
 ### Task 2: Create a friendly name for the workspace
 
@@ -1325,9 +1325,9 @@ The name of the Workspace is displayed when the user signs in. Available resourc
 
     ![From the application group blade, you will select to add users or user groups and select the AVD Remote App All users from the blade that opens next.](images/assigngroup.png)
 
-7.  On the Applications page, Select **+ Add Application**.
+7.  On the Applications page, select **+ Add Application**.
 
-8.  On the Add Application fly out, next to Application source, select **Start Menu**. add the following applications, Selecting **Save** between selections.
+8.  On the Add Application fly out, next to Application source, select **Start Menu**. add the following applications, selecting **Save** between selections.
 
     - Outlook
 
@@ -1361,13 +1361,13 @@ The name of the Workspace is displayed when the user signs in. Available resourc
 
 12. Select **Create**.
 
-You have successfully created a Remote App non-persistent Host Pool with published apps. You can validate this configuration when we connect to the environment in a later exercise.
+You have successfully created a Remote App non-persistent Host Pool with published apps. You can validate this configuration when you connect to the environment in a later exercise.
 
 ## Exercise 7: Connect to AVD with the web client
 
 Duration:  30 minutes
 
-In this exercise we are going to walk through connecting to your AVD environment using the HTML5 web client and validating your deployment. The following operating systems and browsers are supported:
+In this exercise, you are going to walk through connecting to your AVD environment using the HTML5 web client and validating your deployment. The following operating systems and browsers are supported:
 
 **Additional Resources**
 
@@ -1406,11 +1406,11 @@ There are multiple clients available for you to access AVD resources. Refer to t
 
     ![Once you login to the portal, you will see the apps that are available for you to use.](images/appsavailable.png)
 
-5.  On the **Access local resources** prompt, review the available options for and Select **Allow**.
+5.  On the **Access local resources** prompt, review the available options for and select **Allow**.
 
     ![Here you will select the default desktop and allow local resources.](images/allowlocal.png)
 
-6.  On the **Enter your credentials** prompt, sign in using the same account from Step 3 and Select **Submit**. 
+6.  On the **Enter your credentials** prompt, sign in using the same account from Step 3 and select **Submit**. 
    
     >**Note**: The username and password to login to the AVD desktop will be credentials from the domain controller user name and password created upon initial deployment.  If you need the user email, RDP into the domain controller VM and find the user in the **Active Directory Users and Groups** and **OrgUsers**.
 
@@ -1451,7 +1451,7 @@ If the Web client keeps prompting for credentials, follow these instructions:
 
 Duration:  45 minutes
 
-In this exercise we will setup monitoring for our AVD host pools. There are multiple reasons why monitoring serves a critical role; troubleshooting, performance, security, etc. There are also multiple components that make up the AVD service, which can add some variation on how customers implement monitoring (e.g., adding additional third-party solutions). By the end of this exercise, you will have the following monitoring capabilities enabled:
+In this exercise, you will setup monitoring for our AVD host pools. There are multiple reasons why monitoring serves a critical role; troubleshooting, performance, security, etc. There are also multiple components that make up the AVD service, which can add some variation on how customers implement monitoring (e.g., adding additional third-party solutions). By the end of this exercise, you will have the following monitoring capabilities enabled:
 
 -   Diagnostic logging for the AVD service
 
@@ -1486,11 +1486,11 @@ In this exercise we will create a dedicated workspace for our environment. If yo
 
     ![From the Azure portal search bar, search for log analytics and select the service.](images/searchloganalytics.png "Search for Log Analytics")
 
-3.  On the Log Analytics workspaces blade, Select **+Add**.
+3.  On the Log Analytics workspaces blade, select **+Add**.
 
     ![In the Log Analytics blade, select add to create a new workspace.](images/createlogworkspace.png "Add a Log Analytics workspace")
 
-4.  On the Create Log Analytics workspace blade, fill in the following information and Select **Review + Create**.
+4.  On the Create Log Analytics workspace blade, fill in the following information and select **Review + Create**.
 
     -    **Subscription:** Select the desired subscription for the Log Analytics workspace.
 
@@ -1540,7 +1540,7 @@ Each AVD ARM object has different diagnostic data categories available. For exam
 
     ![From the host pool blade, locate diagnostic settings under the monitoring menu heading, and select add diagnostic settings.](images/hostpooldiag.png "Add Host Pool Diagnostic settings")
 
-7.  On the Diagnostic settings page, fill in the following information and Select **Save**.
+7.  On the Diagnostic settings page, fill in the following information and select **Save**.
 
     -    **Diagnostic settings name:** Enter a name for these settings. ARM objects can have multiple diagnostic settings applied.
 
@@ -1681,7 +1681,7 @@ Often during the deployment of AVD there may be challenges with either having ma
 
 Duration:  60 minutes
 
-In this exercise we will our AVD experience bay utilizing additional features or tools with the host pools. AVD is designed to be a versatile platform to distribute and build your solution from, and these optional features allow you to enhance and/or secure the environment depending on your needs. By the end of this exercise, you will have the following features enabled:
+In this exercise, you will our AVD experience bay utilizing additional features or tools with the host pools. AVD is designed to be a versatile platform to distribute and build your solution from, and these optional features allow you to enhance and/or secure the environment depending on your needs. By the end of this exercise, you will have the following features enabled:
 
 - Autoscale pooled pool based on connections
 
@@ -1837,7 +1837,7 @@ At this point, your AVD Host Pool that is Pooled will spin up and down hosts bas
 
 ### Task 2: Utilizing Application Packages (MSIX)
 
-In this task, we will take a **MSIX package** created from the [MSIX packaging tool](https://docs.microsoft.com/en-us/windows/msix/packaging-tool/tool-overview) and utilize the Azure portal to attach the MSIX package dynamically to AVD pools as users login.  MSIX Packages are disk images containing all files, configurations, and publication details needed to run supported applactions that can be mounted by Windows systems on the fly to allow users to run the application without having to install the application to the host machine. By utilizing this technique, we can minimize the footprint and management needs of the AVD hosts while still putilizing multiple applications on the systems without installing the applications permanent on the system.
+In this task, you will take a **MSIX package** created from the [MSIX packaging tool](https://docs.microsoft.com/en-us/windows/msix/packaging-tool/tool-overview) and utilize the Azure portal to attach the MSIX package dynamically to AVD pools as users login.  MSIX Packages are disk images containing all files, configurations, and publication details needed to run supported applactions that can be mounted by Windows systems on the fly to allow users to run the application without having to install the application to the host machine. By utilizing this technique, we can minimize the footprint and management needs of the AVD hosts while still putilizing multiple applications on the systems without installing the applications permanent on the system.
 
 1. Go to the [Azure Portal](https://portal.azure.com/)
 
