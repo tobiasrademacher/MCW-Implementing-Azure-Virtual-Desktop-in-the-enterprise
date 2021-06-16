@@ -1929,7 +1929,7 @@ This application is now running on the host pool although the application itself
 
 ### Task 3: Protect AVD with Microsoft Defender for Endpoint
 
-In this task, you will enable Microsoft Defender for Endpoint service and deployment the Endpoint protection via Azure. This will allow for all systems to be protected by the Defender service from potential vulnerabilities and alert in the event of suspcious execution or activity.
+In this task, you will enable Microsoft Defender for Endpoint service and deploy the endpoint protection via Azure. This will allow for all systems to be protected by the Microsoft Defender for Endpoint service from potential vulnerabilities and alert in the event of suspcious execution or activity.
 
 > **NOTE:** This will require signing up for [Azure Defender trial](https://docs.microsoft.com/en-us/azure/security-center/enable-azure-defender#to-enable-azure-defender-on-your-subscriptions-and-workspaces) on your subscription.  If this is a Visual Studio subscription or you do not want to sign up for the time trial yet, you will need to wait and deploy this when you can sign up for the Azure Defender trial.
 
