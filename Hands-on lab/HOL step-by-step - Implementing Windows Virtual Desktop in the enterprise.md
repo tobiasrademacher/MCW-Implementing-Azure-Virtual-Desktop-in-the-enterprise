@@ -939,7 +939,7 @@ The UI form offers the following actions:
 
 -   Install the **latest** version of Microsoft Teams *per-machine*.
 
--   Source documentation: [Use Microsoft Teams on Windows Virtual desktop](https://docs.microsoft.com/en-us/azure/virtual-desktop/teams-on-wvd).
+-   Source documentation: [Use Microsoft Teams on Azure Virtual desktop](https://docs.microsoft.com/en-us/azure/virtual-desktop/teams-on-avd).
 
 **Microsoft Edge Chromium**
 
