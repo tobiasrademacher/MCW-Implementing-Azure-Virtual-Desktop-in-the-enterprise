@@ -53,7 +53,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
     - [Task 2: Run Windows Update](#task-2-run-windows-update)
     - [Task 3: Prepare AVD image](#task-3-prepare-avd-image)
     - [Task 4: Run Sysprep](#task-4-run-sysprep)
-    - [Task 5: Create a managed image from the Master Image VM](#task-5-create-a-managed-image-from-the-gold-image-vm)
+    - [Task 5: Create a managed image from the gold Image VM](#task-5-create-a-managed-image-from-the-gold-image-vm)
     - [Task 6: Provision a Host Pool with a custom image](#task-6-provision-a-host-pool-with-a-custom-image)
   - [Exercise 5: Create a host pool for personal desktops](#exercise-5-create-a-host-pool-for-personal-desktops)
     - [Task 1: Create a new Host Pool and Workspace](#task-1-create-a-new-host-pool-and-workspace)
@@ -85,7 +85,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 
 ## Abstract and learning objectives
 
-In this hands-on lab, you will implement an Azure Virtual Desktop (formerly Windows Virtual Desktop) Infrastructure and learn how-to setup a working AVD environment end-to-end in a typical Enterprise model. At the end of the lab, attendees will have deployed an Azure Active Directory Tenant with Azure AD Connect to an Active Directory Domain Controller that is running in Azure. You will also deploy the Azure infrastructure for the Azure Virtual Desktop Tenant(s), Host Pool(s) and session host(s), and connect to a AVD session utilizing different supported devices and browsers. You will publish Azure Virtual Desktops and remote apps, and configure user profiles and file shares with FSLogix.  Finally, you will configure monitoring and security for the Azure Virtual Desktop infrastructure and understand the steps to manage the gold images.
+In this hands-on lab, you will implement an Azure Virtual Desktop (formerly Windows Virtual Desktop) Infrastructure and learn how-to setup a working AVD environment end-to-end in a typical Enterprise model. At the end of the lab, attendees will have deployed an Azure Active Directory Tenant with Azure AD Connect to an Active Directory Domain Controller that is running in Azure. You will also deploy the Azure infrastructure for the Azure Virtual Desktop Tenant(s), Host Pool(s) and session host(s), and connect to an AVD session utilizing different supported devices and browsers. You will publish desktops and remote apps, and configure user profiles and file shares with FSLogix.  Finally, you will configure monitoring and security for the Azure Virtual Desktop infrastructure and understand the steps to manage the gold images.
 
 ## Overview
 
@@ -95,7 +95,7 @@ In this lab, attendees will deploy the [Azure Virtual Desktop (AVD)](https://azu
 
 ![This is the Solution architecture diagram as described in the text below.](images/avdsolutiondiagramv2.png "Solution architecture") 
 
-This diagram shows a Azure Virtual Desktop architecture with on-premises servers for Active Directory.  In the diagram, the host pools are providing the AVD session to the different supported devices. Azure Monitor, Network Watcher, and Log Analytics are monitoring and logging activity and performance metrics.
+This diagram shows an Azure Virtual Desktop architecture with on-premises servers for Active Directory.  In the diagram, the host pools are providing the AVD session to the different supported devices. Azure Monitor, Network Watcher, and Log Analytics are monitoring and logging activity and performance metrics.
 
 ## Requirements
 
@@ -105,7 +105,7 @@ Before you start setting up your Azure Virtual Desktop workspace, make sure you 
 
 -   A global administrator account within the Azure Active Directory tenant.
 
-    -   This also applies to Cloud Solution Provider (CSP) organizations that are creating a Azure Virtual Desktop workspace for their customers. If you are in a CSP organization, you must be able to sign in as global administrator of the customer\'s Azure Active Directory tenant.
+    -   This also applies to Cloud Solution Provider (CSP) organizations that are creating an Azure Virtual Desktop workspace for their customers. If you are in a CSP organization, you must be able to sign in as global administrator of the customer\'s Azure Active Directory tenant.
 
     -   The administrator account must be sourced from the Azure Active Directory tenant in which you are trying to create the Azure Virtual Desktop workspace. This process does not support Azure Active Directory B2B (guest) accounts.
 
@@ -927,13 +927,13 @@ The UI form offers the following actions:
 
 -   Apply recommended settings.
 
--   Source documentation: [Install Office on a VHD image](https://docs.microsoft.com/en-us/azure/virtual-desktop/install-office-on-wvd-master-image).
+-   Source documentation: [Install Office on a gold VHD image](https://docs.microsoft.com/en-us/azure/virtual-desktop/install-office-on-wvd-master-image).
 
 **OneDrive for Business**
 
 -   Install the **latest** version of OneDrive for Business *per-machine*.
 
--   Source documentation: [Install Office on a VHD image](https://docs.microsoft.com/en-us/azure/virtual-desktop/install-office-on-wvd-master-image).
+-   Source documentation: [Install Office on a gold VHD image](https://docs.microsoft.com/en-us/azure/virtual-desktop/install-office-on-wvd-master-image).
 
 **Microsoft Teams**
 
@@ -961,7 +961,7 @@ The UI form offers the following actions:
 
 -   Apply the recommended AVD settings for image capture.
 
--   Source documentation: [Prepare and customize a VHD image](https://docs.microsoft.com/en-us/azure/virtual-desktop/set-up-customize-master-image).
+-   Source documentation: [Prepare and customize a gold VHD image](https://docs.microsoft.com/en-us/azure/virtual-desktop/set-up-customize-master-image).
 
 -   Apply the recommended settings for capturing an Azure VM.
 
@@ -1092,7 +1092,7 @@ This will trigger the PowerShell form to launch. Select the appropriate options 
 
 The system will automatically shut down and disconnect your RDP session.
 
-### Task 5: Create a managed image from the Master Image VM
+### Task 5: Create a managed image from the gold Image VM
 
 1.  Sign in to the [Azure Portal](https://portal.azure.com/).
 
@@ -1139,7 +1139,7 @@ The system will automatically shut down and disconnect your RDP session.
 
 Duration:  45 minutes
 
-In this exercise we will be creating a Azure Virtual Desktop host pool for personal desktops. This is a set of computers or hosts which operate on an as-needed basis. In a pooled configuration we will be hosting multiple non-persistent sessions, with no user profile information stored locally. This is where FSLogix Profile Containers provide the users profile to the host dynamically. This provides the ability for an organization to fully utilize the compute resources on a single host and lower the total overhead, cost, and number of remote workstations.
+In this exercise we will be creating an Azure Virtual Desktop host pool for personal desktops. This is a set of computers or hosts which operate on an as-needed basis. In a pooled configuration we will be hosting multiple non-persistent sessions, with no user profile information stored locally. This is where FSLogix Profile Containers provide the users profile to the host dynamically. This provides the ability for an organization to fully utilize the compute resources on a single host and lower the total overhead, cost, and number of remote workstations.
 
 **Additional Resources**
 
@@ -1704,7 +1704,7 @@ In this exercise, you will our AVD experience bay utilizing additional features 
 
 ### Task 1: Enabling Autoscale
 
-In this task, you will create an Azure Automation account and Logic App that will regularly update the scaling of your pool based on the number of connections.  Azure Automation allows for the execution of scripts and commands with an identity related to the automation.  Logic App allows for regular execution of commands and tasks.  By combining these two resources, we allow for repititive tasks of a detailed nature which will allow us to automatically increaese and decrease the number of hosts in a AVD host pool based on demand of the environment.
+In this task, you will create an Azure Automation account and Logic App that will regularly update the scaling of your pool based on the number of connections.  Azure Automation allows for the execution of scripts and commands with an identity related to the automation.  Logic App allows for regular execution of commands and tasks.  By combining these two resources, we allow for repititive tasks of a detailed nature which will allow us to automatically increaese and decrease the number of hosts in an AVD host pool based on demand of the environment.
 
 1. Use PowerShell on a system with the [Azure Module](https://docs.microsoft.com/en-us/powershell/azure/install-az-ps?view=azps-5.9.0) installed (such as from Exercise 3, Task 3)
 1. Run the following command connect to Azure using the subscription of your AVD:
@@ -1929,7 +1929,7 @@ This application is now running on the host pool although the application itself
 
 ### Task 3: Protect AVD with Microsoft Defender for Endpoint
 
-In this task, you will enable Defender for Endpoint service and deployment the Endpoint protection via Azure. This will allow for all systems to be protected by the Defender service from potential vulnerabilities and alert in the event of suspcious execution or activity.
+In this task, you will enable Microsoft Defender for Endpoint service and deployment the Endpoint protection via Azure. This will allow for all systems to be protected by the Defender service from potential vulnerabilities and alert in the event of suspcious execution or activity.
 
 > **NOTE:** This will require signing up for [Azure Defender trial](https://docs.microsoft.com/en-us/azure/security-center/enable-azure-defender#to-enable-azure-defender-on-your-subscriptions-and-workspaces) on your subscription.  If this is a Visual Studio subscription or you do not want to sign up for the time trial yet, you will need to wait and deploy this when you can sign up for the Azure Defender trial.
 
@@ -1957,7 +1957,7 @@ In this task, you will enable Defender for Endpoint service and deployment the E
 
     ![Choose all the hosts of the AVD and fix VMs](images/defenderFixVMs.png "Fix defender")
 
-1. Selec the **Qualys** agent for deploying to Azure Defender and click **Proceed**
+1. Select the **Qualys** agent for deploying to Azure Defender and click **Proceed**
 
     !["Choose the Qualys agent that is included with teh Azure Defender for servers"](images/defenderSelectQualys.png "Choose Qualys")
 
