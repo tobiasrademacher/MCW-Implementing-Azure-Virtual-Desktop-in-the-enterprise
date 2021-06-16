@@ -45,7 +45,7 @@ Before you start setting up your Azure Virtual Desktop workspace, make sure you 
 
 -   A global administrator account within the Azure Active Directory tenant.
 
-    -   This also applies to Cloud Solution Provider (CSP) organizations that are creating a Azure Virtual Desktop workspace for their customers. If you are in a CSP organization, you must be able to sign in as global administrator of the customer\'s Azure Active Directory tenant.
+    -   This also applies to Cloud Solution Provider (CSP) organizations that are creating an Azure Virtual Desktop workspace for their customers. If you are in a CSP organization, you must be able to sign in as global administrator of the customer\'s Azure Active Directory tenant.
 
     -   The administrator account must be sourced from the Azure Active Directory tenant in which you are trying to create the Azure Virtual Desktop workspace. This process does not support Azure Active Directory B2B (guest) accounts.
 
@@ -103,7 +103,7 @@ deployment. To avoid confusion and deployment errors, **open an InPrivate browse
 
 3.  Under Quick Start, click **Deploy to Azure**. This will open a new browser tab to the Azure Portal for custom deployments.
     
-    ![Screenshop of the Deploy to Azure button within Github.](images/1.png "Deploy to Azure button")
+    ![Screenshot of the Deploy to Azure button within Github.](images/1.png "Deploy to Azure button")
 
 4.  If prompted, make sure to sign in with an account that is an owner for the Azure subscription.
 
