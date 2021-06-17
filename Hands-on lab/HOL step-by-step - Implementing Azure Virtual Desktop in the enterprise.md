@@ -1704,7 +1704,7 @@ In this exercise, you will our AVD experience bay utilizing additional features 
 
 ### Task 1: Enabling Autoscale
 
-In this task, you will create an Azure Automation account and Logic App that will regularly update the scaling of your pool based on the number of connections.  Azure Automation allows for the execution of scripts and commands with an identity related to the automation.  Logic App allows for regular execution of commands and tasks.  By combining these two resources, we allow for repititive tasks of a detailed nature which will allow us to automatically increaese and decrease the number of hosts in an AVD host pool based on demand of the environment.
+In this task, you will create an Azure Automation account and Logic App that will regularly update the scaling of your pool based on the number of connections.  Azure Automation allows for the execution of scripts and commands with an identity related to the automation.  Logic App allows for regular execution of commands and tasks.  By combining these two resources, we allow for repetitive tasks of a detailed nature which will allow us to automatically increase and decrease the number of hosts in an AVD host pool based on demand of the environment.
 
 1. Use PowerShell on a system with the [Azure Module](https://docs.microsoft.com/en-us/powershell/azure/install-az-ps?view=azps-5.9.0) installed (such as from Exercise 3, Task 3)
 1. Run the following command connect to Azure using the subscription of your AVD:
@@ -1829,7 +1829,7 @@ $Params = @{
 
     ![Logic App graphical design view](images/logicAppDesigner.png "Logic App Designer")
 
-1. You can veiw the occurances of your runs by going back to the **Overview** of the Logic App
+1. You can view the occurrences of your runs by going back to the **Overview** of the Logic App
 
     ![Opening the Logic App overview will show the Run History and see previous runs](images/logicAppOverview.png "Logic App Overview")
 
@@ -1837,7 +1837,7 @@ At this point, your AVD Host Pool that is Pooled will spin up and down hosts bas
 
 ### Task 2: Utilizing Application Packages (MSIX)
 
-In this task, you will take a **MSIX package** created from the [MSIX packaging tool](https://docs.microsoft.com/en-us/windows/msix/packaging-tool/tool-overview) and utilize the Azure portal to attach the MSIX package dynamically to AVD pools as users login.  MSIX Packages are disk images containing all files, configurations, and publication details needed to run supported applactions that can be mounted by Windows systems on the fly to allow users to run the application without having to install the application to the host machine. By utilizing this technique, we can minimize the footprint and management needs of the AVD hosts while still putilizing multiple applications on the systems without installing the applications permanent on the system.
+In this task, you will take a **MSIX package** created from the [MSIX packaging tool](https://docs.microsoft.com/en-us/windows/msix/packaging-tool/tool-overview) and utilize the Azure portal to attach the MSIX package dynamically to AVD pools as users login.  MSIX Packages are disk images containing all files, configurations, and publication details needed to run supported applications that can be mounted by Windows systems on the fly to allow users to run the application without having to install the application to the host machine. By utilizing this technique, we can minimize the footprint and management needs of the AVD hosts while still utilizing multiple applications on the systems without installing the applications permanent on the system.
 
 1. Go to the [Azure Portal](https://portal.azure.com/)
 
