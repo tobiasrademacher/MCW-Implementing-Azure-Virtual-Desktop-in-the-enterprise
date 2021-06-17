@@ -131,7 +131,7 @@ Before you start setting up your Azure Virtual Desktop workspace, make sure you 
 
 If you run into issues with your Azure Virtual Desktop (AVD) environment, there will periodically be troubleshooting tips at the end of the current exercise.  If the issues are not directly addressed, please feel free to reach out to your instructor or teacher.
 
-Also, review the please see the article [AVD troubleshooting article](https://docs.microsoft.com/en-us/azure/virtual-desktop/troubleshoot-set-up-overview). Part of the article will also cover the steps covered in [Exercise 8](#exercise-8-setup-monitoring-for-wvd) that can be used to help diagnose an issue you're running into.
+Also, review the please see the article [AVD troubleshooting article](https://docs.microsoft.com/en-us/azure/virtual-desktop/troubleshoot-set-up-overview). Part of the article will also cover the steps covered in [Exercise 8](#exercise-8-setup-monitoring-for-avd) that can be used to help diagnose an issue you're running into.
 
 ## Exercise 1: Configuring Azure AD Connect with AD DS
 
@@ -1854,7 +1854,7 @@ In this task, you will take a **MSIX package** created from the [MSIX packaging 
 
 > **NOTE:** Normally in production you would create an additional share for MSIX files and place the files there.  You would need to make sure the share or container the MSIX files are in you follow the same steps you use for the FSLogix storage account and apply the appropriate permissions to them (users normally only need Read access) and make sure there is enough room to store them.  We are placing it on the same share for this exercise for expidency sake and easier setup. It is not uncommon to have a central MSIX storage with permissions to each MSIX file based on groups assigned to the appropriate application and the MSIX repository used by multiple pools or deployments, but ensure network connectivity and speed are kept consistant.
 
-1. Take note of the storage account (ie: `dncloudwvdstorage` ) and the name of the file share (ie: `labwvdfileshare`)
+1. Take note of the storage account (ie: `dncloudavdstorage` ) and the name of the file share (ie: `labavdfileshare`)
 1. Open a PowerShell window with the Azure Module installed and connect to the Azure subscription with this command if it is not already connected:
 
 ```powershell
@@ -1865,7 +1865,7 @@ Connect-AzAccount
 
 ```powershell
 $SAName = Read-Host "What is the name of the storage account with AVD file shares? (ie: mystorageacct1592)" # Provide the name to the storage account here instead of prompting
-$SAShare = Read-Host "What is the name of the file share in the storage account used for AVD? (ie: labwvdfilesshare)"
+$SAShare = Read-Host "What is the name of the file share in the storage account used for AVD? (ie: labavdfilesshare)"
 
 $sa = Get-AzStorageAccount | ? StorageAccountName -eq $SAName
 $SAS = New-AzStorageAccountSASToken -Context $sa.Context -Service File -ResourceType Object -Permission rwd -Protocol HttpsOnly -ExpiryTime ((Get-Date).AddHours(4))
