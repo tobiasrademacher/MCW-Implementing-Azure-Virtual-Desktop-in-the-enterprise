@@ -1824,7 +1824,7 @@ $Params = @{
     ![Azure Portal Logic App](images/logicApps.png "Azure Portal")
 
 1. Click on the **Logic app designer** link under Development Tools, you will see the graphical representation of the workflow created by the script.
-1. You can click on the **Recurrence** to change how often the script runs
+1. You can click on the **Recurrence** to change how often the script runs.
 1. Click on the **Run** button to trigger the scaling immediately
 
     ![Logic App graphical design view](images/logicAppDesigner.png "Logic App Designer")
@@ -1843,18 +1843,18 @@ In this task, you will take a **MSIX package** created from the [MSIX packaging 
 
     ![Going back to the Azure Portal web page](images/azureportal.png "Azure Portal")
 
-1. Go to the **Storage Account** created in Exercise 3 for the FSLogix profiles that was already joined to Active Directory
-1. Click on the **File shares** under data storage and click on the share created for AVD files
+1. Go to the **Storage Account** created in Exercise 3 for the FSLogix profiles that was already joined to Active Directory.
+1. Click on the **File shares** under data storage and click on the share created for AVD files.
 
     ![Open share for AVD File Share on storage account](images/avdFileShare.png "AVD File Share")
 
-1. Click the **+ Add directory** button to create a new folder and name it **msix**
+1. Click the **+ Add directory** button to create a new folder and name it **msix**.
 
     ![Add directory on storage account](images/avdFileShareAdd.png "File Share add directory")
 
-> **NOTE:** Normally in production you would create an additional share for MSIX files and place the files there.  You would need to make sure the share or container the MSIX files are in you follow the same steps you use for the FSLogix storage account and apply the appropriate permissions to them (users normally only need Read access) and make sure there is enough room to store them.  We are placing it on the same share for this exercise for expidency sake and easier setup. It is not uncommon to have a central MSIX storage with permissions to each MSIX file based on groups assigned to the appropriate application and the MSIX repository used by multiple pools or deployments, but ensure network connectivity and speed are kept consistant.
+> **Note:** Normally in production you would create an additional share for MSIX files and place the files there.  You would need to make sure the share or container the MSIX files are in you follow the same steps you use for the FSLogix storage account and apply the appropriate permissions to them (users normally only need Read access) and make sure there is enough room to store them.  We are placing it on the same share for this exercise for expediency sake and easier setup. It is not uncommon to have a central MSIX storage with permissions to each MSIX file based on groups assigned to the appropriate application and the MSIX repository used by multiple pools or deployments, but ensure network connectivity and speed are kept cnsistent.
 
-1. Take note of the storage account (ie: `dncloudavdstorage` ) and the name of the file share (ie: `labavdfileshare`)
+1. Take note of the storage account (i.e.: `dncloudavdstorage` ) and the name of the file share (ie: `labavdfileshare`)
 1. Open a PowerShell window with the Azure Module installed and connect to the Azure subscription with this command if it is not already connected:
 
 ```powershell
@@ -1877,7 +1877,7 @@ Write-Output "Use the path [\\$($sa.StorageAccountName).file.core.windows.net\$S
 pause
 ```
 
-1. Find the **Windos Virtual Desktop** resources
+1. Find the **Windows Virtual Desktop** resources
 1. Select the **Host pools** and select the Pooled host pool
 
     ![Selecting Host Pools of Azure Virtual Desktop](images/avdHostPools.png "AVD Host Pools")
@@ -1888,9 +1888,9 @@ pause
 
 1. Go to  **MSIX packages** under the Manage section and click **+ Add** to add an MSIX package to the pool
 
-    ![Go the MSIX packages section and click add a pacakge](images/avdAddMSIXPackages.png "AVD add MSIX package")
+    ![Go the MSIX packages section and click add a package.](images/avdAddMSIXPackages.png "AVD add MSIX package")
 
-1. In the MSIX image path, put the following path replacing `<storageacctname>` with the name ove the Storage Account and `<shareName>` with the share that holds the MSIX above:
+1. In the MSIX image path, put the following path replacing `<storageacctname>` with the name over the Storage Account and `<shareName>` with the share that holds the MSIX above:
 
 ```markdown
 \\<storageacctname>.file.core.windows.net\<shareName>\msix\MCW-WVD-MSIX.vhd
@@ -1916,7 +1916,7 @@ pause
     ![Add Application Group](images/avdAddApplication.png "Add application")
 
 1. Choose **MSIX package** from the Application source
-1. Select the MSIX pacakge and MSIX application you just added
+1. Select the MSIX package and MSIX application you just added
 1. Ensure the **Application name** matches the name
 1. Click **Save** to include
 
@@ -1929,7 +1929,7 @@ This application is now running on the host pool although the application itself
 
 ### Task 3: Protect AVD with Microsoft Defender for Endpoint
 
-In this task, you will enable Microsoft Defender for Endpoint service and deploy the endpoint protection via Azure. This will allow for all systems to be protected by the Microsoft Defender for Endpoint service from potential vulnerabilities and alert in the event of suspcious execution or activity.
+In this task, you will enable Microsoft Defender for Endpoint service and deploy the endpoint protection via Azure. This will allow for all systems to be protected by the Microsoft Defender for Endpoint service from potential vulnerabilities and alert in the event of suspicious execution or activity.
 
 > **NOTE:** This will require signing up for [Azure Defender trial](https://docs.microsoft.com/en-us/azure/security-center/enable-azure-defender#to-enable-azure-defender-on-your-subscriptions-and-workspaces) on your subscription.  If this is a Visual Studio subscription or you do not want to sign up for the time trial yet, you will need to wait and deploy this when you can sign up for the Azure Defender trial.
 
