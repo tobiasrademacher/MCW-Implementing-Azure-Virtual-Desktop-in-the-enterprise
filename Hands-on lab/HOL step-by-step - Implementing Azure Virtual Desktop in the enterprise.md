@@ -470,7 +470,7 @@ In this task, you will be completing the steps on the Domain Controller in Azure
 
 5.  Open an elevated PowerShell ISE window by finding the **PowerShell ISE** icon on the desktop. Right-click on the icon and select **Run as administrator**.
 
-    ![This image shows how to locate the PowerShell icon on the domain computer desktop, right click and select run as administrator.](images/runasadministrator.png)
+    ![This image shows how to locate the PowerShell icon on the domain computer desktop, right-click and select run as administrator.](images/runasadministrator.png)
 
 6.  Configure the PowerShell execution policy **Unrestricted** for the current user.
 
@@ -1219,7 +1219,7 @@ In the new Azure Virtual Desktop ARM portal, we now have the ability to use Azur
 
 3.  Under Manage, select **Application groups**.
     
-4.  Locate the Application group that was created as part of Task 1 (**\<poolName\>-DAG**). Click on the name to manage the Application group.
+4.  Locate the Application group that was created as part of Task 1 (**\<poolName\>-DAG**). Select the name to manage the Application group.
 
     ![This image show where you will find the application group created in Task 1.](images/avdappgroups.png)
 
@@ -1745,11 +1745,11 @@ In this task, you will create an Azure Automation account and Logic App that wil
 1. Go to the Azure Automation account
     ![This images shows where to search to find the Azure Automation account in the portal](images/automationAccount.png "Azure Portal")
 1. Select Run As accounts under Account Settings
-1. Click **Create** to create a new account
+1. Select **Create** to create a new account
     ![This image shows where you will find the automation account and select Run As of the Automation Account](images/createRunAs.png "Create Automation Run As Account")
 1. This process may take a few minutes, but you can track the progress.
 1. When it is complete, there will be a resource named **AzureRunAsConnection**.
-1. Clicking the **Azure Run As account**, you can see the application ID, tenant ID, subscription ID, and certificate thumbprint.
+1. Selecting the **Azure Run As account**, you can see the application ID, tenant ID, subscription ID, and certificate thumbprint.
     ![This image shows the completed Run As Automation account](images/AutomationRunAsDetails.png "Azure automation Run As account")
 1. Go back to the PowerShell window from earlier.
 1. Run the following code to download a script to create the Logic App:
@@ -1824,9 +1824,9 @@ In this task, you will create an Azure Automation account and Logic App that wil
 
     ![This image shows the search to access Azure Portal Logic App services.](images/logicApps.png "Azure Portal")
 
-1. Click on the **Logic app designer** link under Development Tools, you will see the graphical representation of the workflow created by the script.
-1. You can click on the **Recurrence** to change how often the script runs.
-1. Click on the **Run** button to trigger the scaling immediately
+1. Select on the **Logic app designer** link under Development Tools, you will see the graphical representation of the workflow created by the script.
+1. You can select on the **Recurrence** to change how often the script runs.
+1. Select on the **Run** button to trigger the scaling immediately
 
     ![This image shows the Logic App graphical design view](images/logicAppDesigner.png "Logic App Designer")
 
@@ -1845,11 +1845,11 @@ In this task, you will take a **MSIX package** created from the [MSIX packaging 
     ![This image shows the Azure Portal home web page](images/azureportal.png "Azure Portal")
 
 1. Go to the **Storage Account** created in Exercise 3 for the FSLogix profiles that was already joined to Active Directory.
-1. Click on the **File shares** under data storage and click on the share created for AVD files.
+1. Select on the **File shares** under data storage and select on the share created for AVD files.
 
     ![This image shows that you will open share for AVD File Share on storage account](images/avdFileShare.png "AVD File Share")
 
-1. Click the **+ Add directory** button to create a new folder and name it **msix**.
+1. Select the **+ Add directory** button to create a new folder and name it **msix**.
 
     ![This image shows where to add a directory on storage account](images/avdFileShareAdd.png "File Share add directory")
 
@@ -1887,7 +1887,7 @@ In this task, you will take a **MSIX package** created from the [MSIX packaging 
 
     ![This image shows the selecting Pooled host pools of Azure Virtual Desktop](images/avdPooledPool.png "Pooled host pool")
 
-1. Go to  **MSIX packages** under the Manage section and click **+ Add** to add an MSIX package to the pool
+1. Go to  **MSIX packages** under the Manage section and select **+ Add** to add an MSIX package to the pool
 
     ![This image show where to go for the MSIX packages section and select add a package.](images/avdAddMSIXPackages.png "AVD add MSIX package")
 
@@ -1904,7 +1904,7 @@ In this task, you will take a **MSIX package** created from the [MSIX packaging 
 1. Ensure there is an application listed under **Package applications**
 1. For **Registration type**, select **On-demand registration**
 1. Under **State**, select **Active**
-1. Click **Add** to add the package
+1. Select **Add** to add the package
 
     ![This image show the settings for adding application package to AVD](images/avdAddPackageSettings.png "Add MSIX settings")
 
@@ -1912,14 +1912,14 @@ In this task, you will take a **MSIX package** created from the [MSIX packaging 
 
     ![This image shows where to select AVD Application Group](images/avdApplicationGroup.png "Go to Application group")
 
-1. Click **+ Add** to add an application
+1. Select **+ Add** to add an application
 
     ![This image shows where to Add Application Group](images/avdAddApplication.png "Add application")
 
 1. Choose **MSIX package** from the Application source
 1. Select the MSIX package and MSIX application you just added
 1. Ensure the **Application name** matches the name
-1. Click **Save** to include
+1. Select **Save** to include
 
     ![This image shows how to set the MSIX application settings and select Save](images/avdSaveMSIXApp.png "Setup MSIX application")
 
@@ -1944,7 +1944,7 @@ In this task, you will enable Microsoft Defender for Endpoint service and deploy
     ![In this image, you are searching and navigating to Azure Security Center (ASC)](images/findAsc.png "Azure Security Center")
 
 1. Go the **Azure Defender** under the Cloud Security section
-1. Click **Enable Azure Defender** to setup the trial edition of Azure Defender for your Subscription
+1. Select **Enable Azure Defender** to setup the trial edition of Azure Defender for your Subscription
 
     ![This image shows how to navigate to the Azure Defender section to enable the trial of Azure Defender](images/enableAzureDefender.png "Enable Azure Defender")
 
@@ -1954,15 +1954,15 @@ In this task, you will enable Microsoft Defender for Endpoint service and deploy
     ![This image shows how to where to select the VM assessment of Security Center to deploy to VMs](images/defenderVMassesment.png "VM assessment")
 
 1. Check the boxes next to all the VMs that host the AVD Host pools
-1. Click **Fix** to proceed to deployment of the agent
+1. Select **Fix** to proceed to deployment of the agent
 
     ![This image shows the VMs to choose for the hosts of the AVD and fix VMs to enable a vulnerability assessment.](images/defenderFixVMs.png "Fix defender for vulnerability assessment on AVD VMs")
 
-1. Select the **Qualys** agent for deploying to Azure Defender and click **Proceed**
+1. Select the **Qualys** agent for deploying to Azure Defender and select **Proceed**
 
     !["In this image, you are choosing the Qualys agent that is included with teh Azure Defender for servers."](images/defenderSelectQualys.png "Choose Qualys")
 
-1. Click **Fix X resources** to begin the deployment of the agent
+1. Select **Fix X resources** to begin the deployment of the agent
 
     !["This image shows the final step to ensure the VMs expected to be fixed after completing the previous steps."](images/deployDefenderByFix.png "Fix VMs with defender")
 
@@ -1973,7 +1973,7 @@ This will begin deploying Azure Defender to the Virtual Machines currently deplo
 
 Duration:  15 minutes
 
-| WARNING: Prior to continuing you should remove all resources used for this lab.  To do this in the **Azure Portal** click **Resource groups**.  Select any resources groups you have created.  On the resource group blade click **Delete Resource group**, enter the Resource Group Name and click **Delete**.  Repeat the process for any additional Resource Groups you may have created. **Failure to do this may cause issues with other labs.** |
+| WARNING: Prior to continuing you should remove all resources used for this lab.  To do this in the **Azure Portal** select **Resource groups**.  Select any resources groups you have created.  On the resource group blade select **Delete Resource group**, enter the Resource Group Name and select **Delete**.  Repeat the process for any additional Resource Groups you may have created. **Failure to do this may cause issues with other labs.** |
    
 ### Task 1: Delete Resource groups to remove lab environment
 
