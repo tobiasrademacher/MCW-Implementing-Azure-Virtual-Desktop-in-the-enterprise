@@ -90,7 +90,7 @@ In this hands-on lab, you will implement an Azure Virtual Desktop (formerly Wind
 
 ## Overview
 
-In this lab, attendees will deploy the [Azure Virtual Desktop (AVD)](https://azure.microsoft.com/en-us/services/virtual-desktop/) solution. Exclusively available as an Azure cloud service, Azure Virtual Desktop allows you to choose a flexible end user virtualized application or desktop delivery model that best aligns with your enterprise Azure cloud strategy. AVD simplifies the IT model to virtualize and deploy modern and legacy desktop app experiences with unified management---without needing to host, install, configure, and manage components such as diagnostics, networking, connection brokering, and gateway. AVD brings together Microsoft Office 365 and Azure to provide users with the only multi-session Windows 10 experience with exceptional scale and reduced IT costs while empowering today's modern digital workspace.
+In this lab, attendees will deploy the [Azure Virtual Desktop (AVD)](https://azure.microsoft.com/en-us/services/virtual-desktop/) solution. Exclusively available as an Azure cloud service, Azure Virtual Desktop allows you to choose a flexible end user virtualized application or desktop delivery model that best aligns with your enterprise Azure cloud strategy. AVD simplifies the IT model to virtualize and deploy modern and legacy desktop app experiences with unified management without needing to host, install, configure, and manage components such as diagnostics, networking, connection brokering, and gateway. AVD brings together Microsoft Office 365 and Azure to provide users with the only multi-session Windows 10 experience with exceptional scale and reduced IT costs while empowering today's modern digital workspace.
 
 ## Solution architecture
 
@@ -132,9 +132,9 @@ Before you start setting up your Azure Virtual Desktop workspace, make sure you 
 
 When you run into issues with your Azure Virtual Desktop (AVD) environment, there will periodically be troubleshooting tips at the end of the current exercise.  If the issues are not directly addressed, please feel free to reach out to your instructor or teacher.
 
-Also, review the please see the article [AVD troubleshooting article](https://docs.microsoft.com/en-us/azure/virtual-desktop/troubleshoot-set-up-overview). Part of the article will also cover the steps covered in [Exercise 8](#exercise-8-setup-monitoring-for-avd) that can be used to help diagnose an issue you're running into.
+Review the article, [Troubleshooting overview, feedback, and support for Azure Virtual Desktop](https://docs.microsoft.com/en-us/azure/virtual-desktop/troubleshoot-set-up-overview). Part of the article will cover steps used in [Exercise 8](#exercise-8-setup-monitoring-for-avd) and can help diagnose issues you may encounter.
 
->**Please note**: The change from Windows Virtual Desktop (WVD) to Azure Virtual Desktop (AVD) is recent and some resources do not yet reflect the change.  As a result, some images may be slightly different.  WVD and AVD are interchangeable, and we will update our documents once the transition is complete.
+>**Important! Please note**: The change from Windows Virtual Desktop (WVD) to Azure Virtual Desktop (AVD) is recent, and some resources do not yet reflect the change.  As a result, some images may be slightly different.  WVD and AVD are interchangeable, and we will update our documents once the transition is complete.
 
 ## Exercise 1: Configuring Azure AD Connect with AD DS
 
@@ -161,13 +161,13 @@ In this exercise, you will be configuring [Azure AD Connect](https://docs.micros
 
 3.  On the Resource groups blade, select the resource group name that you created in the **Before the HOL** template deployment.
 
-4.  On the Infra Resource group blade, review the list of available resources. Locate the resource named **AdPubIP1** and Select on it. Note that the resource type should be **Public IP address**.
+4.  On the Infra Resource group blade, review the list of available resources. Locate the resource named **AdPubIP1** and select it. Note that the resource type should be **Public IP address**.
 
     ![This image shows how to find the public IP address for the domain controller VM.](images/publicip.png "Public IP address for Domain Controller VM")
 
 5.  On the Overview page for AdPubIP1, locate the **IP address** field. Copy the IP address to a safe location.
 
-6.  On your local machine, open the **RUN** dialog window, type **MSTSC** and select enter.
+6.  On your local machine, open the **RUN** dialog window, type **MSTSC** and enter.
 
     ![This image shows the Run dialog window to run MSTSC.](images/run.png "Run on Windows") 
 
@@ -211,7 +211,6 @@ By default, Azure AD Connect does not synchronize the built-in domain administra
 
     ![This image shows the window that will open with the fields to complete for a new user.](images/newuserobject.png "Create a new user")
 
-
     ![This image is the next window that will allow you to assign a password.](images/newUserWizard.png "New User Wizard window") 
 
     ![This image shows the final screen of the wizard will allow you to review and finish the new user setup.](images/finishnewuser.png "Finish new user setup")
@@ -232,7 +231,7 @@ By default, Azure AD Connect does not synchronize the built-in domain administra
 
 1.  On the desktop of the domain controller, locate the icon for **Azure AD Connect** and open it.
 
-    ![This image shows how to find the Azure AD Connect icon on the Domain controller VM desktop.](images/azureadconnect.png "Azure AD Connect desktop icon")
+    ![This image shows the Azure AD Connect icon on the Domain controller VM desktop.](images/azureadconnect.png "Azure AD Connect desktop icon")
 
 2.  Accept the license terms and privacy notice, then select continue. On the next screen select **Use express settings**. The required components will install.
 
@@ -247,7 +246,7 @@ By default, Azure AD Connect does not synchronize the built-in domain administra
 
     ![This image shows the next window, where you will enter the AD DS domain and admin username and password.](images/azureadconnectdclogin.png "Azure AD Connect - Domain login")
     
-    >**Note**: When you copy and paste the password, please ensure that there are no trailing spaces, as that will cause the verification to fail.
+    >**Note**: When you copy and paste the password, make sure there are no trailing spaces, as that will cause the verification to fail.
 
 5.  Select **Install** to start the configuration and synchronization.
 
@@ -255,8 +254,7 @@ By default, Azure AD Connect does not synchronize the built-in domain administra
 
     ![This image shows the final setup window, select the box to start the synchronization process and select install.](images/azureadready.png "Azure AD Connect Ready to configure")
 
-6.  After a few minutes the Azure AD Connect installation will complete.
-    Select **Exit**.
+6.  After a few minutes, the Azure AD Connect installation will complete. Select **Exit**.
 
     ![This image shows the installation is complete the Configuration complete window will be present.](images/AADCcomplete.png "The Configuration is completed window")
     
@@ -422,7 +420,7 @@ Before you can work with an Azure file share, you need to create an Azure storag
 
     ![This image shows that you need to select the add icon in File shares to create a new file share.](images/addfileshare.png "Add file share")
 
-5.  Enter a Name the new file share, enter a quota in gigabits, select **Hot** Tier, and Select **Create**.
+5.  Enter a Name for the new file share, enter a quota in gigabits, select **Hot** Tier, and Select **Create**.
 
     ![This image shows how to give the file share a name and a storage quota in gigabits.](images/newfileshare.png "New File share")
     
@@ -462,7 +460,7 @@ In this task, you will be completing the steps on the Domain Controller in Azure
 
 3. After the download is complete, navigate to the file location in file explorer.
 
-    ![This image shows how to after going to the GitHub link to download the AzFilesHybrid file, locate this file in the folder it was saved.](images/azfileshybridzip.png "AzFilesHybrid module zip file")
+    ![This image shows how to, after going to the GitHub link to download the AzFilesHybrid file, you locate this file in the folder it was saved.](images/azfileshybridzip.png "AzFilesHybrid module zip file")
 
 4. Extract this file to the **Documents** folder on the local Domain controller.
 
@@ -551,7 +549,7 @@ In this task, you will be completing the steps on the Domain Controller in Azure
    
     ```
 
-    >**Note**: You will be prompted to enter the Azure storage account name after you run this command.  The prompt will look like the below screenshot.
+    >**Note**: You will be prompted to enter the Azure storage account name after you run this command.  The prompt will look like the screenshot below.
 
     ![This image shows the prompt to enter the Azure storage account after running the join command.](images/enterstorage.png)
 
@@ -584,7 +582,7 @@ In this task, you will be completing the steps on the Domain Controller in Azure
     ![This image is what the responses should be when running the previous PowerShell tasks.](images/confirmpowershell.png "PowerShell task responses")
 
 
-20. You can also confirm activation with your domain by navigating to the Azure portal, going to the storage account and selecting **Configuration** under **Settings**. Refer to the group on Active Directory (AD), as shown in the example below.
+20. Confirm activation with your domain by navigating to the Azure portal, going to the storage account and selecting **Configuration** under **Settings**. Refer to the group on Active Directory (AD), as shown in the example below.
 
     ![This image shows how in the storage account configuration, that Active Directory Domain Services is enabled.](images/portalconfirm.png "Storage account configuration")
 
@@ -594,11 +592,11 @@ You have now successfully enabled AD authentication over SMB and assigned a cust
 
 There are three Azure built-in roles for granting share-level permissions to users and/or groups:
 
--   **Storage File Data SMB Share Reader:** allows read access in Azure Storage file shares over SMB.
+-   **Storage File Data SMB Share Reader**: allows read access in Azure Storage file shares over SMB.
 
--   **Storage File Data SMB Share Contributor:** allows read, write, and delete access in Azure Storage file shares over SMB.
+-   **Storage File Data SMB Share Contributor**: allows read, write, and delete access in Azure Storage file shares over SMB.
 
--   **Storage File Data SMB Share Elevated Contributor:** allows read, write, delete, and modify NTFS permissions in Azure Storage file shares over SMB.
+-   **Storage File Data SMB Share Elevated Contributor**: allows read, write, delete, and modify NTFS permissions in Azure Storage file shares over SMB.
 
 To access Azure Files resources with identity-based authentication, an identity (a user, group, or service principal) must have the necessary permissions at the share level. This process is similar to specifying Windows share permissions, where you specify the type of access that a particular user has to a file share. The guidance in this task demonstrates how to assign read, write, or delete permissions for a file share to an identity.
 
@@ -656,7 +654,7 @@ To simplify administration, create 4 new security groups in Active Directory to 
 
 9.  On the Storage accounts blade, select the Storage account you created in Task 1.
 
-10. On the blade for your storage account, locate and Select on **File shares** .
+10. On the blade for your storage account, locate and Select on **File shares**.
 
 11. On the File shares blade, select your file share.
 
@@ -668,11 +666,11 @@ To simplify administration, create 4 new security groups in Active Directory to 
 
 14. On the Add role assignment fly out, fill in the following options and Select **Save**.
 
-    -    **Role:** Storage File Data SMB Share Contributor
+    -    **Role**: Storage File Data SMB Share Contributor
 
-    -    **Assign access to:** Azure AD user, group, or service principal
+    -    **Assign access to**: Azure AD user, group, or service principal
 
-    -    **Select:** AZF FSLogix Contributor
+    -    **Select**: AZF FSLogix Contributor
 
     ![This image shows how to add the storage file data SMB share contributor role to the AZF FSLogix contributor role that were created within Active Directory.](images/azureadroleassigncontrib.png "Add FSLogix roles to Azure AD File share")
 
@@ -688,8 +686,7 @@ To simplify administration, create 4 new security groups in Active Directory to 
 
 ### Task 5: Configure NTFS permissions for the file share
 
-After you assign share-level permissions with Azure RBAC, you must assign proper NTFS permissions at the root, directory, or file level. Think of share-level permissions as the high-level gatekeeper that
-determines whether a user can access the share. Whereas NTFS permissions act at a more granular level to determine what operations the user can do at the directory or file level.
+After you assign share-level permissions with Azure RBAC, you must assign proper NTFS permissions at the root, directory, or file level. Think of share-level permissions as the high-level gatekeeper that determines whether a user can access the share. Whereas NTFS permissions act at a more granular level to determine what operations the user can do at the directory or file level.
 
 Azure Files supports the full set of NTFS basic and advanced permissions. You can view and configure NTFS permissions on directories and files in an Azure file share by mounting the share and then using Windows File Explorer or running the Windows iCACLS or Set-ACL command.
 
