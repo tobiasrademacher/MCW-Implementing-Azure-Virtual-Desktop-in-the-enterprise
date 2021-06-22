@@ -1,7 +1,7 @@
 ![Microsoft Cloud Workshops](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/main/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
 
 <div class="MCWHeader1">
-Implementing Windows Virtual Desktop in the enterprise
+Implementing Azure Virtual Desktop in the enterprise
 </div>
 
 <div class="MCWHeader2">
@@ -9,7 +9,7 @@ Whiteboard design session trainer guide
 </div>
 
 <div class="MCWHeader3">
-March 2021
+June 2021
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -31,7 +31,7 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
   - [Whiteboard design session flow](#whiteboard-design-session-flow)
   - [Before the whiteboard design session: How to prepare](#before-the-whiteboard-design-session-how-to-prepare)
   - [During the whiteboard design session: Tips for an effective whiteboard design session](#during-the-whiteboard-design-session-tips-for-an-effective-whiteboard-design-session)
-- [Implementing Windows Virtual Desktop in the enterprise whiteboard design session student guide](#implementing-windows-virtual-desktop-in-the-enterprise-whiteboard-design-session-student-guide)
+- [Implementing Azure Virtual Desktop in the enterprise whiteboard design session student guide](#implementing-windows-virtual-desktop-in-the-enterprise-whiteboard-design-session-student-guide)
   - [Abstract and learning objectives](#abstract-and-learning-objectives)
   - [Step 1: Review the customer case study](#step-1-review-the-customer-case-study)
     - [Customer situation](#customer-situation)
@@ -42,7 +42,7 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
   - [Step 3: Present the solution](#step-3-present-the-solution)
   - [Wrap-up](#wrap-up)
   - [Additional references](#additional-references)
-- [Implementing Windows Virtual Desktop in the enterprise whiteboard design session trainer guide](#implementing-windows-virtual-desktop-in-the-enterprise-whiteboard-design-session-trainer-guide)
+- [Implementing Azure Virtual Desktop in the enterprise whiteboard design session trainer guide](#implementing-windows-virtual-desktop-in-the-enterprise-whiteboard-design-session-trainer-guide)
   - [Step 1: Review the customer case study](#step-1-review-the-customer-case-study-1)
   - [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution-1)
   - [Step 3: Present the solution](#step-3-present-the-solution-1)
@@ -166,13 +166,13 @@ When participants are doing activities, you can **look ahead to refresh your mem
 
 **Wait for responses**. If you ask a question such as, "What's your experience with (fill in the blank)?" then wait. Do not be afraid of a little silence. If you leap into the silence, your participants will feel you are not serious about involving them and will become passive. Give participants a chance to think, and if no one answers, patiently ask again. You will usually get a response.
 
-# Implementing Windows Virtual Desktop in the enterprise whiteboard design session student guide
+# Implementing Azure Virtual Desktop in the enterprise whiteboard design session student guide
 
 ## Abstract and learning objectives
 
-In the whiteboard design session you will work in groups to design a Windows Virtual Desktop solution using Microsoft 365 and Azure technologies. Your solution will consider the necessary Microsoft 365 subscription required for Windows 10 Enterprise multi-user licensing, as well as the Azure Active Directory and security needs for a healthcare provider. You will need to determine how to connect Azure to the current VMware and Citrix on-premises infrastructure and the connections needed to connect this infrastructure to Azure for application access. Finally, you will need to design the Windows Virtual Desktop solution utilizing Azure virtual machines with availability and scalability to handle 24x7 operations without performance degradation.
+In the whiteboard design session, you will work in groups to design an Azure Virtual Desktop (formerly Windows Virtual Desktop) solution using Microsoft 365 and Azure technologies. Your solution will consider the necessary Microsoft 365 subscription required for Windows 10 Enterprise multi-user licensing, as well as the Azure Active Directory and security needs for a healthcare provider. You will need to determine how to connect Azure to the current VMware and Citrix on-premises infrastructure and the connections needed to connect this infrastructure to Azure for application access. Finally, you will need to design the Azure Virtual Desktop solution utilizing Azure virtual machines with availability and scalability to handle 24x7 operations without performance degradation.
 
-At the end of the whiteboard design session, you will be better able to design a solution that leverages Microsoft 365 and Azure technologies together to build a secure and robust Windows Virtual Desktop infrastructure.
+At the end of the whiteboard design session, you will be better able to design a solution that leverages Microsoft 365 and Azure technologies together to build a secure and robust Azure Virtual Desktop infrastructure.
 
 ## Step 1: Review the customer case study
 
@@ -202,7 +202,7 @@ Contoso Healthcare's CISO, Laura Knight, has an additional list of objectives to
 
 Contoso Healthcare has completed an initial cloud assessment of their current infrastructure and applications, and they have divided the following areas that they feel that Microsoft 365 and Azure technologies can support:
 
-**Security**: The business of healthcare has become more reliant on mobile devices to access files and financial records, which has created a concern over theft and data exposure. Contoso would like to eliminate the possibility of any PHI or PII being located on a local device through use of a virtual desktop infrastructure. They would also like to be able to manage applications that are authorized, and block cloud applications that are not authorized.  Security controls will need to audited, logged, and reviewed to ISO 27001, California Personal Protection Act, and HIPAA standards.
+**Security**: The business of healthcare has become more reliant on mobile devices to access files and financial records, which has created a concern over theft and data exposure. Contoso would like to eliminate the possibility of any PHI or PII being located on a local device through use of a virtual desktop infrastructure. They would also like to be able to manage applications that are authorized, and block cloud applications that are not authorized.  Security controls will need to be audited, logged, and reviewed to ISO 27001, California Personal Protection Act, and HIPAA standards.
 
 **Availability and Scalability**: Being a healthcare provider, Contoso has a requirement for applications to be accessible 24x7, so any infrastructure should be designed with high availability and scalability in mind. As Contoso Healthcare grows through acquisitions, they need to be able to scale out resources quickly for the addition of new users.
 
@@ -241,7 +241,7 @@ Contoso Healthcare has completed an initial cloud assessment of their current in
 ### Security Scenarios
 The security scenario applies to the potential security, monitoring, and compliance auditing options needed to design the solution.
 
-![Common scenario of how Azure Monitor and Network Watcher can be used for both Azure and non-Azure VMs and network connections.  On the right, the on-premises servers are connected to Azure Monitor with an agent and Network Watcher is monitoring the connection between the on-premises datacenter and Azure.  In Azure, Azure Monitor is connected to the Windows Virtual Desktop host pool instances, and network watcher is monitoring the connect to these hosts and the VNET.  The metric and activity log information is then fed into Azure Monitor, Log Analytics, Azure Policy, and Azure Security Center for managing these resources for performance, activity, and compliance.](images/security.png "Security Scenario")
+![Common scenario of how Azure Monitor and Network Watcher can be used for both Azure and non-Azure VMs and network connections.  On the right, the on-premises servers are connected to Azure Monitor with an agent and Network Watcher is monitoring the connection between the on-premises datacenter and Azure.  In Azure, Azure Monitor is connected to the Azure Virtual Desktop host pool instances, and network watcher is monitoring the connect to these hosts and the VNET.  The metric and activity log information is then fed into Azure Monitor, Log Analytics, Azure Policy, and Azure Security Center for managing these resources for performance, activity, and compliance.](images/security.png "Security Scenario")
 
 
 ### Network Scenarios
@@ -250,10 +250,10 @@ Network scenarios diagram the potential options for connecting from Microsoft Az
 ![Diagram presenting the site-to-site connection configuration for the on-premises datacenter to connect to Azure through a VPN connection between the on-premises firewall and the Azure firewall.](images/network.png "Network Scenario")
 
 
-### Windows Virtual Desktop standard architecture
-This diagram outlines a simple Windows Virtual Desktop architecture with Azure and Microsoft 365. This includes the Windows Virtual Desktop user connection and the Windows Virtual Desktop host pools.
+### Azure Virtual Desktop standard architecture
+This diagram outlines a simple Azure Virtual Desktop architecture with Azure and Microsoft 365. This includes the Azure Virtual Desktop user connection and the Azure Virtual Desktop host pools.
 
-![Diagram referencing that there are multiple devices that will need to connect to the Windows desktop virtual image for Windows 10 and Microsoft 365 applications via the WVD hostpool.](images/wvdarchitecture.png "Windows Virtual Desktop standard architecture")
+![Diagram referencing that there are multiple devices that will need to connect to the Windows desktop virtual image for Windows 10 and Microsoft 365 applications via the WVD host pool.](images/avdarchitecture.png "Azure Virtual Desktop standard architecture")
 
 
 ## Step 2: Design a proof of concept solution
@@ -278,7 +278,7 @@ Directions: With all participants at your table, respond to the following questi
 
 *High-level architecture*
 
-Design a Windows Virtual Desktop infrastructure that addresses the needs and requirements of the organization. Provide details of your implementation. Make sure to document your design with a diagram along with addressing the questions.  Address the requirements in the following areas:
+Design an Azure Virtual Desktop infrastructure that addresses the needs and requirements of the organization. Provide details of your implementation. Make sure to document your design with a diagram along with addressing the questions.  Address the requirements in the following areas:
 
 *Microsoft 365*
 
@@ -322,17 +322,17 @@ Design a Windows Virtual Desktop infrastructure that addresses the needs and req
    
 7. How would you monitor network throughput and latency over the network?
 
-*Windows Virtual Desktop image*
+*Azure Virtual Desktop image*
 
 1. How will the standardized desktop image be created?
    
 2. How will applications be delivered to the desktop image?
    
-3. What are the connection options for users to access the Windows Virtual Desktop image?
+3. What are the connection options for users to access the Azure Virtual Desktop image?
    
-4. What are the minimum system requirements for users to access the Windows Virtual Desktop image?   
+4. What are the minimum system requirements for users to access the Azure Virtual Desktop image?   
 
-*Windows Virtual Desktop host pool*
+*Azure Virtual Desktop host pool*
        
 1. How many concurrent sessions will be required to access the virtual desktop image?
    
@@ -388,22 +388,22 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 |    |            |
 |----------|:-------------:|
 | **Description** | **Links** |
-| Overview of Windows Virtual Desktop | <https://docs.microsoft.com/en-us/azure/virtual-desktop/overview> |
-| Windows Virtual Desktop environment setup | <https://docs.microsoft.com/en-us/azure/virtual-desktop/environment-setup> |
+| Overview of Azure Virtual Desktop | <https://docs.microsoft.com/en-us/azure/virtual-desktop/overview> |
+| Azure Virtual Desktop environment setup | <https://docs.microsoft.com/en-us/azure/virtual-desktop/environment-setup> |
 | Create a virtual desktop host pool | <https://docs.microsoft.com/en-us/azure/virtual-desktop/create-host-pools-azure-marketplace> |
-| Windows Virtual Desktop licensing requirements and pricing | <https://azure.microsoft.com/en-us/pricing/details/virtual-desktop/> |
+| Azure Virtual Desktop licensing requirements and pricing | <https://azure.microsoft.com/en-us/pricing/details/virtual-desktop/> |
 | Prepare and customize a master VHD image | <https://docs.microsoft.com/en-us/azure/virtual-desktop/set-up-customize-master-image> |
 | Azure Policy overview | <https://docs.microsoft.com/en-us/azure/governance/policy/overview> |
 | Azure Security Center | <https://docs.microsoft.com/en-us/azure/security-center/> |
 | Azure Active Directory | <https://docs.microsoft.com/en-us/azure/active-directory/> |
-| FSLogix File Storage containers in Windows Virtual Desktop | <https://docs.microsoft.com/en-us/azure/virtual-desktop/fslogix-containers-azure-files> |
+| FSLogix File Storage containers in Azure Virtual Desktop | <https://docs.microsoft.com/en-us/azure/virtual-desktop/fslogix-containers-azure-files> |
 | Connect WVD with a web client | <https://docs.microsoft.com/en-us/azure/virtual-desktop/connect-web> |
 | WVD security best practices | <https://docs.microsoft.com/en-us/azure/virtual-desktop/security-guide> |
 | Microsoft 365 enterprise plans | <https://www.microsoft.com/en-us/microsoft-365/compare-microsoft-365-enterprise-plans> |
 | Microsoft 365 Enterprise Mobility + Security plans | <https://www.microsoft.com/en-us/microsoft-365/enterprise-mobility-security/compare-plans-and-pricing?rtc=1> |
-| Windows Virtual Desktop partners | <https://docs.microsoft.com/en-us/azure/virtual-desktop/partners> |
+| Azure Virtual Desktop partners | <https://docs.microsoft.com/en-us/azure/virtual-desktop/partners> |
 
-# Implementing Windows Virtual Desktop in the enterprise whiteboard design session trainer guide
+# Implementing Azure Virtual Desktop in the enterprise whiteboard design session trainer guide
 
 ## Step 1: Review the customer case study
 
@@ -461,13 +461,13 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 
 *High-level architecture*
 
-Design a Windows Virtual Desktop infrastructure that addresses the needs and requirements of the organization. Provide details of your implementation. Make sure to document your design with a diagram along with addressing the questions.  Address the requirements in the following areas:
+Design an Azure Virtual Desktop infrastructure that addresses the needs and requirements of the organization. Provide details of your implementation. Make sure to document your design with a diagram along with addressing the questions.  Address the requirements in the following areas:
 
 *Microsoft 365*
 
 1. What Microsoft 365 subscription is required for Windows 10 multi-user licensing?
    
-   Microsoft 365 licenses that support Windows Virtual Desktop include M365 E3, E5, A3, A5, F3, and Business Premium.
+   Microsoft 365 licenses that support Azure Virtual Desktop include M365 E3, E5, A3, A5, F3, and Business Premium.
 
 2. What subscription is required for Contoso's mobile device requirements?
    
@@ -483,13 +483,13 @@ Design a Windows Virtual Desktop infrastructure that addresses the needs and req
 
 5. Why did you select the Microsoft 365 subscription(s)?
 
-   A Microsoft 365 Enterprise E5 will be required with Enterprise Mobility + Security E5 to support the full list of requirements outlined by the customer.  Microsoft 365 licenses that support Windows Virtual Desktop include M365 E3, E5, A3, A5, F3, and Business Premium.  However, the additional requirements for mobile device management, data classification and information protection, and conditional access policies require the E5 and EMS E5 licenses.  Business Premium licensing is also only supported to up to 300 users.
+   A Microsoft 365 Enterprise E5 will be required with Enterprise Mobility + Security E5 to support the full list of requirements outlined by the customer.  Microsoft 365 licenses that support Azure Virtual Desktop include M365 E3, E5, A3, A5, F3, and Business Premium.  However, the additional requirements for mobile device management, data classification and information protection, and conditional access policies require the E5 and EMS E5 licenses.  Business Premium licensing is also only supported to up to 300 users.
 
 *Security*
 
 1. What is required to audit, log, and monitor controls for ISO 27001 and HIPAA? 
     
-    Azure Policy initiatives for ISO 27001 and HIPAA should be enabled for the resource groups that are created to govern the Windows Virtual Desktop infrastructure.  In addition, Azure Security Center should be upgraded to the Standard tier subscription to properly monitor and alert on control compliance to ISO 27001 and HIPAA standards.
+    Azure Policy initiatives for ISO 27001 and HIPAA should be enabled for the resource groups that are created to govern the Azure Virtual Desktop infrastructure.  In addition, Azure Security Center should be upgraded to the Standard tier subscription to properly monitor and alert on control compliance to ISO 27001 and HIPAA standards.
     
     To address compliance with the California Personal Protection Act, the Azure Policy initiative for GDPR will be assigned and custom policies will be added as needed to comply with the CPPA.
 
@@ -509,11 +509,11 @@ Design a Windows Virtual Desktop infrastructure that addresses the needs and req
 
 4. How will you maintain identity access management for the cloud and current Active Directory infrastructure, and how will they synchronize?
     
-    The cloud identity will be created within Azure Active Directory.  This will be the primary identity source for Microsoft 365, Windows Virtual Desktop, and Azure services.  User identities from Active Directory Domain Services will be imported into Azure Active Directory to maintain user login credentials.  Azure AD Connect will be installed at Contoso Healthcare's data center in order to synchronize user credentials for single sign-on.  Password Hash Synchronization will be used so that users have the ability to authenticate through the data center Active Directory services or the cloud Azure Active Directory services.
+    The cloud identity will be created within Azure Active Directory.  This will be the primary identity source for Microsoft 365, Azure Virtual Desktop, and Azure services.  User identities from Active Directory Domain Services will be imported into Azure Active Directory to maintain user login credentials.  Azure AD Connect will be installed at Contoso Healthcare's data center in order to synchronize user credentials for single sign-on.  Password Hash Synchronization will be used so that users have the ability to authenticate through the data center Active Directory services or the cloud Azure Active Directory services.
 
 5. How will you address the secure and centralized file storage needs of the organization?
     
-    Azure Files is the preferred method for storage use with Windows Virtual Desktop.  In addition, FSLogix can be used in conjunction with Azure Files to manage user virtual desktop profiles.  Azure Files must be deployed in the same region as the Virtual Machine pools.
+    Azure Files is the preferred method for storage use with Azure Virtual Desktop.  In addition, FSLogix can be used in conjunction with Azure Files to manage user virtual desktop profiles.  Azure Files must be deployed in the same region as the Virtual Machine pools.
 
 6. Describe the reasons for the specific security services selected.
 
@@ -529,11 +529,11 @@ Design a Windows Virtual Desktop infrastructure that addresses the needs and req
     
 2. How will you design the resource groups to support your design?
     
-    The entire Windows Virtual Desktop infrastructure should be created within a single resource group.  This will allow for ease of management of the resources and the ability to analyze and review the consumption easily within the Azure subscription.  
+    The entire Azure Virtual Desktop infrastructure should be created within a single resource group.  This will allow for ease of management of the resources and the ability to analyze and review the consumption easily within the Azure subscription.  
        
 3. How will your virtual networks (VNETs) be configured for IP addresses and subnets?
 
-    The resource group should be configured with at least three separate VNETs with subnets.  The first would be the VNET for the Virtual Desktop hostpool, the second will be the VNET used to connect to the on-premises network, and the third would be a VNET for a Bastion host to be used for secure virtual machine access for support.  The VNETs will be peered with only the Virtual Desktop hostpool VNET having gateway access for security.  This configuration of VNETs provides a level of isolation to the networks for security and control.
+    The resource group should be configured with at least three separate VNETs with subnets.  The first would be the VNET for the Virtual Desktop host pool, the second will be the VNET used to connect to the on-premises network, and the third would be a VNET for a Bastion host to be used for secure virtual machine access for support.  The VNETs will be peered with only the Virtual Desktop host pool VNET having gateway access for security.  This configuration of VNETs provides a level of isolation to the networks for security and control.
 
 4. How will you connect to Contoso Healthcare's data centers to minimize latency and maximize security?
     
@@ -560,25 +560,25 @@ Design a Windows Virtual Desktop infrastructure that addresses the needs and req
     
     Turning on Network Watcher within the VNETs will provide logs and analysis of the network speeds across VNETs and to the on-premises network.
 
-*Windows Virtual Desktop image*
+*Azure Virtual Desktop image*
 
 1. How will the standardized desktop image be created?
 
-    The recommendation would be to create the managed WVD image that Contoso Healthcare is wanting to deliver to their users. Optionally, they could also create a VHD for the standard image.  Details on this process are in the links provided in the student guide.  Another option is to have an image created with Windows 10 multi-user licensing and Office365 ProPlus at the time of creating the Windows Virtual Desktop host pool, and then making adjustments to that image based on custom requirements. You could use the following automated image building solutions to create and manage this image, such as Azure Image Builder (https://docs.microsoft.com/en-us/azure/virtual-machines/windows/image-builder-overview) or Build image with Packer (https://docs.microsoft.com/en-us/azure/virtual-machines/windows/build-image-with-packer) to manage images in Azure. 
+    The recommendation would be to create the managed WVD image that Contoso Healthcare is wanting to deliver to their users. Optionally, they could also create a VHD for the standard image.  Details on this process are in the links provided in the student guide.  Another option is to have an image created with Windows 10 multi-user licensing and Office365 ProPlus at the time of creating the Azure Virtual Desktop host pool, and then making adjustments to that image based on custom requirements. You could use the following automated image building solutions to create and manage this image, such as Azure Image Builder (https://docs.microsoft.com/en-us/azure/virtual-machines/windows/image-builder-overview) or Build image with Packer (https://docs.microsoft.com/en-us/azure/virtual-machines/windows/build-image-with-packer) to manage images in Azure. 
 
 2. How will applications be delivered to the desktop image?
     
     To simplify the application delivery and licensing, Contoso Healthcare would like to leverage the current Citrix infrastructure that they have in place.  To accomplish this, a shortcut can be provided on the standard desktop image for the Citrix app marketplace that provides users with the applications they are authorized to access.
 
-3. What are the connection options for users to access the Windows Virtual Desktop image?
+3. What are the connection options for users to access the Azure Virtual Desktop image?
     
-    There are multiple connection options for users to access their Windows Virtual Desktop.  The Remote Desktop client application can be used with Windows 10, Windows 7, Android, macOS, or iOS.  Users can also connect through an HTML5-capable web browser.  Since we are unsure of the full scope of operating systems on the 500 existing workstations within Contoso Healthcare, we recommend connection through the web browser on desktop devices, and using the Remote Desktop app on mobile devices.
+    There are multiple connection options for users to access their Azure Virtual Desktop.  The Remote Desktop client application can be used with Windows 10, Windows 7, Android, macOS, or iOS.  Users can also connect through an HTML5-capable web browser.  Since we are unsure of the full scope of operating systems on the 500 existing workstations within Contoso Healthcare, we recommend connection through the web browser on desktop devices, and using the Remote Desktop app on mobile devices.
 
-4. What are the minimum system requirements for users to access the Windows Virtual Desktop image?
+4. What are the minimum system requirements for users to access the Azure Virtual Desktop image?
 
     Officially supported browsers are Microsoft Edge, Internet Explorer, Apple Safari, Google Chrome, and Mozilla Firefox (v55 or higher).  Windows 10, Windows 10 IoT Enterprise, Windows 7, and macOS operating systems are supported.  Microsoft Remote Desktop app is available for Android and iOS mobile devices.    
 
-*Windows Virtual Desktop host pool*
+*Azure Virtual Desktop host pool*
   
 1. How many concurrent sessions will be required to access the virtual desktop image?
     
@@ -588,17 +588,17 @@ Design a Windows Virtual Desktop infrastructure that addresses the needs and req
     
     You should have used the Azure pricing calculator to create an initial capacity estimate.  This estimate calculated at most 31 DS2s v3 instances as the base availability set with 8 virtual desktop sessions per host (according to: https://docs.microsoft.com/en-us/windows-server/remote/remote-desktop-services/virtual-machine-recs).  Additional instances to scale as capacity increases.  The example estimate can be accessed here: https://azure.com/e/296a636cede24f1c859b42a63687c80c.
 
-*Diagram of the on-premises to Azure Windows Virtual Desktop solution*
+*Diagram of the on-premises to Azure Virtual Desktop solution*
 
-   This diagram shows the possible solution for Contoso's Windows Virtual Desktops.  The California datacenter is connecting to the Azure West US region, and the Northern Virginia datacenter is connecting to the East US region utilizing ExpressRoutes to each.  The West US and East US region VNETs are peered for high-speed backbone connection with a pass-through peering allowed from East US to the WVD VM host pool VNET that is peered with West US.
+   This diagram shows the possible solution for Contoso's Azure Virtual Desktops.  The California datacenter is connecting to the Azure West US region, and the Northern Virginia datacenter is connecting to the East US region utilizing ExpressRoutes to each.  The West US and East US region VNETs are peered for high-speed backbone connection with a pass-through peering allowed from East US to the WVD VM host pool VNET that is peered with West US.
     
-   ![Diagram showing the the on-premises to Azure Windows Virtual Desktop solution as described above.](images/wvdsolutiondiagramv2.png "On-premises to Azure Windows Virtual Desktop solution")
+   ![Diagram showing the the on-premises to Azure Azure Virtual Desktop solution as described above.](images/avdsolutiondiagramv2.png "On-premises to Azure Azure Virtual Desktop solution")
 
 ## Checklist of preferred objection handling
 
 1. The CTO at Contoso Healthcare does not want to invest in new workstations and mobile devices to support the standardized desktop image. Can these devices support the new image?
 
-    Windows Virtual Desktop is flexible in that users can access their virtual desktop.  The design will utilize web browser access to the virtual desktop on workstations, and the remote desktop app on mobile devices.  
+    Azure Virtual Desktop is flexible in that users can access their virtual desktop.  The design will utilize web browser access to the virtual desktop on workstations, and the remote desktop app on mobile devices.  
 
 2. The CISO at Contoso Healthcare needs to be convinced that data will not be exposed. How would Microsoft support the data protection needs for Contoso Healthcare?
 
@@ -614,7 +614,7 @@ Design a Windows Virtual Desktop infrastructure that addresses the needs and req
 
 5. Contoso Healthcare has made a substantial capital investment in their current data centers that they do not want to decommission. How can the infrastructure be architected to support the current data centers?
 
-    The designed solution has been architected to integrate the current application delivery configuration through Citrix into the standardized Windows Virtual Desktop image.  In addition, Azure AD Connect will be used with hash synchronization to provide a single sign-on environment between the Azure Active Directory identity management and the existing on-premises Active Directory domain.  As hardware is depreciated within the current data centers, application servers can be migrated to Azure and the Windows Virtual Desktop image can be updated for the new location of these servers.
+    The designed solution has been architected to integrate the current application delivery configuration through Citrix into the standardized Azure Virtual Desktop image.  In addition, Azure AD Connect will be used with hash synchronization to provide a single sign-on environment between the Azure Active Directory identity management and the existing on-premises Active Directory domain.  As hardware is depreciated within the current data centers, application servers can be migrated to Azure and the Azure Virtual Desktop image can be updated for the new location of these servers.
 
 ## Customer quote (to be read back to the attendees at the end)
 
