@@ -52,7 +52,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
   - [Exercise 4: Create a gold image for AVD](#exercise-4-create-a-gold-image-for-avd)
     - [Task 1: Create a new Virtual Machine (VM) in Azure](#task-1-create-a-new-virtual-machine-vm-in-azure)
     - [Task 2: Run Windows Update](#task-2-run-windows-update)
-    - [Task 3: Prepare AVD image](#task-3-prepare-avd-image)
+    - [Task 3: Prepare an AVD image](#task-3-prepare-an-avd-image)
     - [Task 4: Run Sysprep](#task-4-run-sysprep)
     - [Task 5: Create a managed image from the gold Image VM](#task-5-create-a-managed-image-from-the-gold-image-vm)
     - [Task 6: Provision a Host Pool with a custom image](#task-6-provision-a-host-pool-with-a-custom-image)
@@ -768,7 +768,7 @@ With the NTFS permissions applied at the root file share, you can now create the
 
 In this task we will create directories for each of the FSLogix profile types and assign the recommended permissions.
 
-1.  Navigate to the networked drive in File explorer
+1.  Navigate to the networked drive in File explorer.
 
     ![This is an image of where you will find the network drive that you mounted in the previous task.](images/networkdrive.png)
 
@@ -838,7 +838,7 @@ In this task we will create directories for each of the FSLogix profile types an
 
 17. Select **OK** on both property windows to apply your changes.
 
-Your Azure Files Share is now ready for FSLogix profile containers. Copy the UNC path and add it to your FSLogix deployment (image, GPO, etc..).
+Your Azure Files Share is now ready for FSLogix profile containers. Copy the UNC path and add it to your FSLogix deployment (image, GPO, etc.).
 
 ## Exercise 4: Create a gold image for AVD
 
@@ -863,7 +863,7 @@ For more information on how to setup a Bastion host in Azure|https://docs.micros
 
 2.  On the Azure portal home page, select **Create a resource**.
 
-3.  On the New page, search for **Microsoft Windows 10**. Select **Windows 10 Enterprise multi-session, Version 1909** and Select **Create**.
+3.  On the New page, search for **Microsoft Windows 10**. Select **Windows 10 Enterprise multi-session, Version 1909** and **Create**.
 
 
     ![This image shows the window will display the creation of a New Microsoft Windows 10 VM using software plan Windows 10 Enterprise multi-session, Version 1909.](images/windows10VM.png "New Microsoft Windows 10 VM using software plan Windows 10 Enterprise multi-session, Version 1909")
@@ -902,7 +902,7 @@ Despite the Azure support teams best efforts, the Marketplace images are not alw
 
     ![This image shows that, after checking for and running any updates, the settings window showing that Windows update is up to date.](images/w10vmSettingsUpToDate.png "The settings window showing that Windows update is up to date")
 
-### Task 3: Prepare AVD image
+### Task 3: Prepare an AVD image
 
 **Introduction to the script**
 
@@ -1054,19 +1054,19 @@ This will trigger the PowerShell form to launch. Select the appropriate options 
 
 10.  After the script has completed, select the Window start icon and note that Office, Microsoft Edge Chromium, and Microsoft Teams have been installed.
 
-    ![This image shows how to the view of the newly installed applications.](images/newapplications.png "Windows view of new applications")
+   ![This image shows how to the view of the newly installed applications.](images/newapplications.png "Windows view of new applications")
 
 11.  Once the script has completed execution, complete these final tasks:
 
--    Delete the C:\\BuildArtifacts directory.
+    -   Delete the C:\\BuildArtifacts directory.
 
--    Delete the .zip file on your desktop.
+    -   Delete the .zip file on your desktop.
 
--    Empty the Recycle Bin.
+    -   Empty the Recycle Bin.
 
--    Copy the C:\\Windows\\Logs\\ImagePrep\\LGPO directory to your local workstation.
+    -   Copy the C:\\Windows\\Logs\\ImagePrep\\LGPO directory to your local workstation.
 
--    Reboot the VM.
+    -   Reboot the VM.
 
         ![This image shows how, after the image preparation is complete, delete the downloaded files and empty the recycle bin.](images/deletescripts.png "Deleting the scripts")
 
@@ -1266,19 +1266,19 @@ In this exercise, you will be creating a non-persistent host pool for publishing
 
 4.  On the Basics page, refer to the following screenshot to fill in the required fields. Selecting **Pooled** for host pool type. Once complete, select **Next: Virtual Machine**.
 
-    ![This image shows the create a host pool blade, where you will enter in the information for the virtual machines that will host the remote apps and select next for workspace.](images/remoteapppool.png)
+    ![This image shows the create a host pool blade, where you will enter in the information for the virtual machines that will host the remote apps and select next for workspace.](images/remoteapppool.png "Create host pool")
 
 5.  When you configure **Virtual machine settings**, select **Browse all images and disks** and then select the tab option for **My Items** to select the image that was created earlier in **Exercise 4**.
 
-    ![This image shows where you will find your custom image to add to the host pool.](images/hostpoolcustom.png)
+    ![This image shows where you will find your custom image to add to the host pool.](images/hostpoolcustom.png "Host pool custom image")
 
     >**Note**: Selecting this image is very important. You will need the Microsoft 365 for assigning apps in this exercise.
 
-    ![This image shows the information that you will  enter for the host pool name and select next for virtual machines.](images/nextworkspace.png)
+    ![This image shows the information you will enter for the host pool name and select next for virtual machines.](images/nextworkspace.png "Create a host pool name")
 
 6.  On the Workspace page, select **Yes** to register a new desktop app group. Select **Create new** and provide a **Workspace name**. Select **OK** and **Review + create**.
 
-    ![This image shows where you will select yes and create a new workspace, and then select review and create when complete.](images/newworkspaceremoteapps.png)
+    ![This image shows where you will select yes and create a new workspace, and then select review and create when complete.](images/newworkspaceremoteapps.png "Create a new workspace")
 
 7.  On the Create a host pool page, select **Create**.
 
@@ -1292,19 +1292,19 @@ The name of the Workspace is displayed when the user signs in. Available resourc
 
     ![This image shows how to search for Azure Virtual Desktop and select the service.](images/searchavd.png "Search for Azure Virtual Desktop")
 
-3.  Under Manage, select **Workspaces**. Locate the Workspace that was created for remote apps and Select on the name.
+3.  Under Manage, select **Workspaces**. Locate the Workspace that was created for remote apps and select the name.
 
-    ![This image shows where to locate the workspace that was created in Task 1 and select it.](images/workspaceproperties.png)
+    ![This image shows where to locate the workspace that was created in Task 1 and select it.](images/workspaceproperties.png "Locate workspace created")
 
 4.  Under Settings, select **Properties**.
 
 5.  Update the **Friendly name** field to your desired name.
 
-    ![This image shows where, under properties of the workspace, you will enter a name under friendly name and save.](images/savefriendlyname.png)
+    ![This image shows where, under properties of the workspace, you will enter a name under friendly name and save.](images/savefriendlyname.png "Enter workspace friendly name")
 
 6.  Select **Save**.
 
-    ![This image shows from the workspace properties tab, you will view the workspace that you created.](images/workspaceFriendlyName.png "workspace properties tab")
+    ![This image shows from the workspace properties tab, you will view the workspace that you created.](images/workspaceFriendlyName.png "Workspace properties tab")
 
 
 ### Task 3: Add Remote Apps to your Host Pool
@@ -1321,13 +1321,13 @@ The name of the Workspace is displayed when the user signs in. Available resourc
    
     ![This image shows that from this blade, you will enter a name for the application group.](images/appgroupname.png "New application group")
 
-6.  Select **Next: Applications**.
+5.  Select **Next: Applications**.
 
     ![This image shows that from the application group blade, you will select to add users or user groups and select the AVD Remote App All users from the blade that opens next.](images/assigngroup.png "Select applications")
 
-7.  On the Applications page, select **+ Add Application**.
+6.  On the Applications page, select **+ Add Application**.
 
-8.  On the Add Application fly out, next to Application source, select **Start Menu**. add the following applications, selecting **Save** between selections.
+7.  On the Add Application fly out, next to Application source, select **Start Menu**. add the following applications, selecting **Save** between selections.
 
     - Outlook
 
@@ -1345,21 +1345,23 @@ The name of the Workspace is displayed when the user signs in. Available resourc
 
     ![This image shows the final list of applications will look like this.](images/listofapps.png "Application list")
 
-1.  Select **Next: Assignments**.
-1.  On the assignments tab, select **Add assignments**.  Search for the **AVD Remote App All Users** and **AAD DC Administrators** created earlier in this guide and choose **Select**.  
+8.  Select **Next: Assignments**.
+
+9.  On the assignments tab, select **Add assignments**.  Search for the **AVD Remote App All Users** and **AAD DC Administrators** created earlier in this guide and choose **Select**.
+
     >**Note**: AAD DC Administrators will allow you to use your Azure tenant login to access resources in Exercise 7.
 
-1.  Select **Next: Workspace**.
+10.  Select **Next: Workspace**.
 
-1. On the Workspace page, select **Yes** to register the application group.
+11. On the Workspace page, select **Yes** to register the application group.
 
     >**Note**: The **Register application group** field will automatically populate with the workspace name.
 
-1. Select **Review + Create**.
+12. Select **Review + Create**.
 
     ![This image shows the workspace name will auto-populate and you will select review and create.](images/remoteappws.png "Create application group")
 
-1. Select **Create**.
+13. Select **Create**.
 
 You have successfully created a Remote App non-persistent Host Pool with published apps. You can validate this configuration when you connect to the environment in a later exercise.
 
@@ -1444,8 +1446,6 @@ If the Web client keeps prompting for credentials, follow these instructions:
 4.  Clear browser cache.
 
 5.  Open your browser in Private mode.
-
-
 
 ## Exercise 8: Setup monitoring for AVD
 
@@ -1532,7 +1532,7 @@ Each AVD ARM object has different diagnostic data categories available. For exam
 
 3.  On the Azure Virtual Desktop blade, under **Manage**, select **Host pools**.
 
-4.  On the Azure Virtual Desktop \| Host pools blade, locate a host pool and Select on the name.
+4.  On the Azure Virtual Desktop \| Host pools blade, locate a host pool and select the name.
 
 5.  On the blade for your host pool, under **Monitoring**, select **Diagnostic settings**.
 
@@ -1565,7 +1565,7 @@ Each AVD ARM object has different diagnostic data categories available. For exam
 
 3.  On the Azure Virtual Desktop blade, under **Manage**, select **Application groups**.
 
-4.  On the Azure Virtual Desktop \| Application groups blade, locate an application group and Select on the name.
+4.  On the Azure Virtual Desktop \| Application groups blade, locate an application group and select the name.
 
 5.  On the blade for your application group, under **Monitoring**, select **Diagnostic settings**.
 
@@ -1597,7 +1597,7 @@ Each AVD ARM object has different diagnostic data categories available. For exam
 
 3.  On the Azure Virtual Desktop blade, under **Manage**, select **Workspaces**.
 
-4.  On the Azure Virtual Desktop \| Workspaces blade, locate a workspace and Select on the name.
+4.  On the Azure Virtual Desktop \| Workspaces blade, locate a workspace and select the name.
 
 5.  On the blade for your workspace, under **Monitoring**, select **Diagnostic settings**.
 
@@ -1605,7 +1605,7 @@ Each AVD ARM object has different diagnostic data categories available. For exam
 
     ![This image shows the selected the workspace that was created and add diagnostic settings.](images/workspaceadddiag.png "Add Workspace diagnostic logging")
 
-7.  On the Diagnostic settings page, fill in the following information and Select **Save**.
+7.  On the Diagnostic settings page, fill in the following information and select **Save**.
 
     -    **Diagnostic settings name:** Enter a name for these settings. ARM objects can have multiple diagnostic settings applied.
 
@@ -1632,7 +1632,7 @@ Azure Monitor is leveraged with AVD to monitor the performance and health of you
 
     ![This image shows how to access Azure Virtual Desktop from the Azure portal search bar.](images/searchvm.png "Search for Virtual machines")
 
-3.  On the Virtual Machines blade, locate a session host VM and Select on the name.
+3.  On the Virtual Machines blade, locate a session host VM and select the name.
 
 4.  On the blade for the virtual machine, under **Monitoring**, select **Insights**.
 
@@ -1706,14 +1706,15 @@ In this exercise, you will our AVD experience bay utilizing additional features 
 
 In this task, you will create an Azure Automation account and Logic App that will regularly update the scaling of your pool based on the number of connections.  Azure Automation allows for the execution of scripts and commands with an identity related to the automation.  Logic App allows for regular execution of commands and tasks.  By combining these two resources, we allow for repetitive tasks of a detailed nature which will allow us to automatically increase and decrease the number of hosts in an AVD host pool based on demand of the environment.
 
-1. Use PowerShell on a system with the [Azure Module](https://docs.microsoft.com/en-us/powershell/azure/install-az-ps?view=azps-5.9.0) installed (such as from Exercise 3, Task 3)
-1. Run the following command connect to Azure using the subscription of your AVD:
+1. Use PowerShell on a system with the [Azure Module](https://docs.microsoft.com/en-us/powershell/azure/install-az-ps?view=azps-5.9.0) installed (such as from Exercise 3, Task 3).
+
+2. Run the following command connect to Azure using the subscription of your AVD:
 
     ```powershell
     Connect-AzAccount
     ```
 
-1.  Use the following commands to download installation script for the Automation Account:
+3.  Use the following commands to download installation script for the Automation Account:
 
     ```powershell
     New-Item -ItemType Directory -Path ".\AVDTemp" -Force
@@ -1723,7 +1724,7 @@ In this task, you will create an Azure Automation account and Logic App that wil
     Invoke-WebRequest -Uri $Uri -OutFile ".\CreateOrUpdateAzAutoAccount.ps1"
     ```
 
-1. Use the following to call the installation script with the appropriate parameters:
+4. Use the following to call the installation script with the appropriate parameters:
 
     ```powershell
     $LAWorkspace = Get-AzOperationalInsightsWorkspace | ?{ $_.name -notlike "DefaultWork*" }
@@ -1737,27 +1738,31 @@ In this task, you will create an Azure Automation account and Logic App that wil
 
     ```
 
-1. Now that the Azure Automation account is created, keep the PowerShell window open in the background and go to the [Azure Portal](https://portal.azure.com/) in your browser to finish the setup.
+5. Now that the Azure Automation account is created, keep the PowerShell window open in the background and go to the [Azure Portal](https://portal.azure.com/) in your browser to finish the setup.
 
     ![This image shows the return to the Azure Portal web page.](images/azureportal.png "Azure Portal")
 
-1. Go to the Azure Automation account.
+6. Go to the Azure Automation account.
 
     ![This image shows where to search to find the Azure Automation account in the portal.](images/automationAccount.png "Azure Portal")
 
-1. Select Run As accounts under Account Settings
-1. Select **Create** to create a new account
+7. Select Run As accounts under Account Settings.
+
+8. Select **Create** to create a new account.
 
     ![This image shows where you will find the automation account and select Run As of the Automation Account.](images/createRunAs.png "Create Automation Run As Account")
 
-1. This process may take a few minutes, but you can track the progress.
-1. When it is complete, there will be a resource named **AzureRunAsConnection**.
-1. Selecting the **Azure Run As account**, you can see the application ID, tenant ID, subscription ID, and certificate thumbprint.
+  >**Note**: This process may take a few minutes, but you can track the progress.
+
+9. When it is complete, there will be a resource named **AzureRunAsConnection**.
+
+10. Selecting the **Azure Run As account**, you can see the application ID, tenant ID, subscription ID, and certificate thumbprint.
 
     ![This image shows the completed Run As Automation account.](images/AutomationRunAsDetails.png "Azure automation Run As account")
 
-1. Go back to the PowerShell window from earlier.
-1. Run the following code to download a script to create the Logic App:
+11. Go back to the PowerShell window from earlier.
+
+12. Run the following code to download a script to create the Logic App:
 
     ```powershell
     $Uri = "https://raw.githubusercontent.com/Azure/RDS-Templates/master/wvd-templates/wvd-scaling-script/CreateOrUpdateAzLogicApp.ps1"
@@ -1765,7 +1770,7 @@ In this task, you will create an Azure Automation account and Logic App that wil
     Invoke-WebRequest -Uri $Uri -OutFile ".\CreateOrUpdateAzLogicApp.ps1"
     ```
 
-1. Run the following code to use the script to create your Logic App:
+13. Run the following code to use the script to create your Logic App:
 
     ```powershell
     $AADTenantId = (Get-AzContext).Tenant.Id
@@ -1821,21 +1826,23 @@ In this task, you will create an Azure Automation account and Logic App that wil
     .\CreateOrUpdateAzLogicApp.ps1 @Params
     ```
 
-1. After this script completes, go back to the [Azure Portal](https://portal.azure.com/)
+14. After this script completes, go back to the [Azure Portal](https://portal.azure.com/).
 
     ![This image shows the Azure Portal home web page.](images/azureportal.png "Azure Portal")
 
-1. Find the Logic App that was created by the script
+15. Find the Logic App that was created by the script.
 
     ![This image shows the search to access Azure Portal Logic App services.](images/logicApps.png "Azure Portal")
 
-1. Select on the **Logic app designer** link under Development Tools, you will see the graphical representation of the workflow created by the script.
-1. You can select on the **Recurrence** to change how often the script runs.
-1. Select on the **Run** button to trigger the scaling immediately
+16. Select the **Logic app designer** link under Development Tools, you will see the graphical representation of the workflow created by the script.
+
+17. You can select **Recurrence** to change how often the script runs.
+
+18. Select the **Run** button to trigger the scaling immediately.
 
     ![This image shows the Logic App graphical design view.](images/logicAppDesigner.png "Logic App Designer")
 
-1. You can view the occurrences of your runs by going back to the **Overview** of the Logic App
+19. View the occurrences of your runs by going back to the **Overview** of the Logic App.
 
     ![This image shows the opening of the Logic App overview that will show the Run History and see previous runs.](images/logicAppOverview.png "Logic App Overview")
 
@@ -1845,29 +1852,31 @@ At this point, your AVD Host Pool that is Pooled will spin up and down hosts bas
 
 In this task, you will take a **MSIX package** created from the [MSIX packaging tool](https://docs.microsoft.com/en-us/windows/msix/packaging-tool/tool-overview) and utilize the Azure portal to attach the MSIX package dynamically to AVD pools as users login.  MSIX Packages are disk images containing all files, configurations, and publication details needed to run supported applications that can be mounted by Windows systems on the fly to allow users to run the application without having to install the application to the host machine. By utilizing this technique, we can minimize the footprint and management needs of the AVD hosts while still utilizing multiple applications on the systems without installing the applications permanent on the system.
 
-1. Go to the [Azure Portal](https://portal.azure.com/)
+1. Go to the [Azure Portal](https://portal.azure.com/).
 
     ![This image shows the Azure Portal home web page.](images/azureportal.png "Azure Portal")
 
-1. Go to the **Storage Account** created in Exercise 3 for the FSLogix profiles that was already joined to Active Directory.
-1. Select on the **File shares** under data storage and select on the share created for AVD files.
+2. Go to the **Storage Account** created in Exercise 3 for the FSLogix profiles that was already joined to Active Directory.
+
+3. Select the **File shares** under data storage and select on the share created for AVD files.
 
     ![This image shows that you will open share for AVD File Share on storage account.](images/avdFileShare.png "AVD File Share")
 
-1. Select the **+ Add directory** button to create a new folder and name it **msix**.
+4. Select the **+ Add directory** button to create a new folder and name it **msix**.
 
     ![This image shows where to add a directory on storage account.](images/avdFileShareAdd.png "File Share add directory")
 
     > **Note:** Normally in production you would create an additional share for MSIX files and place the files there.  You would need to make sure the share or container the MSIX files are in you follow the same steps you use for the FSLogix storage account and apply the appropriate permissions to them (users normally only need Read access) and make sure there is enough room to store them.  We are placing it on the same share for this exercise for expediency sake and easier setup. It is not uncommon to have a central MSIX storage with permissions to each MSIX file based on groups assigned to the appropriate application and the MSIX repository used by multiple pools or deployments, but ensure network connectivity and speed are kept consistent.
 
-1. Take note of the storage account (i.e.: `dncloudavdstorage` ) and the name of the file share (ie: `labavdfileshare`)
-1. Open a PowerShell window with the Azure Module installed and connect to the Azure subscription with this command if it is not already connected:
+5. Take note of the storage account (i.e.: `dncloudavdstorage` ) and the name of the file share (ie: `labavdfileshare`).
+
+6. Open a PowerShell window with the Azure Module installed and connect to the Azure subscription with this command if it is not already connected:
 
     ```powershell
     Connect-AzAccount
     ```
 
-1. Run this command to upload the MSIX file to the folder:
+7. Run this command to upload the MSIX file to the folder:
 
     ```powershell
     $SAName = Read-Host "What is the name of the storage account with AVD file shares? (ie: mystorageacct1592)" # Provide the name to the storage account here instead of prompting
@@ -1883,53 +1892,61 @@ In this task, you will take a **MSIX package** created from the [MSIX packaging 
     pause
     ```
 
-1. Find the **Windows Virtual Desktop** resources
-1. Select the **Host pools** and select the Pooled host pool
+8. Find the **Windows Virtual Desktop** resources.
+
+9. Select the **Host pools** and select the Pooled host pool.
 
     ![This image shows the selecting Host Pools of Azure Virtual Desktop.](images/avdHostPools.png "AVD Host Pools")
 
-1. Select the **Pooled** host pool
+10. Select the **Pooled** host pool.
 
     ![This image shows the selecting Pooled host pools of Azure Virtual Desktop.](images/avdPooledPool.png "Pooled host pool")
 
-1. Go to  **MSIX packages** under the Manage section and select **+ Add** to add an MSIX package to the pool
+11. Go to  **MSIX packages** under the Manage section and select **+ Add** to add an MSIX package to the pool.
 
     ![This image shows where to go for the MSIX packages section and select add a package.](images/avdAddMSIXPackages.png "AVD add MSIX package")
 
-1. In the MSIX image path, put the following path replacing `<storageacctname>` with the name over the Storage Account and `<shareName>` with the share that holds the MSIX above:
+12. In the MSIX image path, put the following path replacing `<storageacctname>` with the name over the Storage Account and `<shareName>` with the share that holds the MSIX above:
 
     ```markdown
     \\<storageacctname>.file.core.windows.net\<shareName>\msix\MCW-WVD-MSIX.vhd
     ``` 
     
-1. Select the **MSIX Package**  to add
+13. Select the **MSIX Package** to add.
 
     ![This image shows where to select the MSIX package to add.](images/avdAddMSIXPackage.png "Add MSIX package")
 
-1. Ensure there is an application listed under **Package applications**
-1. For **Registration type**, select **On-demand registration**
-1. Under **State**, select **Active**
-1. Select **Add** to add the package
+14. Ensure there is an application listed under **Package applications**.
+
+15. For **Registration type**, select **On-demand registration**.
+
+16. Under **State**, select **Active**.
+
+17. Select **Add** to add the package.
 
     ![This image shows the settings for adding application package to AVD.](images/avdAddPackageSettings.png "Add MSIX settings")
 
-1. Go to the **Application groups** and select **remoteapps**
+18. Go to the **Application groups** and select **remoteapps**.
 
     ![This image shows where to select AVD Application Group.](images/avdApplicationGroup.png "Go to Application group")
 
-1. Select **+ Add** to add an application
+19. Select **+ Add** to add an application.
 
     ![This image shows where to Add Application Group.](images/avdAddApplication.png "Add application")
 
-1. Choose **MSIX package** from the Application source
-1. Select the MSIX package and MSIX application you just added
-1. Ensure the **Application name** matches the name
-1. Select **Save** to include
+20. Choose **MSIX package** from the Application source.
+
+21. Select the MSIX package and MSIX application you just added.
+
+22. Ensure the **Application name** matches the name.
+
+23. Select **Save** to include
 
     ![This image shows how to set the MSIX application settings and select Save.](images/avdSaveMSIXApp.png "Setup MSIX application")
 
-1. Go to the [AVD Web Client](https://rdweb.wvd.microsoft.com/arm/webclient) (or AVD client if installed locally)
-1. Select the new application icon to launch the application (refresh the page if the new application does not show up yet)
+24. Go to the [AVD Web Client](https://rdweb.wvd.microsoft.com/arm/webclient) (or AVD client if installed locally).
+
+25. Select the new application icon to launch the application (refresh the page if the new application does not show up).
 
 This application is now running on the host pool although the application itself is not installed to the host system.  This allows for the application to also be updated by changing which MSIX package the application points to and the next time a user logs into the application. 
 
@@ -1937,39 +1954,42 @@ This application is now running on the host pool although the application itself
 
 In this task, you will enable Microsoft Defender for Endpoint service and deploy the endpoint protection via Azure. This will allow for all systems to be protected by the Microsoft Defender for Endpoint service from potential vulnerabilities and alert in the event of suspicious execution or activity.
 
-> **NOTE:** This will require signing up for [Azure Defender trial](https://docs.microsoft.com/en-us/azure/security-center/enable-azure-defender#to-enable-azure-defender-on-your-subscriptions-and-workspaces) on your subscription.  If this is a Visual Studio subscription or you do not want to sign up for the time trial yet, you will need to wait and deploy this when you can sign up for the Azure Defender trial.
+> **Note:** This will require signing up for [Azure Defender trial](https://docs.microsoft.com/en-us/azure/security-center/enable-azure-defender#to-enable-azure-defender-on-your-subscriptions-and-workspaces) on your subscription.  If this is a Visual Studio subscription or you do not want to sign up for the time trial yet, you will need to wait and deploy this when you can sign up for the Azure Defender trial.
 
 
-1. Go to the [Azure Portal](https://portal.azure.com/)
+1. Go to the [Azure Portal](https://portal.azure.com/).
 
     ![This image shows the Azure Portal home page.](images/azureportal.png "Azure Portal")
 
-1. Open the Azure **Security Center** (ASC) service
+2. Open the Azure **Security Center** (ASC) service.
 
     ![In this image, you are searching and navigating to Azure Security Center (ASC)](images/findAsc.png "Azure Security Center")
 
-1. Go the **Azure Defender** under the Cloud Security section
-1. Select **Enable Azure Defender** to setup the trial edition of Azure Defender for your Subscription
+3. Go the **Azure Defender** under the Cloud Security section.
+
+4. Select **Enable Azure Defender** to setup the trial edition of Azure Defender for your subscription.
 
     ![This image shows how to navigate to the Azure Defender section to enable the trial of Azure Defender.](images/enableAzureDefender.png "Enable Azure Defender")
 
-1. Go back to **Azure Defender** 
-1. Under the Advanced protection section, select the **VM vulnerability assessment** where it lists the unprotected count of systems
+5. Go back to **Azure Defender**.
+
+6. Under the Advanced protection section, select **VM vulnerability assessment** where it lists the unprotected count of systems.
 
     ![This image shows how to where to select the VM assessment of Security Center to deploy to VMs.](images/defenderVMassesment.png "VM assessment")
 
-1. Check the boxes next to all the VMs that host the AVD Host pools
-1. Select **Fix** to proceed to deployment of the agent
+7. Check the boxes next to all the VMs that host the AVD Host pools.
+
+8. Select **Fix** to proceed to deployment of the agent.
 
     ![This image shows the VMs to choose for the hosts of the AVD and fix VMs to enable a vulnerability assessment.](images/defenderFixVMs.png "Fix defender for vulnerability assessment on AVD VMs")
 
-1. Select the **Qualys** agent for deploying to Azure Defender and select **Proceed**
+9. Select the **Qualys** agent for deploying to Azure Defender and select **Proceed**.
 
-    !["In this image, you are choosing the Qualys agent that is included with the Azure Defender for servers."](images/defenderSelectQualys.png "Choose Qualys")
+    ![In this image, you are choosing the Qualys agent that is included with the Azure Defender for servers.](images/defenderSelectQualys.png "Choose Qualys")
 
-1. Select **Fix X resources** to begin the deployment of the agent
+10. Select **Fix X resources** to begin the deployment of the agent.
 
-    !["This image shows the final step to ensure the VMs expected to be fixed after completing the previous steps."](images/deployDefenderByFix.png "Fix VMs with defender")
+    ![This image shows the final step to ensure the VMs expected to be fixed after completing the previous steps.](images/deployDefenderByFix.png "Fix VMs with defender")
 
 This will begin deploying Azure Defender to the Virtual Machines currently deployed.  Depending on your AVD environment, you can deploy them to systems as they are added to your domain in the AVD OU by utilizing Group Policies using the [domain group policy scenario](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/onboard-windows-10-multi-session-device?view=o365-worldwide#scenario-2-using-domain-group-policy).  Another option when your host is not persistent or deployed from an image, is to use the instructions for [onboarding non-persistent VDI devices](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/configure-endpoints-vdi?view=o365-worldwide). 
 
@@ -1977,8 +1997,6 @@ This will begin deploying Azure Defender to the Virtual Machines currently deplo
 ## After the hands-on lab
 
 Duration:  15 minutes
-
-| WARNING: Prior to continuing you should remove all resources used for this lab.  To do this in the **Azure Portal** select **Resource groups**.  Select any resources groups you have created.  On the resource group blade select **Delete Resource group**, enter the Resource Group Name and select **Delete**.  Repeat the process for any additional Resource Groups you may have created. **Failure to do this may cause issues with other labs.** |
    
 ### Task 1: Delete Resource groups to remove lab environment
 
