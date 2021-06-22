@@ -187,11 +187,11 @@ To simplify tasks in this lab, we will start by disabling [IE Enhanced Security]
 
 2.  In Server Manager, select **Local Server** on the left.
 
-3.  Locate the **IE Enhanced Security Configuration** option and Select **On**.
+3.  Locate the **IE Enhanced Security Configuration** option and select **On**.
 
     ![This image shows the Local Server properties in server manager, locate Enhanced Security configuration.](images/IEESC.png "Local Server properties within server manager") 
 
-4.  On the Internet Explorer Enhanced Security Configuration window, under **Administrators**, select the **Off** radio button and Select **OK**.
+4.  On the Internet Explorer Enhanced Security Configuration window, under **Administrators**, select the **Off** radio button and select **OK**.
 
     ![This image shows how you select the current configuration, a new window will open that will allow you to disable the enhanced security configuration.](images/disablesecurity.png "Disable enhanced security configuration")
 
@@ -221,7 +221,7 @@ By default, Azure AD Connect does not synchronize the built-in domain administra
 
     ![This image shows when the new user is created, we will find that username and right-click to add the user to a group.](images/addusertogroup.png "Add new user to a group")
 
-5.  On the Select Groups dialog window, type **Domain Admins** and Select **OK**.
+5.  On the Select Groups dialog window, type **Domain Admins** and select **OK**.
    
     >**Note**: This account will be used during the host pool creation process for joining the hosts to the domain. Granting Domain Admin permissions will simplify the lab. However, any Active Directory account that has the following permissions will suffice. This can be done using [Active Directory Delegate Control](https://danielengberg.com/domain-join-permissions-delegate-active-directory/). 
 
@@ -301,7 +301,7 @@ It is also important to keep in mind that these groups can also originate from t
 
 3.  On the Azure Active Directory page, select **Groups** on the left and select **+ New group**.
 
-4.  On the New Group page, fill in the following options and Select **Create**.
+4.  On the New Group page, fill in the following options and select **Create**.
 
     -    **Group type:** Security
 
@@ -311,7 +311,7 @@ It is also important to keep in mind that these groups can also originate from t
 
     ![This image shows how to create a new security group type and provide the AVD Pooled Desktop user for the group name.](images/newGroup2.png "New Group Window")
 
-5.  Select **+ New group** again, fill in the following options and Select **Create**.
+5.  Select **+ New group** again, fill in the following options and select **Create**.
 
     -    **Group type:** Security
 
@@ -321,7 +321,7 @@ It is also important to keep in mind that these groups can also originate from t
 
     ![This image shows how to create a new security group type and provide the AVD Remote App All users for the group name.](images/newGroup1.png "New Group Window")
 
-6.  Select **+ New group** again, fill in the following options and Select **Create**.
+6.  Select **+ New group** again, fill in the following options and select **Create**.
 
     -    **Group type:** Security
 
@@ -420,7 +420,7 @@ Before you can work with an Azure file share, you need to create an Azure storag
 
     ![This image shows that you need to select the add icon in File shares to create a new file share.](images/addfileshare.png "Add file share")
 
-5.  Enter a Name for the new file share, enter a quota in gigabits, select **Hot** Tier, and Select **Create**.
+5.  Enter a Name for the new file share, enter a quota in gigabits, select **Hot** Tier, and select **Create**.
 
     ![This image shows how to give the file share a name and a storage quota in gigabits.](images/newfileshare.png "New File share")
     
@@ -654,7 +654,7 @@ To simplify administration, create 4 new security groups in Active Directory to 
 
 9.  On the Storage accounts blade, select the Storage account you created in Task 1.
 
-10. On the blade for your storage account, locate and Select on **File shares**.
+10. On the blade for your storage account, locate and select **File shares**.
 
 11. On the File shares blade, select your file share.
 
@@ -664,7 +664,7 @@ To simplify administration, create 4 new security groups in Active Directory to 
 
     ![This image shows that, in the storage account, under access control, you will locate and select add under add a role assignment.](images/addroleassign.png "Add Azure AD Role assignment")
 
-14. On the Add role assignment fly out, fill in the following options and Select **Save**.
+14. On the Add role assignment fly out, fill in the following options and select **Save**.
 
     -    **Role**: Storage File Data SMB Share Contributor
 
@@ -737,7 +737,7 @@ The first time you configure NTFS permission, do so using superuser permissions.
 
 7.  Open **File Explorer**, right-click on the **Z:** drive and select **Properties**.
 
-8.  On the properties window, select the **Security** tab and Select **Advanced**.
+8.  On the properties window, select the **Security** tab and select **Advanced**.
 
     ![This image shows how to, in the properties for the drive, select the security folder and select advanced.](images/drivesecurity.png)
 
@@ -1100,7 +1100,7 @@ The system will automatically shut down and disconnect your RDP session.
 
     ![This image shows from the Azure portal search bar, to search for virtual machines and select the service.](images/searchvm.png "Search Virtual Machines")
 
-3.  On the Virtual machines blade, locate the VM you used for your gold image and **Select** on the name.
+3.  On the Virtual machines blade, locate the VM you used for your gold image and **select** the name.
 
 4.  On the Overview blade for your VM, confirm the **Status** shows **Stopped**. Select **Stop** in the menu bar to move it to a deallocated state.
 
@@ -1192,7 +1192,7 @@ The name of the Workspace is displayed when the user signs in. Available resourc
 
     ![This image shows how to access Azure Virtual Desktop from the Azure portal search bar.](images/searchavd.png "Search for Azure Virtual Desktop")
 
-3.  Under Manage, select **Workspaces**. Locate the Workspace you want to update and Select on the name.
+3.  Under Manage, select **Workspaces**. Locate the Workspace you want to update and select the name.
 
     ![This image shows where to locate the workspace that was created in Task 1 and select it.](images/workspaceproperties.png)
 
@@ -1260,7 +1260,7 @@ In this exercise, you will be creating a non-persistent host pool for publishing
 
     ![This image shows how to search for Azure Virtual Desktop and select the service from the Azure Portal search bar.](images/searchavd.png "Search for Azure Virtual Desktop")
 
-3.  Under Manage, select **Host pools** and Select **+ Add**.
+3.  Under Manage, select **Host pools** and select **+ Add**.
 
     ![This image shows where to select host pools under manage and select add to add a new host pool.](images/avdHostPool.png "Azure Virtual Desktop blade")
 
@@ -1573,7 +1573,7 @@ Each AVD ARM object has different diagnostic data categories available. For exam
 
     ![This image shows how to select the application group that was created and add diagnostic settings.](images/appgroupadddiag.png "Add Application Group diagnostic settings")
 
-7.  On the Diagnostic settings page, fill in the following information and Select **Save**.
+7.  On the Diagnostic settings page, fill in the following information and select **Save**.
 
     -    **Diagnostic settings name:** Enter a name for these settings. ARM objects can have multiple diagnostic settings applied.
 
@@ -1644,7 +1644,7 @@ Azure Monitor is leveraged with AVD to monitor the performance and health of you
 
     >**Note**: The virtual machine must be running to enable Azure Monitor.
 
-6.  On the Insights setup page, fill in the following information and Select **Enable**.
+6.  On the Insights setup page, fill in the following information and select **Enable**.
 
     -    **Workspace Subscription:** Select the desired subscription.
 
@@ -1858,7 +1858,7 @@ In this task, you will take a **MSIX package** created from the [MSIX packaging 
 
 2. Go to the **Storage Account** created in Exercise 3 for the FSLogix profiles that was already joined to Active Directory.
 
-3. Select the **File shares** under data storage and select on the share created for AVD files.
+3. Select the **File shares** under data storage and select the share created for AVD files.
 
     ![This image shows that you will open share for AVD File Share on storage account.](images/avdFileShare.png "AVD File Share")
 
@@ -2006,7 +2006,7 @@ Duration:  15 minutes
 
     ![This image shows how to access Resource groups from the Azure portal search bar.](images/searchresourcegroup.png "Search for Resource groups")
 
-3. Select the **Resource group** that you created your resources.
+3. Select the **Resource groups** you created.
 
 4. Select **Delete Resource group**.
 
