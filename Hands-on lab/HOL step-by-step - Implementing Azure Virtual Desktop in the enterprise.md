@@ -1058,15 +1058,15 @@ This will trigger the PowerShell form to launch. Select the appropriate options 
 
 11.  Once the script has completed execution, complete these final tasks:
 
-    -   Delete the C:\\BuildArtifacts directory.
+     -   Delete the C:\\BuildArtifacts directory.
 
-    -   Delete the .zip file on your desktop.
+     -   Delete the .zip file on your desktop.
 
-    -   Empty the Recycle Bin.
+     -   Empty the Recycle Bin.
 
-    -   Copy the C:\\Windows\\Logs\\ImagePrep\\LGPO directory to your local workstation.
+     -   Copy the C:\\Windows\\Logs\\ImagePrep\\LGPO directory to your local workstation.
 
-    -   Reboot the VM.
+     -   Reboot the VM.
 
         ![This image shows how, after the image preparation is complete, delete the downloaded files and empty the recycle bin.](images/deletescripts.png "Deleting the scripts")
 
