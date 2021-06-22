@@ -1118,7 +1118,7 @@ The system will automatically shut down and disconnect your RDP session.
 
 7.  Once complete, type **images** in the **Search resources field** at the top of the page. Select **Images** from the list.
 
-8.  On the Images blade, locate your image and **Select** on the name.
+8.  On the Images blade, locate your image and **Select** the name.
 
     ![When you search on images, the images icon is the one that you will need to select as shown.](images/findimage.png)
 
@@ -1868,7 +1868,7 @@ In this task, you will take a **MSIX package** created from the [MSIX packaging 
 
     > **Note:** Normally in production you would create an additional share for MSIX files and place the files there.  You would need to make sure the share or container the MSIX files are in you follow the same steps you use for the FSLogix storage account and apply the appropriate permissions to them (users normally only need Read access) and make sure there is enough room to store them.  We are placing it on the same share for this exercise for expediency sake and easier setup. It is not uncommon to have a central MSIX storage with permissions to each MSIX file based on groups assigned to the appropriate application and the MSIX repository used by multiple pools or deployments, but ensure network connectivity and speed are kept consistent.
 
-5. Take note of the storage account (i.e.: `dncloudavdstorage` ) and the name of the file share (ie: `labavdfileshare`).
+5. Take note of the storage account (i.e.: `dncloudavdstorage` ) and the name of the file share (i.e.: `labavdfileshare`).
 
 6. Open a PowerShell window with the Azure Module installed and connect to the Azure subscription with this command if it is not already connected:
 
