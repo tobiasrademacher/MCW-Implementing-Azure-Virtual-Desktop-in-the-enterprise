@@ -170,7 +170,7 @@ When participants are doing activities, you can **look ahead to refresh your mem
 
 ## Abstract and learning objectives
 
-In the whiteboard design session you will work in groups to design a Azure Virtual Desktop (formerly Windows Virtual Desktop) solution using Microsoft 365 and Azure technologies. Your solution will consider the necessary Microsoft 365 subscription required for Windows 10 Enterprise multi-user licensing, as well as the Azure Active Directory and security needs for a healthcare provider. You will need to determine how to connect Azure to the current VMware and Citrix on-premises infrastructure and the connections needed to connect this infrastructure to Azure for application access. Finally, you will need to design the Azure Virtual Desktop solution utilizing Azure virtual machines with availability and scalability to handle 24x7 operations without performance degradation.
+In the whiteboard design session, you will work in groups to design an Azure Virtual Desktop (formerly Windows Virtual Desktop) solution using Microsoft 365 and Azure technologies. Your solution will consider the necessary Microsoft 365 subscription required for Windows 10 Enterprise multi-user licensing, as well as the Azure Active Directory and security needs for a healthcare provider. You will need to determine how to connect Azure to the current VMware and Citrix on-premises infrastructure and the connections needed to connect this infrastructure to Azure for application access. Finally, you will need to design the Azure Virtual Desktop solution utilizing Azure virtual machines with availability and scalability to handle 24x7 operations without performance degradation.
 
 At the end of the whiteboard design session, you will be better able to design a solution that leverages Microsoft 365 and Azure technologies together to build a secure and robust Azure Virtual Desktop infrastructure.
 
@@ -202,7 +202,7 @@ Contoso Healthcare's CISO, Laura Knight, has an additional list of objectives to
 
 Contoso Healthcare has completed an initial cloud assessment of their current infrastructure and applications, and they have divided the following areas that they feel that Microsoft 365 and Azure technologies can support:
 
-**Security**: The business of healthcare has become more reliant on mobile devices to access files and financial records, which has created a concern over theft and data exposure. Contoso would like to eliminate the possibility of any PHI or PII being located on a local device through use of a virtual desktop infrastructure. They would also like to be able to manage applications that are authorized, and block cloud applications that are not authorized.  Security controls will need to audited, logged, and reviewed to ISO 27001, California Personal Protection Act, and HIPAA standards.
+**Security**: The business of healthcare has become more reliant on mobile devices to access files and financial records, which has created a concern over theft and data exposure. Contoso would like to eliminate the possibility of any PHI or PII being located on a local device through use of a virtual desktop infrastructure. They would also like to be able to manage applications that are authorized, and block cloud applications that are not authorized.  Security controls will need to be audited, logged, and reviewed to ISO 27001, California Personal Protection Act, and HIPAA standards.
 
 **Availability and Scalability**: Being a healthcare provider, Contoso has a requirement for applications to be accessible 24x7, so any infrastructure should be designed with high availability and scalability in mind. As Contoso Healthcare grows through acquisitions, they need to be able to scale out resources quickly for the addition of new users.
 
@@ -253,7 +253,7 @@ Network scenarios diagram the potential options for connecting from Microsoft Az
 ### Azure Virtual Desktop standard architecture
 This diagram outlines a simple Azure Virtual Desktop architecture with Azure and Microsoft 365. This includes the Azure Virtual Desktop user connection and the Azure Virtual Desktop host pools.
 
-![Diagram referencing that there are multiple devices that will need to connect to the Windows desktop virtual image for Windows 10 and Microsoft 365 applications via the WVD hostpool.](images/avdarchitecture.png "Azure Virtual Desktop standard architecture")
+![Diagram referencing that there are multiple devices that will need to connect to the Windows desktop virtual image for Windows 10 and Microsoft 365 applications via the WVD host pool.](images/avdarchitecture.png "Azure Virtual Desktop standard architecture")
 
 
 ## Step 2: Design a proof of concept solution
@@ -278,7 +278,7 @@ Directions: With all participants at your table, respond to the following questi
 
 *High-level architecture*
 
-Design a Azure Virtual Desktop infrastructure that addresses the needs and requirements of the organization. Provide details of your implementation. Make sure to document your design with a diagram along with addressing the questions.  Address the requirements in the following areas:
+Design an Azure Virtual Desktop infrastructure that addresses the needs and requirements of the organization. Provide details of your implementation. Make sure to document your design with a diagram along with addressing the questions.  Address the requirements in the following areas:
 
 *Microsoft 365*
 
@@ -461,7 +461,7 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 
 *High-level architecture*
 
-Design a Azure Virtual Desktop infrastructure that addresses the needs and requirements of the organization. Provide details of your implementation. Make sure to document your design with a diagram along with addressing the questions.  Address the requirements in the following areas:
+Design an Azure Virtual Desktop infrastructure that addresses the needs and requirements of the organization. Provide details of your implementation. Make sure to document your design with a diagram along with addressing the questions.  Address the requirements in the following areas:
 
 *Microsoft 365*
 
@@ -533,7 +533,7 @@ Design a Azure Virtual Desktop infrastructure that addresses the needs and requi
        
 3. How will your virtual networks (VNETs) be configured for IP addresses and subnets?
 
-    The resource group should be configured with at least three separate VNETs with subnets.  The first would be the VNET for the Virtual Desktop hostpool, the second will be the VNET used to connect to the on-premises network, and the third would be a VNET for a Bastion host to be used for secure virtual machine access for support.  The VNETs will be peered with only the Virtual Desktop hostpool VNET having gateway access for security.  This configuration of VNETs provides a level of isolation to the networks for security and control.
+    The resource group should be configured with at least three separate VNETs with subnets.  The first would be the VNET for the Virtual Desktop host pool, the second will be the VNET used to connect to the on-premises network, and the third would be a VNET for a Bastion host to be used for secure virtual machine access for support.  The VNETs will be peered with only the Virtual Desktop host pool VNET having gateway access for security.  This configuration of VNETs provides a level of isolation to the networks for security and control.
 
 4. How will you connect to Contoso Healthcare's data centers to minimize latency and maximize security?
     
@@ -588,7 +588,7 @@ Design a Azure Virtual Desktop infrastructure that addresses the needs and requi
     
     You should have used the Azure pricing calculator to create an initial capacity estimate.  This estimate calculated at most 31 DS2s v3 instances as the base availability set with 8 virtual desktop sessions per host (according to: https://docs.microsoft.com/en-us/windows-server/remote/remote-desktop-services/virtual-machine-recs).  Additional instances to scale as capacity increases.  The example estimate can be accessed here: https://azure.com/e/296a636cede24f1c859b42a63687c80c.
 
-*Diagram of the on-premises to Azure Azure Virtual Desktop solution*
+*Diagram of the on-premises to Azure Virtual Desktop solution*
 
    This diagram shows the possible solution for Contoso's Azure Virtual Desktops.  The California datacenter is connecting to the Azure West US region, and the Northern Virginia datacenter is connecting to the East US region utilizing ExpressRoutes to each.  The West US and East US region VNETs are peered for high-speed backbone connection with a pass-through peering allowed from East US to the WVD VM host pool VNET that is peered with West US.
     
