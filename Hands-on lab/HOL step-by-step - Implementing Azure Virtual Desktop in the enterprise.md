@@ -582,9 +582,9 @@ In this task, you will be completing the steps on the Domain Controller in Azure
     ![This image is what the responses should be when running the previous PowerShell tasks.](images/confirmpowershell.png "PowerShell task responses")
 
 
-20. Confirm activation with your domain by navigating to the Azure portal, going to the storage account and selecting **Configuration** under **Settings**. Refer to the group on Active Directory (AD), as shown in the example below.
+20. Confirm activation with your domain by navigating to the Azure portal, going to the storage account and selecting **Files shares** under **Data storage**. Refer to the File share settings to see **Configured** on Active Directory (AD), as shown in the example below.
 
-    ![This image shows how in the storage account configuration, that Active Directory Domain Services is enabled.](images/portalconfirm.png "Storage account configuration")
+    ![This image shows how in the storage account configuration, that Active Directory Domain Services is configured.](images/portalconfirm.png "Storage account configuration")
 
 You have now successfully enabled AD authentication over SMB and assigned a custom role that provides access to an Azure file share with an AD identity.
 
