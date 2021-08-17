@@ -401,6 +401,8 @@ Before you can work with an Azure file share, you need to create an Azure storag
     ![This image shows how to select the Add icon to create a new storage account.](images/addstorageaccount.png "Add a storage account")
 
     ![This image shows how to enter the information to create a new storage account.](images/createstorageaccount.png "Create a storage account")
+    
+    >**Note**: The storage account name should be 15 characters or less in length.
 
 5.  Select **Review + Create** to review your storage account settings and create the account.
 
