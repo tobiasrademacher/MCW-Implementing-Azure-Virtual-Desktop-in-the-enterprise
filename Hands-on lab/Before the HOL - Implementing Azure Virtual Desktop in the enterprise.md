@@ -114,6 +114,8 @@ deployment. To avoid confusion and deployment errors, **open an InPrivate browse
     - Create an **Admin password**
     - Create an **AD Domain name**, such as **(mycompany).local**
     - Create a **Customupnsuffix** for AVD, such as **"myavd"**
+          
+        >**Note**: Unless you are using a fully qualified domain name for the domain cotroller, make sure to use a .local domain.  Example: **myavd.local**.  Otherwise, the deployment will fail.
     - Create a **Default user password**
     - Select **Review + create**
 
