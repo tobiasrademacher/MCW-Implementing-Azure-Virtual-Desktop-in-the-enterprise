@@ -448,7 +448,7 @@ Before you can work with an Azure file share, you need to create an Azure storag
 
     ![This image shows that you need to select the add icon in File shares to create a new file share.](images/addfileshare.png "Add file share")
 
-5.  Enter a Name for the new file share, enter a quota in gigabits, select **Hot** Tier, and select **Create**.
+5.  Enter a Name for the new file share, select **Hot** Tier, and select **Create**.
 
     ![This image shows how to give the file share a name and a storage quota in gigabits.](images/newfileshare.png "New File share")
     
@@ -549,9 +549,9 @@ In this task, you will be completing the steps on the Domain Controller in Azure
     
 
         ```
-        $SubscriptionId = "\<subscription-id\>\"
-        $ResourceGroupName = "\<resource-group-name\>\"
-        $StorageAccountName = "\<storage-account-name\>\"
+        $SubscriptionId = "<subscription-id>"
+        $ResourceGroupName = "<resource-group-name>"
+        $StorageAccountName = "<storage-account-name>"
         ```
 
 
@@ -611,6 +611,8 @@ In this task, you will be completing the steps on the Domain Controller in Azure
 
 
 20. Confirm activation with your domain by navigating to the Azure portal, going to the storage account and selecting **Files shares** under **Data storage**. Refer to the File share settings to see **Configured** on Active Directory (AD), as shown in the example below.
+
+    >**Note**: You may need to navigate out of the storage account and back in for the File share settings to change.
 
     ![This image shows how in the storage account configuration, that Active Directory Domain Services is configured.](images/portalconfirm.png "Storage account configuration")
 
