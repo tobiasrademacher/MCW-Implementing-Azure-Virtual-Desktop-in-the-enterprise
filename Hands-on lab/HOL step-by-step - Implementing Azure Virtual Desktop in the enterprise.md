@@ -632,11 +632,15 @@ To access Azure Files resources with identity-based authentication, an identity 
 
 To simplify administration, create 4 new security groups in Active Directory to manage share permissions.
 
-1.  From a domain joined computer, open **Active Directory Users and Computers**.
+1.  From a domain joined computer, open **Server Manager**, then navigate to **Tools** to open **Active Directory Users and Computers**.
+
+    ![This image shows how to navigate to Tools to be able to get to Active Directory Users and Computers to create a new group.](images/aduserscomputers.png "Active Directory Users and Computers under Tools")
+
+2.  Under the local domain, select **Builtin** and select **Create a new group in the current container**.
 
     ![This image shows how to open the window on the domain controller VM server manager and go to the Active Directory users and computers to create a new security group.](images/adgroups.png "Create new groups")
 
-2.  Create the following Active Directory security groups in an OU that is synchronized with Azure AD:
+3.  Create the following Active Directory security groups in an OU that is synchronized with Azure AD:
 
     -   **AZF FSLogix Contributor**
 
@@ -654,47 +658,45 @@ To simplify administration, create 4 new security groups in Active Directory to 
 
         ![This image shows how to create a new group object named AVD User.](images/avduser.png "AVD User")
 
-3.  Add the AVD administrative account that you created previously to the group **AZF FSLogix Elevated Contributor**. This account will have permissions to modify file share permissions.
+4.  Add the AVD administrative account that you created previously to the group **AZF FSLogix Elevated Contributor**. This account will have permissions to modify file share permissions.
 
     ![This image shows how to find the AVD admin user that you created previously and right-click to add to a group.](images/chooseadmin.png)
 
-4.  Type **AZF FSLogix Elevated Contributor** and select **Check Names** to verify. Select **Ok** to save.
+5.  Type **AZF FSLogix Elevated Contributor** and select **Check Names** to verify. Select **Ok** to save.
 
     ![This image shows how to add the AZF FSLogix Elevated Contributor group to this user.](images/addadmin.png)
 
-5.  Add the group **AVD Users** to the group **AZF FSLogix Contributor** by going to the Builtin groups, locating AVDUsers and right-click to **Add to a group**.
+6.  Add the group **AVD Users** to the group **AZF FSLogix Contributor** by going to the Builtin groups, locating AVDUsers and right-click to **Add to a group**.
   
     ![This shows how you would find the AVD Users group and add it to a group.](images/avduseraddtogroup.png)
 
     ![This image shows where you enter the FSLogix contributor group and check the name before adding.](images/avduseraddgroup.png)
 
-6.  Add user accounts to the group **AVD Users** by selecting **OrgUsers** and choosing all the users in the list.  Select all the users and right-click to add them to a group. These users will have access to use FSLogix profiles. Also be sure to add the **ADAdmin** user to these groups.
+7.  Add user accounts to the group **AVD Users** by selecting **OrgUsers** and choosing all the users in the list.  Select all the users and right-click to add them to a group. These users will have access to use FSLogix profiles. Also be sure to add the **ADAdmin** user to these groups.
 
     ![This image shows the list of users in the organization, select the users and add them to the AVD Users group.](images/avdaddusers.png "Add users to the AVD users group")
 
-7.  Wait for the new groups to synchronize with Azure AD.  These groups can be verified by going to **Groups** within **Azure Active Directory** and looking for the names in the list.
+8.  Wait for the new groups to synchronize with Azure AD.  These groups can be verified by going to **Groups** within **Azure Active Directory** and looking for the names in the list.
 
     ![This image shows how to where you would verify that the groups that were created on the domain controller have synchronized with Azure AD.](images/newgroups.png)
 
-    With the new security groups available in Azure AD, use the following steps to assign them to your storage account in the Azure portal. This will enable to manage share permissions using AD security groups.
+    With the new security groups available in Azure AD, use the following steps to assign them to your storage account in the Azure portal. This will enable you to manage share permissions using AD security groups.
 
-8.  In the Azure portal, in the **Search resources** field, type **storage accounts** and select **Storage accounts** from the list.
+9.  In the Azure portal, in the **Search resources** field, type **storage accounts** and select **Storage accounts** from the list.
 
     ![This image shows how to, from the Azure portal, search for storage accounts on the search bar.](images/storageaccount.png "Search for storage accounts")
 
-9.  On the Storage accounts blade, select the Storage account you created in Task 1.
+10. On the Storage accounts blade, select the Storage account you created in Task 1.
 
-10. On the blade for your storage account, locate and select **File shares**.
+11. On the blade for your storage account, locate and select **File shares**. Then, on the File shares blade, select your file share.
 
-11. On the File shares blade, select your file share.
+    ![This image shows how to, from the Storage account, locate File shares under Data storage in the menu and select your file share to adjust the settings.](images/avdselectfileshare.png "Navigate to file share settings")
 
-12. Select **Access Control (IAM)**.
-
-13. Select **+ Add** and select **Add role assignment**.
+12. Select **Access Control (IAM)**, and then select **+ Add** and select **Add role assignment**.
 
     ![This image shows that, in the storage account, under access control, you will locate and select add under add a role assignment.](images/addroleassign.png "Add Azure AD Role assignment")
 
-14. On the Add role assignment fly out, fill in the following options and select **Save**.
+13. On the Add role assignment fly out, fill in the following options and select **Save**.
 
     -    **Role**: Storage File Data SMB Share Contributor
 
@@ -704,7 +706,7 @@ To simplify administration, create 4 new security groups in Active Directory to 
 
     ![This image shows how to add the storage file data SMB share contributor role to the AZF FSLogix contributor role that were created within Active Directory.](images/azureadroleassigncontrib.png "Add FSLogix roles to Azure AD File share")
 
-15. Repeat steps 3-4 for the remaining two roles.
+14. Repeat steps 3-4 for the remaining two roles.
 
     -    Storage File Data SMB Share Elevated Contributor \> AZF FSLogix Elevated Contributor
 
@@ -724,71 +726,62 @@ The first time you configure NTFS permission, do so using superuser permissions.
 
 >**Note**: To complete this task, you will need to disable secure transfer in the storage account.  This can be accessed from the storage account **Configuration** and selecting **Disabled** under **Secure transfer required**.  Select **Save** to save the changes.
 
-![This image shows how, within the configuration, you will disable secure transfer required and save.](images/disablesecuretransfer.png)
+![This image shows how, within the configuration, you will disable secure transfer required and save.](images/disablesecuretransfer.png "Disable secure transfer")
 
 1.  In the Azure portal, in the **Search resources** field, type **storage accounts** and select **Storage accounts** from the list.
 
 2.  On the Storage accounts blade, select the Storage account you created in Task 1.
 
-3.  On the blade for the file share within your storage account, under **Settings**, select **Properties**. Locate the **URL** address. This is the path you will use to access your file share. 
+3.  On the blade for the file share within your storage account, select **Connect**. This will open the **Connect** blade. 
 
-    ![This image shows how to use the storage account properties blade to find the storage account path.](images/storagefileendpoint.png)
+    ![This image shows how to use the storage account properties blade to open the Connect blade.](images/connectstorage.png "Connect to storage")
 
 >**Note**: The base URL is also available under the **Properties** of the storage account itself under the **File service** entry.  
 
-4.  Reformat the path to UNC and copy it to a notepad file. For example:
+4.  On the **Connect** blade, select Drive letter **Z**, **Storage account key** for the Authentication method. 
+   
+    ![This is an image of the drive letter and authentication method settings for connecting the storage account.](images/storagesettings.png "Storage connect settings")
 
-    https://mydomainazfiles.file.core.windows.net/\<file-share-name\> ==
-    \\\mydomainazfiles.file.core.windows.net\\\<file-share-name\>
+5.  On the **Connect** blade for your storage account, copy the **PowerShell** script located in the gray text box.
 
-    ![Here is the image of the reformatted name in notepad on the domain controller.](images/notepadreformatted.png)
+    ![Here is the location of the script to copy to run in Windows PowerShell.](images/copyscript.png "Connect script")
 
-5.  On the blade for your storage account, under **Settings**, select **Access keys**. Copy and paste the value for **key1** to the same notepad file.
+6.  From a domain joined computer, open a **PowerShell** and enter **cd c:\users** and paste the **PowerShell** script that you copied from the **Connect** blade. 
 
-    ![Here is the location of the storage account key to copy to the notepad.](images/copykey.png)
+    ``
+    cd c:\users
+    ``
 
-6.  From a domain joined computer, open a standard command prompt and mount your file share using the storage account key. **Do not** use an elevated command prompt or the mount point will not be visible in File Explorer. 
-
-    ![This image shows where to go to the search on Windows to find and open the Command prompt.](images/opencommandprompt.png)
+    ![This image shows the pasting of the PowerShell script and the status of the connection.](images/powershellconnect.png "PowerShell file share connection")
      
-    >**Note**: Refer to the following examples to prepare your command. Be sure to enter spaces where (space) is noted:
-    net use z:(space) \\\\\<storage-account-name\>.file.core.windows.net\\\<share-name>(space) <storage-account-key\>(space) /user:Azure\\\<storage-account-name\>
+    >**Note**: After running the script, if you receive a CMDKEY: Credential added successfully and drive name **Z** appears, the script has run correctly. If this fails it may be that this is an SMB connection on port 445 and many consumer ISPs block this port by default. When you are doing this in your lab and experience issues mounting the share from a local computer, try connecting from a domain joined VM in Azure. 
 
-        Example with sample values:
-                
-        net use z: \\mydomainazfiles.file.core.windows.net\FSLogix uPCvi+gP2qbCQcn3EATgbALE0H8nxhspyLRO2Nf9Hm2gMxfn/389/M33XHh7YEqNJ2GhbJXgStiifPwMBXk38Q== user:Azure\\mydomainazfiles
-        
-
-    ![This image shows how to, from the command prompt, run the script list above to connect the storage account as a network drive.](images/cmdprompt.png "Command Prompt script for mapping drive")
-
-    >**Note**: This is an SMB connection on port 445. Most consumer ISPs block this port by default. when you are doing this in your lab and experience issues mounting the share from a local computer, try connecting from a domain joined VM in Azure.
-
-    ![This image shows how to, after the net use command is completed successfully, you will receive a prompt that it was completed successfully.  You will also be able to see the drive as a network location in file explorer.](images/successfulstoragemap.png)
+    ![This image shows how to, after the net use command is completed successfully, you will receive a prompt that it was completed successfully.  You will also be able to see the drive as a network location in file explorer.](images/successfulstoragemap.png "Connected network drive")
 
 7.  Open **File Explorer**, right-click on the **Z:** drive and select **Properties**.
 
 8.  On the properties window, select the **Security** tab and select **Advanced**.
 
-    ![This image shows how to, in the properties for the drive, select the security folder and select advanced.](images/drivesecurity.png)
+    ![This image shows how to, in the properties for the drive, select the security folder and select advanced.](images/drivesecurity.png "Network drive security settings")
 
 9.  Select **Add** and add each of the AD security groups you created in Task 4 with the appropriate permissions.  Select check names as each is entered to verify the connection.
 
-    ![This image shows how to select add in security settings to add new objects.](images/addsecurity.png)
+    ![This image shows how to select add in security settings to add new objects.](images/addsecurity.png "Add security principals")
 
     >**Note**: The images show all the objects that need to be added but only one can be added at a time.  Add one and then repeat the process until all four are added.
 
-    | AD Group | NTFS Permissions |
-    |----------|------------------|
-    | **AZF FSLogix Contributor** | Modify |
-    | **AZF FSLogix Elevated Contributor** | Full control |
-    | **AZF FSLogix Reader** | Read & execute |
-    | **AVD Users** | Modify (This folder only) |
+    | AD Group | NTFS Permissions | Applies to |
+    |----------|------------------|------------|
+    | **AZF FSLogix Contributor** | Modify | This folder, subfolders and files|
+    | **AZF FSLogix Elevated Contributor** | Full control |This folder, subfolders and files|
+    | **AZF FSLogix Reader** | Read & execute |This folder, subfolders and files|
+    | **AVD Users** | Modify (This folder only) |This folder only|
 
-10. Select **OK** to save your changes.
+10. Select **OK** to save your changes. Select **Yes** if you receive a **Windows Security** warning about removal of inherited permissions.
 
-    ![This image shows how to choose select a principal to open the select user, computer, service account, or group window.  In the enter the object name window, enter the FSLogix groups that were created previously.  Check names and select ok.](images/addobjects.png)
+    ![This image shows how to choose select a principal to open the select user, computer, service account, or group window.  In the enter the object name window, enter the FSLogix groups that were created previously.  Check names and select ok.](images/addobjects.png "Steps to add principal object permissions")
 
-    ![This image shows how that after adding all four objects as principals, they will be in the list of permission entries.](images/addsecuritycomplete.png)
+    ![This image shows how that after adding all four objects as principals, they will be in the list of permission entries.](images/addsecuritycomplete.png "New security permissions added")
 
 
 
@@ -800,7 +793,7 @@ In this task we will create directories for each of the FSLogix profile types an
 
 1.  Navigate to the networked drive in File explorer.
 
-    ![This is an image of where you will find the network drive that you mounted in the previous task.](images/networkdrive.png)
+    ![This is an image of where you will find the network drive that you mounted in the previous task.](images/networkdrive.png "Network drive location")
 
 2.  Create three new folder directories in the root share.
 
