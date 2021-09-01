@@ -803,7 +803,7 @@ In this task we will create directories for each of the FSLogix profile types an
 
     -    **MSIX**
 
-    ![This image shows that after adding these folders, file explorer for that shared drive will look like this.](images/newfolders.png)
+    ![This image shows that after adding these folders, file explorer for that shared drive will look like this.](images/newfolders.png "New folders in drive z")
 
 3.  Right-click on the **Profiles** directory and select **Properties**.
 
@@ -811,17 +811,17 @@ In this task we will create directories for each of the FSLogix profile types an
 
 5.  Select **Disable inheritance** and select **Remove all inherited permissions from this object**.
 
-    ![This image is the screen that you would remove the inherited permissions.](images/removeinheritedperm.png)
+    ![This image is the screen that you would remove the inherited permissions.](images/removeinheritedperm.png "Remove inherited permissions")
 
 6.  Select **Add** and add **AZF FSLogix Elevated Contributor**. Grant **Full Control** and check **Only apply these permissions to objects and/or containers within this container**. Select **OK**.
 
-    ![This image shows the selections that should be complete before selecting ok.](images/addfullcontrol.png)
+    ![This image shows the selections that should be complete before selecting ok.](images/addfullcontrol.png "Set full control for FSLogix Elevated Contributor")
 
 7.  Select **Add** and add **Creator owner**. Grant **Full Control** to **Only apply these permissions to objects and/or containers within this container**. Select **OK**.
 
-    ![This image shows how the add the creator owner object.](images/addcreatorowner.png)
+    ![This image shows how the add the creator owner object.](images/addcreatorowner.png "Add Creator owner principal")
 
-    ![This image shows how to set the permissions for full control to the creator owner.](images/addfullcontrolcreator.png)
+    ![This image shows how to set the permissions for full control to the creator owner.](images/addfullcontrolcreator.png "Grant full control to creator owner")
 
 8.  Select **Add** and add **AVD Users**. Grant the following special permissions to **Only apply these permissions to objects and/or containers within this container**. Select **OK**.
 
@@ -833,11 +833,11 @@ In this task we will create directories for each of the FSLogix profile types an
 
     -   Create folders / append data
 
-    ![This image shows the special permissions for AVD user.](images/userfolderpermissions.png)
+    ![This image shows the special permissions for AVD user.](images/userfolderpermissions.png "AVD users folder permissions")
 
 9.  Select **OK** on both property windows to apply your changes.
 
-    ![This image shows the list of permission objects that were just created.](images/permissionscomplete.png)
+    ![This image shows the list of permission objects that were just created.](images/permissionscomplete.png "Permissions for Profiles and ODFC folder")
 
 10. Repeat steps 3-9 for the **ODFC** directory.
 
@@ -847,17 +847,19 @@ In this task we will create directories for each of the FSLogix profile types an
 
 13. Select **Disable inheritance** and select **Remove all inherited permissions from this object**.
 
-    ![This image is the screen that you would remove the inherited permissions.](images/removeinheritedperm.png)
+    ![This image is the screen that you would remove the inherited permissions.](images/removeinheritedperm.png "Remove inherited permissions")
 
 14. Select **Add** and add **AZF FSLogix Elevated Contributor**. Grant **Full Control** to **Only apply these permissions to objects and/or containers within this container**. Select **OK**.
 
-    ![This image shows the selections that should be complete before selecting ok.](images/addfullcontrol.png)
+    ![This image shows the selections that should be complete before selecting ok.](images/addfullcontrol.png "Add FSLogix Elevated Contributor full control")
 
 15. Select **Add** and add **AVD Users**. Grant **Read & execute** to **Only apply these permissions to objects and/or containers within this container**. Select **OK**.
 
-    ![This image shows the custom permissions for the AVD users on the MSIX folder.](images/msixavdusers.png)
+    ![This image shows the custom permissions for the AVD users on the MSIX folder.](images/msixavdusers.png "Add AVD users permissions")
 
 16. Confirm your permissions match the screenshots below.
+
+    ![This image shows the list of permission objects that were just created for the MSIX folder.](images/msixpermissions.png "Permissions for MSIX folder")
 
 17. Select **OK** on both property windows to apply your changes.
 
@@ -886,14 +888,14 @@ For more information on how to setup a Bastion host in Azure|https://docs.micros
 
 2.  On the Azure portal home page, select **Create a resource**.
 
-3.  On the New page, search for **Microsoft Windows 10**. Select **Windows 10 Enterprise multi-session, Version 1909** and **Create**.
+3.  On the New page, search for **Microsoft Windows 10**. Select **Windows 10 Enterprise multi-session, Version 1909** or higher and **Create**.
 
 
     ![This image shows the window will display the creation of a New Microsoft Windows 10 VM using software plan Windows 10 Enterprise multi-session, Version 1909.](images/windows10VM.png "New Microsoft Windows 10 VM using software plan Windows 10 Enterprise multi-session, Version 1909")
 
     >**Note**: In this exercise we are selecting a base Windows 10 image to start with and installing Office 365 ProPlus using a custom deployment script. We are also using the latest available release of Windows 10 Enterprise multi-session, but you can choose the version based on your requirements.
 
-4.  On the Create a virtual machine page, fill in the required fields and create the VM by selecting **Review + create**.
+4.  On the Create a virtual machine page, fill in the required fields shown below. 
 
     ![This image shows what your configuration should be for the virtual machine image.](images/win10vmcreate.png "Create virtual machine")
 
@@ -903,13 +905,17 @@ For more information on how to setup a Bastion host in Azure|https://docs.micros
 
     ![This image shows that, in the "Create a virtual machine" page within the Azure portal for the Windows 10 VM, allow port 3389 as an inbound port.](images/windows10VMcreate.png "The 'Create a virtual machine' page within the Azure portal for the Windows 10 VM")
 
-5.  Once the VM is successfully deployed, go to the resource, and connect using RDP. Sign in using the credentials you supplied when creating the VM.
+5.  Select the checkbox to confirm eligible Windows 10 licensing and create the VM by selecting **Review + create**.
 
-    ![This image shows the select connect in the Windows 10 VM overview to RDP to the vm.](images/connectwin10vm.png)
+    ![This image shows the Windows 10 licensing confirmation and the selection to Review and create.](images/windows10licensing.png "Confirm Windows 10 licensing")
 
-6.  Download the RDP file and open the RDP file to connect.
+6.  Once the VM is successfully deployed, go to the resource, and connect using RDP. Sign in using the credentials you supplied when creating the VM.
 
-    ![This image shows the download RDP button and the file that is downloaded to connect to the vm.](images/connectrdp.png)
+    ![This image shows the select connect in the Windows 10 VM overview to RDP to the vm.](images/connectwin10vm.png "Connect to Windows 10 VM")
+
+7.  Download the RDP file and open the RDP file to connect.
+
+    ![This image shows the download RDP button and the file that is downloaded to connect to the vm.](images/connectrdp.png "Download and run RDP file")
 
 ### Task 2: Run Windows Update
 
@@ -920,6 +926,8 @@ Despite the Azure support teams best efforts, the Marketplace images are not alw
     ![This image shows that, on the new Windows 10 VM image, go to settings window and select update and security.](images/w10VMSettings.png "The settings window within the Windows 10 VM")
 
 2.  Install all missing updates, rebooting as necessary.
+
+    >**Note**: After initial updates found during startup have been installed and you have rebooted the VM, check for updates again before proceeding.  There may be additional updates that need to be installed.
 
 3.  Once the VM is fully patched, the Windows Update Settings page should resemble the following screenshot.
 
@@ -1017,7 +1025,7 @@ The UI form offers the following actions:
 6.  Navigate to \"C:\Users\\(loginaccount)\Documents\Customizations".
 
     ```
-    cd C:\Users\(LoginAccount)\Documents\Customizations\Customizations
+    cd C:\Users\(LoginAccount)\Documents\Customizations\Prepare-WVDImage
     ```
 
 7.  Run the following command to allow for script execution:
@@ -1139,15 +1147,15 @@ The system will automatically shut down and disconnect your RDP session.
 
     ![This image shows what is displayed on the Create Image blade in Azure.](images/w10VMImage.png "Create Image blade in Azure")
 
-7.  Once complete, type **images** in the **Search resources field** at the top of the page. Select **Images** from the list.
+7.  Once complete, type **shared image** in the **Search resources field** at the top of the page. Select **Shared image galleries** from the list.
 
-8.  On the Images blade, locate your image and **Select** the name.
+8.  On the Shared image galleries blade, locate your image and **Select** the name.
 
-    ![When you search on images, the images icon is the one that you will need to select as shown.](images/findimage.png)
+    ![When you search on images, the images icon is the one that you will need to select as shown.](images/findimage.png "Go to Shared image gallery")
 
 9.  On the Overview blade for your image, make note of the **Name** field and **Resource group** field. These attributes are needed when you provision your host pools.
 
-    ![This image shows the information that you need to note for the name and resource group.](images/newimage.png)
+    ![This image shows the information that you need to note for the name and resource group.](images/newimage.png "Windows 10 image that was created")
 
 ### Task 6: Provision a Host Pool with a custom image
 
@@ -1155,7 +1163,7 @@ The system will automatically shut down and disconnect your RDP session.
 
 2.  When you get to step 5 to configure **Virtual machine settings**, select **Browse all images and disks** and then select the tab option for **My Items** to select the image that was created.
 
-    ![This image shows where you will find your custom image to add to the host pool.](images/hostpoolcustom.png)
+    ![This image shows where you will find your custom image to add to the host pool.](images/hostpoolcustom.png "Create a host pool and add custom image")
 
 
 ## Exercise 5: Create a host pool for personal desktops
