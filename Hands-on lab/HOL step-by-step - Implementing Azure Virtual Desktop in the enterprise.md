@@ -1203,7 +1203,7 @@ In this exercise we will be creating an Azure Virtual Desktop host pool for pers
 
     ![This image shows the image that you need for your host pool virtual machine.](images/vmwith365.png "Host pool Virtual Machine with image")
 
-    ![The image shows the blade that you will enter in the information for the host pool name and select next for virtual machines.](images/nextworkspace.png "Virtual Machine information")
+    ![The image shows the blade that you will enter in the information for the host pool name and select next for virtual machines.](images/nextworkspace5.png "Virtual Machine information")
 
 7.  On the Workspace page, select **Yes** to register a new desktop app group. Select **Create new** and provide a **Workspace name**. Select **OK** and **Review + create**.
 
@@ -1305,7 +1305,7 @@ In this exercise, you will be creating a non-persistent host pool for publishing
 
     >**Note**: Selecting this image is very important. You will need the Microsoft 365 for assigning apps in this exercise.
 
-    ![This image shows the information you will enter for the host pool name and select next for virtual machines.](images/nextworkspace2.png "Create a host pool name")
+    ![This image shows the information you will enter for the host pool name and select next for virtual machines.](images/nextworkspace4.png "Create a host pool name")
 
 6.  On the Workspace page, select **Yes** to register a new desktop app group. Select **Create new** and provide a **Workspace name**. Select **OK** and **Review + create**.
 
