@@ -1188,7 +1188,7 @@ In this exercise we will be creating an Azure Virtual Desktop host pool for pers
 
     ![This image shows the Azure portal search bar, and how to search for Azure Virtual Desktop and select the service.](images/searchavd.png "Search for Azure Virtual Desktop")    
 
-3.  Under Manage, select **Host pools** and select **+ Add**.
+3.  Under Manage, select **Host pools** and select **+ Create**.
    
     ![This image shows where to select host pools under manage and select add to add a new host pool.](images/avdHostPool.png "Azure Virtual Desktop blade")
 
@@ -1201,9 +1201,9 @@ In this exercise we will be creating an Azure Virtual Desktop host pool for pers
 6.  For the **Image**, select **Browse all images and disks** and search to find **Windows 10 Enterprise multi-session, Version 1909 + Microsoft 365 Apps** and select that image.
     >**Note**: Selecting this image is very important. You will need the Microsoft 365 for assigning apps in this exercise.
 
-    ![This image shows the image that you need for your host pool virtual machine.](images/vmwith365.png)
+    ![This image shows the image that you need for your host pool virtual machine.](images/vmwith365.png "Host pool Virtual Machine with image")
 
-    ![The image shows the blade that you will enter in the information for the host pool name and select next for virtual machines.](images/nextworkspace.png)
+    ![The image shows the blade that you will enter in the information for the host pool name and select next for virtual machines.](images/nextworkspace.png "Virtual Machine information")
 
 7.  On the Workspace page, select **Yes** to register a new desktop app group. Select **Create new** and provide a **Workspace name**. Select **OK** and **Review + create**.
 
@@ -1225,13 +1225,13 @@ The name of the Workspace is displayed when the user signs in. Available resourc
 
 3.  Under Manage, select **Workspaces**. Locate the Workspace you want to update and select the name.
 
-    ![This image shows where to locate the workspace that was created in Task 1 and select it.](images/workspaceproperties.png)
+    ![This image shows where to locate the workspace that was created in Task 1 and select it.](images/workspaceproperties.png "Select the workspace")
 
 4.  Under Settings, select **Properties**.
 
 5.  Update the **Friendly name** field to your desired name.
 
-    ![The image shows that under properties of the workspace, you will enter a name under friendly name and save.](images/savefriendlyname.png)
+    ![The image shows that under properties of the workspace, you will enter a name under friendly name and save.](images/savefriendlyname.png "Enter a friendly name")
 
 6.  Select **Save**.
 
@@ -1251,7 +1251,7 @@ In the new Azure Virtual Desktop ARM portal, we now can use Azure Active Directo
     
 4.  Locate the Application group that was created as part of Task 1 (**\<poolName\>-DAG**). Select the name to manage the Application group.
 
-    ![This image shows where you will find the application group created in Task 1.](images/avdappgroups.png)
+    ![This image shows where you will find the application group created in Task 1.](images/avdappgroups.png "Select the application group")
 
 5.  Under Manage, select **Assignments** and select **+ Add**.
 
@@ -1260,7 +1260,7 @@ In the new Azure Virtual Desktop ARM portal, we now can use Azure Active Directo
 6.  In the fly out, enter **AVD** in the search to find the name of your Azure AD group. In this exercise we will select **AVD Pooled Desktop Users** and **AAD DC Administrators**.
     >**Note**: AAD DC Administrators will allow you to use your Azure tenant login to access resources in Exercise 7.
 
-    ![In this image, you can view the groups that you need to select and save.](images/avdpooleduseradd.png)
+    ![In this image, you can view the groups that you need to select and save.](images/avdpooleduseradd.png "Add Pooled Desktop user")
 
 7.  Choose **Select** to save your changes.
 
@@ -1291,7 +1291,7 @@ In this exercise, you will be creating a non-persistent host pool for publishing
 
     ![This image shows how to search for Azure Virtual Desktop and select the service from the Azure Portal search bar.](images/searchavd.png "Search for Azure Virtual Desktop")
 
-3.  Under Manage, select **Host pools** and select **+ Add**.
+3.  Under Manage, select **Host pools** and select **+ Create**.
 
     ![This image shows where to select host pools under manage and select add to add a new host pool.](images/avdHostPool.png "Azure Virtual Desktop blade")
 
@@ -1305,7 +1305,7 @@ In this exercise, you will be creating a non-persistent host pool for publishing
 
     >**Note**: Selecting this image is very important. You will need the Microsoft 365 for assigning apps in this exercise.
 
-    ![This image shows the information you will enter for the host pool name and select next for virtual machines.](images/nextworkspace.png "Create a host pool name")
+    ![This image shows the information you will enter for the host pool name and select next for virtual machines.](images/nextworkspace2.png "Create a host pool name")
 
 6.  On the Workspace page, select **Yes** to register a new desktop app group. Select **Create new** and provide a **Workspace name**. Select **OK** and **Review + create**.
 
@@ -1325,13 +1325,13 @@ The name of the Workspace is displayed when the user signs in. Available resourc
 
 3.  Under Manage, select **Workspaces**. Locate the Workspace that was created for remote apps and select the name.
 
-    ![This image shows where to locate the workspace that was created in Task 1 and select it.](images/workspaceproperties.png "Locate workspace created")
+    ![This image shows where to locate the workspace that was created in Task 1 and select it.](images/workspaceproperties1.png "Locate workspace created")
 
 4.  Under Settings, select **Properties**.
 
 5.  Update the **Friendly name** field to your desired name.
 
-    ![This image shows where, under properties of the workspace, you will enter a name under friendly name and save.](images/savefriendlyname.png "Enter workspace friendly name")
+    ![This image shows where, under properties of the workspace, you will enter a name under friendly name and save.](images/savefriendlyname1.png "Enter workspace friendly name")
 
 6.  Select **Save**.
 
@@ -1923,7 +1923,7 @@ In this task, you will take a **MSIX package** created from the [MSIX packaging 
     pause
     ```
 
-8. Find the **Windows Virtual Desktop** resources.
+8. Find the **Azure Virtual Desktop** resources.
 
 9. Select the **Host pools** and select the Pooled host pool.
 
