@@ -1192,7 +1192,7 @@ In this exercise we will be creating an Azure Virtual Desktop host pool for pers
    
     ![This image shows where to select host pools under manage and select add to add a new host pool.](images/avdHostPool.png "Azure Virtual Desktop blade")
 
-4.  On the Basics page, refer to the following screenshot to fill in the required fields. Once complete, select **Next: Virtual Machines**.
+4.  On the Basics page, refer to the following screenshot to fill in the required fields. Change **Validation environment** to **Yes**. Once complete, select **Next: Virtual Machines**.
 
     ![This image shows where you will enter the information for the host pool.](images/createhostpool.png "Create host pool page")
 
@@ -1295,7 +1295,7 @@ In this exercise, you will be creating a non-persistent host pool for publishing
 
     ![This image shows where to select host pools under manage and select add to add a new host pool.](images/avdHostPool.png "Azure Virtual Desktop blade")
 
-4.  On the Basics page, refer to the following screenshot to fill in the required fields. Selecting **Pooled** for host pool type. Once complete, select **Next: Virtual Machine**.
+4.  On the Basics page, refer to the following screenshot to fill in the required fields and change **Validation environment** to **Yes**. Selecting **Pooled** for host pool type. Once complete, select **Next: Virtual Machine**.
 
     ![This image shows the create a host pool blade, where you will enter in the information for the virtual machines that will host the remote apps and select next for workspace.](images/remoteapppool.png "Create host pool")
 
