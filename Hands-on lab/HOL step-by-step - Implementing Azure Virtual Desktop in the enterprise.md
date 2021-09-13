@@ -134,8 +134,6 @@ When you run into issues with your Azure Virtual Desktop (AVD) environment, ther
 
 Review the article, [Troubleshooting overview, feedback, and support for Azure Virtual Desktop](https://docs.microsoft.com/en-us/azure/virtual-desktop/troubleshoot-set-up-overview). Part of the article will cover steps used in [Exercise 8](#exercise-8-setup-monitoring-for-avd) and can help diagnose issues you may encounter.
 
->**Important**: The change from Windows Virtual Desktop (WVD) to Azure Virtual Desktop (AVD) is recent, and some resources do not yet reflect the change.  As a result, some images may be slightly different.  WVD and AVD are interchangeable, and we will update our documents once the transition is complete.
-
 ## Exercise 1: Configuring Azure AD Connect with AD DS
 
 Duration:  60 minutes
