@@ -9,7 +9,7 @@ Hands-on lab step-by-step guide
 </div>
 
 <div class="MCWHeader3">
-June 2021
+September 2021
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -134,7 +134,7 @@ When you run into issues with your Azure Virtual Desktop (AVD) environment, ther
 
 Review the article, [Troubleshooting overview, feedback, and support for Azure Virtual Desktop](https://docs.microsoft.com/en-us/azure/virtual-desktop/troubleshoot-set-up-overview). Part of the article will cover steps used in [Exercise 8](#exercise-8-setup-monitoring-for-avd) and can help diagnose issues you may encounter.
 
->**Important! Please note**: The change from Windows Virtual Desktop (WVD) to Azure Virtual Desktop (AVD) is recent, and some resources do not yet reflect the change.  As a result, some images may be slightly different.  WVD and AVD are interchangeable, and we will update our documents once the transition is complete.
+>**Important**: The change from Windows Virtual Desktop (WVD) to Azure Virtual Desktop (AVD) is recent, and some resources do not yet reflect the change.  As a result, some images may be slightly different.  WVD and AVD are interchangeable, and we will update our documents once the transition is complete.
 
 ## Exercise 1: Configuring Azure AD Connect with AD DS
 
