@@ -9,7 +9,7 @@ Hands-on lab step-by-step guide
 </div>
 
 <div class="MCWHeader3">
-June 2021
+September 2021
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -134,7 +134,7 @@ When you run into issues with your Azure Virtual Desktop (AVD) environment, ther
 
 Review the article, [Troubleshooting overview, feedback, and support for Azure Virtual Desktop](https://docs.microsoft.com/en-us/azure/virtual-desktop/troubleshoot-set-up-overview). Part of the article will cover steps used in [Exercise 8](#exercise-8-setup-monitoring-for-avd) and can help diagnose issues you may encounter.
 
->**Important! Please note**: The change from Windows Virtual Desktop (WVD) to Azure Virtual Desktop (AVD) is recent, and some resources do not yet reflect the change.  As a result, some images may be slightly different.  WVD and AVD are interchangeable, and we will update our documents once the transition is complete.
+>**Important**: The change from Windows Virtual Desktop (WVD) to Azure Virtual Desktop (AVD) is recent, and some resources do not yet reflect the change.  As a result, some images may be slightly different.  WVD and AVD are interchangeable, and we will update our documents once the transition is complete.
 
 ## Exercise 1: Configuring Azure AD Connect with AD DS
 
@@ -149,8 +149,7 @@ In this exercise, you will be configuring [Azure AD Connect](https://docs.micros
   |              |            |  
 |----------|:-------------:|
 | Description | Links |
-| Windows Virtual Desktop Spring Update enters Public Preview |https://techcommunity.microsoft.com/t5/itops-talk-blog/windows-virtual-desktop-spring-update-enters-public-preview/ba-p/1340245|
-|ARM-based model public preview) deployment walk through |https://www.christiaanbrinkhoff.com/2020/05/01/windows-virtual-desktop-technical-2020-spring-update-arm-based-model-deployment-walkthrough/#NewAzurePortal-Dashboard |
+|Azure Virtual Desktop (ARM-based model) deployment walk through |https://www.christiaanbrinkhoff.com/2020/05/01/windows-virtual-desktop-technical-2020-spring-update-arm-based-model-deployment-walkthrough/#NewAzurePortal-Dashboard |
   |              |            | 
 
 ### Task 1: Connecting to the domain controller
@@ -175,7 +174,7 @@ In this exercise, you will be configuring [Azure AD Connect](https://docs.micros
 
     ![This image shows how the Window for Remote Desktop Connection will open to enter the public IP address for the domain controller VM.](images/remoteDesktop.png "Window for Remote Desktop Connection") 
 
-8.  When prompted, sign in with the AD domain UPN credentials. For example, when you used the ARM template from [Before HOL setup guide](), the credentials will be something along the lines of: [adadmin\@MyADDomain.com](mailto:adadmin@MyADDomain.com) with the password: **WVD\@zureL\@b2019!**. If prompted, select **Yes** to accept the RDP certification warning.
+8.  When prompted, sign in with the AD domain UPN credentials. For example, when you used the ARM template from [Before HOL setup guide](), the credentials will be something along the lines of: [adadmin\@MyADDomain.com](mailto:adadmin@MyADDomain.com) with the password: **AVD\@zureL\@b2019!**. If prompted, select **Yes** to accept the RDP certification warning.
 
     >**Note**: This is the Active Directory account from the ARM template, not the Azure AD Global Admin account. when you have trouble signing in, try typing the credentials in manually, as copy and paste may include an unnecessary space, which will cause authentication to fail.
 
@@ -233,6 +232,35 @@ By default, Azure AD Connect does not synchronize the built-in domain administra
 
     ![This image shows the Azure AD Connect icon on the Domain controller VM desktop.](images/azureadconnect.png "Azure AD Connect desktop icon")
 
+    >**Note**: The installation of Azure AD Connect may fail if the server has not been updated to enable TLS 1.2.  If this is the case, run the following PowerShell script to enable and then re-open Azure AD Connect.
+
+    ```
+    New-Item 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v4.0.30319' -Force | Out-Null
+
+	New-ItemProperty -path 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v4.0.30319' -name 'SystemDefaultTlsVersions' -value '1' -PropertyType 'DWord' -Force | Out-Null
+
+	New-ItemProperty -path 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v4.0.30319' -name 'SchUseStrongCrypto' -value '1' -PropertyType 'DWord' -Force | Out-Null
+
+	New-Item 'HKLM:\SOFTWARE\Microsoft\.NETFramework\v4.0.30319' -Force | Out-Null
+
+	New-ItemProperty -path 'HKLM:\SOFTWARE\Microsoft\.NETFramework\v4.0.30319' -name 'SystemDefaultTlsVersions' -value '1' -PropertyType 'DWord' -Force | Out-Null
+
+	New-ItemProperty -path 'HKLM:\SOFTWARE\Microsoft\.NETFramework\v4.0.30319' -name 'SchUseStrongCrypto' -value '1' -PropertyType 'DWord' -Force | Out-Null
+
+	New-Item 'HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Server' -Force | Out-Null
+	
+	New-ItemProperty -path 'HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Server' -name 'Enabled' -value '1' -PropertyType 'DWord' -Force | Out-Null
+	
+	New-ItemProperty -path 'HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Server' -name 'DisabledByDefault' -value 0 -PropertyType 'DWord' -Force | Out-Null
+	
+	New-Item 'HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client' -Force | Out-Null
+	
+	New-ItemProperty -path 'HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client' -name 'Enabled' -value '1' -PropertyType 'DWord' -Force | Out-Null
+	
+	New-ItemProperty -path 'HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client' -name 'DisabledByDefault' -value 0 -PropertyType 'DWord' -Force | Out-Null
+	Write-Host 'TLS 1.2 has been enabled.'
+    ```
+
 2.  Accept the license terms and privacy notice, then select continue. On the next screen select **Use express settings**. The required components will install.
 
     ![This image shows how the install wizard will take you to the Azure AD connect set up screen.](images/AzureADconnectExpressSetting.png "Azure AD connect set up screen") 
@@ -242,7 +270,7 @@ By default, Azure AD Connect does not synchronize the built-in domain administra
     ![This image shows how after selecting "Use express settings", the next window will require you to enter your Azure Active Directory username and password.](images/adconnectazuresub.png "Azure AD Connect - Azure AD login")
     >**Note**: This is the account associated with your Azure subscription.
 
-4.  On the Connect to AD DS page, enter in the Active Directory credentials for a Domain Admin account. For example, when you used the ARM template deployment for the domain controller, the credentials will be something along the lines of: **[[MyADDomain.com]](http://myaddomain.com/) \\ADadmin** with the password: **WVD\@zureL\@b2019!**. Select **Next**.
+4.  On the Connect to AD DS page, enter in the Active Directory credentials for a Domain Admin account. For example, when you used the ARM template deployment for the domain controller, the credentials will be something along the lines of: **[[MyADDomain.com]](http://myaddomain.com/) \\ADadmin** with the password: **AVD\@zureL\@b2019!**. Select **Next**.
 
     ![This image shows the next window, where you will enter the AD DS domain and admin username and password.](images/azureadconnectdclogin.png "Azure AD Connect - Domain login")
     
@@ -422,7 +450,7 @@ Before you can work with an Azure file share, you need to create an Azure storag
 
     ![This image shows that you need to select the add icon in File shares to create a new file share.](images/addfileshare.png "Add file share")
 
-5.  Enter a Name for the new file share, enter a quota in gigabits, select **Hot** Tier, and select **Create**.
+5.  Enter a Name for the new file share, select **Hot** Tier, and select **Create**.
 
     ![This image shows how to give the file share a name and a storage quota in gigabits.](images/newfileshare.png "New File share")
     
@@ -523,9 +551,9 @@ In this task, you will be completing the steps on the Domain Controller in Azure
     
 
         ```
-        $SubscriptionId = "\<subscription-id\>\"
-        $ResourceGroupName = "\<resource-group-name\>\"
-        $StorageAccountName = "\<storage-account-name\>\"
+        $SubscriptionId = "<subscription-id>"
+        $ResourceGroupName = "<resource-group-name>"
+        $StorageAccountName = "<storage-account-name>"
         ```
 
 
@@ -586,6 +614,8 @@ In this task, you will be completing the steps on the Domain Controller in Azure
 
 20. Confirm activation with your domain by navigating to the Azure portal, going to the storage account and selecting **Files shares** under **Data storage**. Refer to the File share settings to see **Configured** on Active Directory (AD), as shown in the example below.
 
+    >**Note**: You may need to navigate out of the storage account and back in for the File share settings to change.
+
     ![This image shows how in the storage account configuration, that Active Directory Domain Services is configured.](images/portalconfirm.png "Storage account configuration")
 
 You have now successfully enabled AD authentication over SMB and assigned a custom role that provides access to an Azure file share with an AD identity.
@@ -604,11 +634,15 @@ To access Azure Files resources with identity-based authentication, an identity 
 
 To simplify administration, create 4 new security groups in Active Directory to manage share permissions.
 
-1.  From a domain joined computer, open **Active Directory Users and Computers**.
+1.  From a domain joined computer, open **Server Manager**, then navigate to **Tools** to open **Active Directory Users and Computers**.
+
+    ![This image shows how to navigate to Tools to be able to get to Active Directory Users and Computers to create a new group.](images/aduserscomputers.png "Active Directory Users and Computers under Tools")
+
+2.  Under the local domain, select **Builtin** and select **Create a new group in the current container**.
 
     ![This image shows how to open the window on the domain controller VM server manager and go to the Active Directory users and computers to create a new security group.](images/adgroups.png "Create new groups")
 
-2.  Create the following Active Directory security groups in an OU that is synchronized with Azure AD:
+3.  Create the following Active Directory security groups in an OU that is synchronized with Azure AD:
 
     -   **AZF FSLogix Contributor**
 
@@ -626,47 +660,45 @@ To simplify administration, create 4 new security groups in Active Directory to 
 
         ![This image shows how to create a new group object named AVD User.](images/avduser.png "AVD User")
 
-3.  Add the AVD administrative account that you created previously to the group **AZF FSLogix Elevated Contributor**. This account will have permissions to modify file share permissions.
+4.  Add the AVD administrative account that you created previously to the group **AZF FSLogix Elevated Contributor**. This account will have permissions to modify file share permissions.
 
     ![This image shows how to find the AVD admin user that you created previously and right-click to add to a group.](images/chooseadmin.png)
 
-4.  Type **AZF FSLogix Elevated Contributor** and select **Check Names** to verify. Select **Ok** to save.
+5.  Type **AZF FSLogix Elevated Contributor** and select **Check Names** to verify. Select **Ok** to save.
 
     ![This image shows how to add the AZF FSLogix Elevated Contributor group to this user.](images/addadmin.png)
 
-5.  Add the group **AVD Users** to the group **AZF FSLogix Contributor** by going to the Builtin groups, locating AVDUsers and right-click to **Add to a group**.
+6.  Add the group **AVD Users** to the group **AZF FSLogix Contributor** by going to the Builtin groups, locating AVDUsers and right-click to **Add to a group**.
   
     ![This shows how you would find the AVD Users group and add it to a group.](images/avduseraddtogroup.png)
 
     ![This image shows where you enter the FSLogix contributor group and check the name before adding.](images/avduseraddgroup.png)
 
-6.  Add user accounts to the group **AVD Users** by selecting **OrgUsers** and choosing all the users in the list.  Select all the users and right-click to add them to a group. These users will have access to use FSLogix profiles. Also be sure to add the **ADAdmin** user to these groups.
+7.  Add user accounts to the group **AVD Users** by selecting **OrgUsers** and choosing all the users in the list.  Select all the users and right-click to add them to a group. These users will have access to use FSLogix profiles. Also be sure to add the **ADAdmin** user to these groups.
 
     ![This image shows the list of users in the organization, select the users and add them to the AVD Users group.](images/avdaddusers.png "Add users to the AVD users group")
 
-7.  Wait for the new groups to synchronize with Azure AD.  These groups can be verified by going to **Groups** within **Azure Active Directory** and looking for the names in the list.
+8.  Wait for the new groups to synchronize with Azure AD.  These groups can be verified by going to **Groups** within **Azure Active Directory** and looking for the names in the list.
 
     ![This image shows how to where you would verify that the groups that were created on the domain controller have synchronized with Azure AD.](images/newgroups.png)
 
-    With the new security groups available in Azure AD, use the following steps to assign them to your storage account in the Azure portal. This will enable to manage share permissions using AD security groups.
+    With the new security groups available in Azure AD, use the following steps to assign them to your storage account in the Azure portal. This will enable you to manage share permissions using AD security groups.
 
-8.  In the Azure portal, in the **Search resources** field, type **storage accounts** and select **Storage accounts** from the list.
+9.  In the Azure portal, in the **Search resources** field, type **storage accounts** and select **Storage accounts** from the list.
 
     ![This image shows how to, from the Azure portal, search for storage accounts on the search bar.](images/storageaccount.png "Search for storage accounts")
 
-9.  On the Storage accounts blade, select the Storage account you created in Task 1.
+10. On the Storage accounts blade, select the Storage account you created in Task 1.
 
-10. On the blade for your storage account, locate and select **File shares**.
+11. On the blade for your storage account, locate and select **File shares**. Then, on the File shares blade, select your file share.
 
-11. On the File shares blade, select your file share.
+    ![This image shows how to, from the Storage account, locate File shares under Data storage in the menu and select your file share to adjust the settings.](images/avdselectfileshare.png "Navigate to file share settings")
 
-12. Select **Access Control (IAM)**.
-
-13. Select **+ Add** and select **Add role assignment**.
+12. Select **Access Control (IAM)**, and then select **+ Add** and select **Add role assignment**.
 
     ![This image shows that, in the storage account, under access control, you will locate and select add under add a role assignment.](images/addroleassign.png "Add Azure AD Role assignment")
 
-14. On the Add role assignment fly out, fill in the following options and select **Save**.
+13. On the Add role assignment fly out, fill in the following options and select **Save**.
 
     -    **Role**: Storage File Data SMB Share Contributor
 
@@ -676,7 +708,7 @@ To simplify administration, create 4 new security groups in Active Directory to 
 
     ![This image shows how to add the storage file data SMB share contributor role to the AZF FSLogix contributor role that were created within Active Directory.](images/azureadroleassigncontrib.png "Add FSLogix roles to Azure AD File share")
 
-15. Repeat steps 3-4 for the remaining two roles.
+14. Repeat steps 3-4 for the remaining two roles.
 
     -    Storage File Data SMB Share Elevated Contributor \> AZF FSLogix Elevated Contributor
 
@@ -696,71 +728,62 @@ The first time you configure NTFS permission, do so using superuser permissions.
 
 >**Note**: To complete this task, you will need to disable secure transfer in the storage account.  This can be accessed from the storage account **Configuration** and selecting **Disabled** under **Secure transfer required**.  Select **Save** to save the changes.
 
-![This image shows how, within the configuration, you will disable secure transfer required and save.](images/disablesecuretransfer.png)
+![This image shows how, within the configuration, you will disable secure transfer required and save.](images/disablesecuretransfer.png "Disable secure transfer")
 
 1.  In the Azure portal, in the **Search resources** field, type **storage accounts** and select **Storage accounts** from the list.
 
 2.  On the Storage accounts blade, select the Storage account you created in Task 1.
 
-3.  On the blade for the file share within your storage account, under **Settings**, select **Properties**. Locate the **URL** address. This is the path you will use to access your file share. 
+3.  On the blade for the file share within your storage account, select **Connect**. This will open the **Connect** blade. 
 
-    ![This image shows how to use the storage account properties blade to find the storage account path.](images/storagefileendpoint.png)
+    ![This image shows how to use the storage account properties blade to open the Connect blade.](images/connectstorage.png "Connect to storage")
 
 >**Note**: The base URL is also available under the **Properties** of the storage account itself under the **File service** entry.  
 
-4.  Reformat the path to UNC and copy it to a notepad file. For example:
+4.  On the **Connect** blade, select Drive letter **Z**, **Storage account key** for the Authentication method. 
+   
+    ![This is an image of the drive letter and authentication method settings for connecting the storage account.](images/storagesettings.png "Storage connect settings")
 
-    https://mydomainazfiles.file.core.windows.net/\<file-share-name\> ==
-    \\\mydomainazfiles.file.core.windows.net\\\<file-share-name\>
+5.  On the **Connect** blade for your storage account, copy the **PowerShell** script located in the gray text box.
 
-    ![Here is the image of the reformatted name in notepad on the domain controller.](images/notepadreformatted.png)
+    ![Here is the location of the script to copy to run in Windows PowerShell.](images/copyscript.png "Connect script")
 
-5.  On the blade for your storage account, under **Settings**, select **Access keys**. Copy and paste the value for **key1** to the same notepad file.
+6.  From a domain joined computer, open a **PowerShell** and enter **cd c:\users** and paste the **PowerShell** script that you copied from the **Connect** blade. 
 
-    ![Here is the location of the storage account key to copy to the notepad.](images/copykey.png)
+    ``
+    cd c:\users
+    ``
 
-6.  From a domain joined computer, open a standard command prompt and mount your file share using the storage account key. **Do not** use an elevated command prompt or the mount point will not be visible in File Explorer. 
-
-    ![This image shows where to go to the search on Windows to find and open the Command prompt.](images/opencommandprompt.png)
+    ![This image shows the pasting of the PowerShell script and the status of the connection.](images/powershellconnect.png "PowerShell file share connection")
      
-    >**Note**: Refer to the following examples to prepare your command. Be sure to enter spaces where (space) is noted:
-    net use z:(space) \\\\\<storage-account-name\>.file.core.windows.net\\\<share-name>(space) <storage-account-key\>(space) /user:Azure\\\<storage-account-name\>
+    >**Note**: After running the script, if you receive a CMDKEY: Credential added successfully and drive name **Z** appears, the script has run correctly. If this fails it may be that this is an SMB connection on port 445 and many consumer ISPs block this port by default. When you are doing this in your lab and experience issues mounting the share from a local computer, try connecting from a domain joined VM in Azure. 
 
-        Example with sample values:
-                
-        net use z: \\mydomainazfiles.file.core.windows.net\FSLogix uPCvi+gP2qbCQcn3EATgbALE0H8nxhspyLRO2Nf9Hm2gMxfn/389/M33XHh7YEqNJ2GhbJXgStiifPwMBXk38Q== user:Azure\\mydomainazfiles
-        
-
-    ![This image shows how to, from the command prompt, run the script list above to connect the storage account as a network drive.](images/cmdprompt.png "Command Prompt script for mapping drive")
-
-    >**Note**: This is an SMB connection on port 445. Most consumer ISPs block this port by default. when you are doing this in your lab and experience issues mounting the share from a local computer, try connecting from a domain joined VM in Azure.
-
-    ![This image shows how to, after the net use command is completed successfully, you will receive a prompt that it was completed successfully.  You will also be able to see the drive as a network location in file explorer.](images/successfulstoragemap.png)
+    ![This image shows how to, after the net use command is completed successfully, you will receive a prompt that it was completed successfully.  You will also be able to see the drive as a network location in file explorer.](images/successfulstoragemap.png "Connected network drive")
 
 7.  Open **File Explorer**, right-click on the **Z:** drive and select **Properties**.
 
 8.  On the properties window, select the **Security** tab and select **Advanced**.
 
-    ![This image shows how to, in the properties for the drive, select the security folder and select advanced.](images/drivesecurity.png)
+    ![This image shows how to, in the properties for the drive, select the security folder and select advanced.](images/drivesecurity.png "Network drive security settings")
 
 9.  Select **Add** and add each of the AD security groups you created in Task 4 with the appropriate permissions.  Select check names as each is entered to verify the connection.
 
-    ![This image shows how to select add in security settings to add new objects.](images/addsecurity.png)
+    ![This image shows how to select add in security settings to add new objects.](images/addsecurity.png "Add security principals")
 
     >**Note**: The images show all the objects that need to be added but only one can be added at a time.  Add one and then repeat the process until all four are added.
 
-    | AD Group | NTFS Permissions |
-    |----------|------------------|
-    | **AZF FSLogix Contributor** | Modify |
-    | **AZF FSLogix Elevated Contributor** | Full control |
-    | **AZF FSLogix Reader** | Read & execute |
-    | **AVD Users** | Modify (This folder only) |
+    | AD Group | NTFS Permissions | Applies to |
+    |----------|------------------|------------|
+    | **AZF FSLogix Contributor** | Modify | This folder, subfolders and files|
+    | **AZF FSLogix Elevated Contributor** | Full control |This folder, subfolders and files|
+    | **AZF FSLogix Reader** | Read & execute |This folder, subfolders and files|
+    | **AVD Users** | Modify (This folder only) |This folder only|
 
-10. Select **OK** to save your changes.
+10. Select **OK** to save your changes. Select **Yes** if you receive a **Windows Security** warning about removal of inherited permissions.
 
-    ![This image shows how to choose select a principal to open the select user, computer, service account, or group window.  In the enter the object name window, enter the FSLogix groups that were created previously.  Check names and select ok.](images/addobjects.png)
+    ![This image shows how to choose select a principal to open the select user, computer, service account, or group window.  In the enter the object name window, enter the FSLogix groups that were created previously.  Check names and select ok.](images/addobjects.png "Steps to add principal object permissions")
 
-    ![This image shows how that after adding all four objects as principals, they will be in the list of permission entries.](images/addsecuritycomplete.png)
+    ![This image shows how that after adding all four objects as principals, they will be in the list of permission entries.](images/addsecuritycomplete.png "New security permissions added")
 
 
 
@@ -772,7 +795,7 @@ In this task we will create directories for each of the FSLogix profile types an
 
 1.  Navigate to the networked drive in File explorer.
 
-    ![This is an image of where you will find the network drive that you mounted in the previous task.](images/networkdrive.png)
+    ![This is an image of where you will find the network drive that you mounted in the previous task.](images/networkdrive.png "Network drive location")
 
 2.  Create three new folder directories in the root share.
 
@@ -782,7 +805,7 @@ In this task we will create directories for each of the FSLogix profile types an
 
     -    **MSIX**
 
-    ![This image shows that after adding these folders, file explorer for that shared drive will look like this.](images/newfolders.png)
+    ![This image shows that after adding these folders, file explorer for that shared drive will look like this.](images/newfolders.png "New folders in drive z")
 
 3.  Right-click on the **Profiles** directory and select **Properties**.
 
@@ -790,17 +813,17 @@ In this task we will create directories for each of the FSLogix profile types an
 
 5.  Select **Disable inheritance** and select **Remove all inherited permissions from this object**.
 
-    ![This image is the screen that you would remove the inherited permissions.](images/removeinheritedperm.png)
+    ![This image is the screen that you would remove the inherited permissions.](images/removeinheritedperm.png "Remove inherited permissions")
 
 6.  Select **Add** and add **AZF FSLogix Elevated Contributor**. Grant **Full Control** and check **Only apply these permissions to objects and/or containers within this container**. Select **OK**.
 
-    ![This image shows the selections that should be complete before selecting ok.](images/addfullcontrol.png)
+    ![This image shows the selections that should be complete before selecting ok.](images/addfullcontrol.png "Set full control for FSLogix Elevated Contributor")
 
 7.  Select **Add** and add **Creator owner**. Grant **Full Control** to **Only apply these permissions to objects and/or containers within this container**. Select **OK**.
 
-    ![This image shows how the add the creator owner object.](images/addcreatorowner.png)
+    ![This image shows how the add the creator owner object.](images/addcreatorowner.png "Add Creator owner principal")
 
-    ![This image shows how to set the permissions for full control to the creator owner.](images/addfullcontrolcreator.png)
+    ![This image shows how to set the permissions for full control to the creator owner.](images/addfullcontrolcreator.png "Grant full control to creator owner")
 
 8.  Select **Add** and add **AVD Users**. Grant the following special permissions to **Only apply these permissions to objects and/or containers within this container**. Select **OK**.
 
@@ -812,11 +835,11 @@ In this task we will create directories for each of the FSLogix profile types an
 
     -   Create folders / append data
 
-    ![This image shows the special permissions for AVD user.](images/userfolderpermissions.png)
+    ![This image shows the special permissions for AVD user.](images/userfolderpermissions.png "AVD users folder permissions")
 
 9.  Select **OK** on both property windows to apply your changes.
 
-    ![This image shows the list of permission objects that were just created.](images/permissionscomplete.png)
+    ![This image shows the list of permission objects that were just created.](images/permissionscomplete.png "Permissions for Profiles and ODFC folder")
 
 10. Repeat steps 3-9 for the **ODFC** directory.
 
@@ -826,17 +849,19 @@ In this task we will create directories for each of the FSLogix profile types an
 
 13. Select **Disable inheritance** and select **Remove all inherited permissions from this object**.
 
-    ![This image is the screen that you would remove the inherited permissions.](images/removeinheritedperm.png)
+    ![This image is the screen that you would remove the inherited permissions.](images/removeinheritedperm.png "Remove inherited permissions")
 
 14. Select **Add** and add **AZF FSLogix Elevated Contributor**. Grant **Full Control** to **Only apply these permissions to objects and/or containers within this container**. Select **OK**.
 
-    ![This image shows the selections that should be complete before selecting ok.](images/addfullcontrol.png)
+    ![This image shows the selections that should be complete before selecting ok.](images/addfullcontrol.png "Add FSLogix Elevated Contributor full control")
 
 15. Select **Add** and add **AVD Users**. Grant **Read & execute** to **Only apply these permissions to objects and/or containers within this container**. Select **OK**.
 
-    ![This image shows the custom permissions for the AVD users on the MSIX folder.](images/msixavdusers.png)
+    ![This image shows the custom permissions for the AVD users on the MSIX folder.](images/msixavdusers.png "Add AVD users permissions")
 
 16. Confirm your permissions match the screenshots below.
+
+    ![This image shows the list of permission objects that were just created for the MSIX folder.](images/msixpermissions.png "Permissions for MSIX folder")
 
 17. Select **OK** on both property windows to apply your changes.
 
@@ -865,14 +890,14 @@ For more information on how to setup a Bastion host in Azure|https://docs.micros
 
 2.  On the Azure portal home page, select **Create a resource**.
 
-3.  On the New page, search for **Microsoft Windows 10**. Select **Windows 10 Enterprise multi-session, Version 1909** and **Create**.
+3.  On the New page, search for **Microsoft Windows 10**. Select **Windows 10 Enterprise multi-session, Version 1909** or higher and **Create**.
 
 
     ![This image shows the window will display the creation of a New Microsoft Windows 10 VM using software plan Windows 10 Enterprise multi-session, Version 1909.](images/windows10VM.png "New Microsoft Windows 10 VM using software plan Windows 10 Enterprise multi-session, Version 1909")
 
     >**Note**: In this exercise we are selecting a base Windows 10 image to start with and installing Office 365 ProPlus using a custom deployment script. We are also using the latest available release of Windows 10 Enterprise multi-session, but you can choose the version based on your requirements.
 
-4.  On the Create a virtual machine page, fill in the required fields and create the VM by selecting **Review + create**.
+4.  On the Create a virtual machine page, fill in the required fields shown below. 
 
     ![This image shows what your configuration should be for the virtual machine image.](images/win10vmcreate.png "Create virtual machine")
 
@@ -882,13 +907,17 @@ For more information on how to setup a Bastion host in Azure|https://docs.micros
 
     ![This image shows that, in the "Create a virtual machine" page within the Azure portal for the Windows 10 VM, allow port 3389 as an inbound port.](images/windows10VMcreate.png "The 'Create a virtual machine' page within the Azure portal for the Windows 10 VM")
 
-5.  Once the VM is successfully deployed, go to the resource, and connect using RDP. Sign in using the credentials you supplied when creating the VM.
+5.  Select the checkbox to confirm eligible Windows 10 licensing and create the VM by selecting **Review + create**.
 
-    ![This image shows the select connect in the Windows 10 VM overview to RDP to the vm.](images/connectwin10vm.png)
+    ![This image shows the Windows 10 licensing confirmation and the selection to Review and create.](images/windows10licensing.png "Confirm Windows 10 licensing")
 
-6.  Download the RDP file and open the RDP file to connect.
+6.  Once the VM is successfully deployed, go to the resource, and connect using RDP. Sign in using the credentials you supplied when creating the VM.
 
-    ![This image shows the download RDP button and the file that is downloaded to connect to the vm.](images/connectrdp.png)
+    ![This image shows the select connect in the Windows 10 VM overview to RDP to the vm.](images/connectwin10vm.png "Connect to Windows 10 VM")
+
+7.  Download the RDP file and open the RDP file to connect.
+
+    ![This image shows the download RDP button and the file that is downloaded to connect to the vm.](images/connectrdp.png "Download and run RDP file")
 
 ### Task 2: Run Windows Update
 
@@ -899,6 +928,8 @@ Despite the Azure support teams best efforts, the Marketplace images are not alw
     ![This image shows that, on the new Windows 10 VM image, go to settings window and select update and security.](images/w10VMSettings.png "The settings window within the Windows 10 VM")
 
 2.  Install all missing updates, rebooting as necessary.
+
+    >**Note**: After initial updates found during startup have been installed and you have rebooted the VM, check for updates again before proceeding.  There may be additional updates that need to be installed.
 
 3.  Once the VM is fully patched, the Windows Update Settings page should resemble the following screenshot.
 
@@ -996,7 +1027,7 @@ The UI form offers the following actions:
 6.  Navigate to \"C:\Users\\(loginaccount)\Documents\Customizations".
 
     ```
-    cd C:\Users\(LoginAccount)\Documents\Customizations\Customizations
+    cd C:\Users\(LoginAccount)\Documents\Customizations\Prepare-WVDImage
     ```
 
 7.  Run the following command to allow for script execution:
@@ -1118,15 +1149,15 @@ The system will automatically shut down and disconnect your RDP session.
 
     ![This image shows what is displayed on the Create Image blade in Azure.](images/w10VMImage.png "Create Image blade in Azure")
 
-7.  Once complete, type **images** in the **Search resources field** at the top of the page. Select **Images** from the list.
+7.  Once complete, type **shared image** in the **Search resources field** at the top of the page. Select **Shared image galleries** from the list.
 
-8.  On the Images blade, locate your image and **Select** the name.
+8.  On the Shared image galleries blade, locate your image and **Select** the name.
 
-    ![When you search on images, the images icon is the one that you will need to select as shown.](images/findimage.png)
+    ![When you search on images, the images icon is the one that you will need to select as shown.](images/findimage.png "Go to Shared image gallery")
 
 9.  On the Overview blade for your image, make note of the **Name** field and **Resource group** field. These attributes are needed when you provision your host pools.
 
-    ![This image shows the information that you need to note for the name and resource group.](images/newimage.png)
+    ![This image shows the information that you need to note for the name and resource group.](images/newimage.png "Windows 10 image that was created")
 
 ### Task 6: Provision a Host Pool with a custom image
 
@@ -1134,7 +1165,7 @@ The system will automatically shut down and disconnect your RDP session.
 
 2.  When you get to step 5 to configure **Virtual machine settings**, select **Browse all images and disks** and then select the tab option for **My Items** to select the image that was created.
 
-    ![This image shows where you will find your custom image to add to the host pool.](images/hostpoolcustom.png)
+    ![This image shows where you will find your custom image to add to the host pool.](images/hostpoolcustom.png "Create a host pool and add custom image")
 
 
 ## Exercise 5: Create a host pool for personal desktops
@@ -1159,11 +1190,11 @@ In this exercise we will be creating an Azure Virtual Desktop host pool for pers
 
     ![This image shows the Azure portal search bar, and how to search for Azure Virtual Desktop and select the service.](images/searchavd.png "Search for Azure Virtual Desktop")    
 
-3.  Under Manage, select **Host pools** and select **+ Add**.
+3.  Under Manage, select **Host pools** and select **+ Create**.
    
     ![This image shows where to select host pools under manage and select add to add a new host pool.](images/avdHostPool.png "Azure Virtual Desktop blade")
 
-4.  On the Basics page, refer to the following screenshot to fill in the required fields. Once complete, select **Next: Virtual Machines**.
+4.  On the Basics page, refer to the following screenshot to fill in the required fields. Change **Validation environment** to **Yes**. Once complete, select **Next: Virtual Machines**.
 
     ![This image shows where you will enter the information for the host pool.](images/createhostpool.png "Create host pool page")
 
@@ -1172,9 +1203,9 @@ In this exercise we will be creating an Azure Virtual Desktop host pool for pers
 6.  For the **Image**, select **Browse all images and disks** and search to find **Windows 10 Enterprise multi-session, Version 1909 + Microsoft 365 Apps** and select that image.
     >**Note**: Selecting this image is very important. You will need the Microsoft 365 for assigning apps in this exercise.
 
-    ![This image shows the image that you need for your host pool virtual machine.](images/vmwith365.png)
+    ![This image shows the image that you need for your host pool virtual machine.](images/vmwith365.png "Host pool Virtual Machine with image")
 
-    ![The image shows the blade that you will enter in the information for the host pool name and select next for virtual machines.](images/nextworkspace.png)
+    ![The image shows the blade that you will enter in the information for the host pool name and select next for virtual machines.](images/nextworkspace5.png "Virtual Machine information")
 
 7.  On the Workspace page, select **Yes** to register a new desktop app group. Select **Create new** and provide a **Workspace name**. Select **OK** and **Review + create**.
 
@@ -1196,13 +1227,13 @@ The name of the Workspace is displayed when the user signs in. Available resourc
 
 3.  Under Manage, select **Workspaces**. Locate the Workspace you want to update and select the name.
 
-    ![This image shows where to locate the workspace that was created in Task 1 and select it.](images/workspaceproperties.png)
+    ![This image shows where to locate the workspace that was created in Task 1 and select it.](images/workspaceproperties.png "Select the workspace")
 
 4.  Under Settings, select **Properties**.
 
 5.  Update the **Friendly name** field to your desired name.
 
-    ![The image shows that under properties of the workspace, you will enter a name under friendly name and save.](images/savefriendlyname.png)
+    ![The image shows that under properties of the workspace, you will enter a name under friendly name and save.](images/savefriendlyname.png "Enter a friendly name")
 
 6.  Select **Save**.
 
@@ -1222,7 +1253,7 @@ In the new Azure Virtual Desktop ARM portal, we now can use Azure Active Directo
     
 4.  Locate the Application group that was created as part of Task 1 (**\<poolName\>-DAG**). Select the name to manage the Application group.
 
-    ![This image shows where you will find the application group created in Task 1.](images/avdappgroups.png)
+    ![This image shows where you will find the application group created in Task 1.](images/avdappgroups.png "Select the application group")
 
 5.  Under Manage, select **Assignments** and select **+ Add**.
 
@@ -1231,7 +1262,7 @@ In the new Azure Virtual Desktop ARM portal, we now can use Azure Active Directo
 6.  In the fly out, enter **AVD** in the search to find the name of your Azure AD group. In this exercise we will select **AVD Pooled Desktop Users** and **AAD DC Administrators**.
     >**Note**: AAD DC Administrators will allow you to use your Azure tenant login to access resources in Exercise 7.
 
-    ![In this image, you can view the groups that you need to select and save.](images/avdpooleduseradd.png)
+    ![In this image, you can view the groups that you need to select and save.](images/avdpooleduseradd.png "Add Pooled Desktop user")
 
 7.  Choose **Select** to save your changes.
 
@@ -1262,11 +1293,11 @@ In this exercise, you will be creating a non-persistent host pool for publishing
 
     ![This image shows how to search for Azure Virtual Desktop and select the service from the Azure Portal search bar.](images/searchavd.png "Search for Azure Virtual Desktop")
 
-3.  Under Manage, select **Host pools** and select **+ Add**.
+3.  Under Manage, select **Host pools** and select **+ Create**.
 
     ![This image shows where to select host pools under manage and select add to add a new host pool.](images/avdHostPool.png "Azure Virtual Desktop blade")
 
-4.  On the Basics page, refer to the following screenshot to fill in the required fields. Selecting **Pooled** for host pool type. Once complete, select **Next: Virtual Machine**.
+4.  On the Basics page, refer to the following screenshot to fill in the required fields and change **Validation environment** to **Yes**. Selecting **Pooled** for host pool type. Once complete, select **Next: Virtual Machine**.
 
     ![This image shows the create a host pool blade, where you will enter in the information for the virtual machines that will host the remote apps and select next for workspace.](images/remoteapppool.png "Create host pool")
 
@@ -1276,7 +1307,7 @@ In this exercise, you will be creating a non-persistent host pool for publishing
 
     >**Note**: Selecting this image is very important. You will need the Microsoft 365 for assigning apps in this exercise.
 
-    ![This image shows the information you will enter for the host pool name and select next for virtual machines.](images/nextworkspace.png "Create a host pool name")
+    ![This image shows the information you will enter for the host pool name and select next for virtual machines.](images/nextworkspace4.png "Create a host pool name")
 
 6.  On the Workspace page, select **Yes** to register a new desktop app group. Select **Create new** and provide a **Workspace name**. Select **OK** and **Review + create**.
 
@@ -1296,13 +1327,13 @@ The name of the Workspace is displayed when the user signs in. Available resourc
 
 3.  Under Manage, select **Workspaces**. Locate the Workspace that was created for remote apps and select the name.
 
-    ![This image shows where to locate the workspace that was created in Task 1 and select it.](images/workspaceproperties.png "Locate workspace created")
+    ![This image shows where to locate the workspace that was created in Task 1 and select it.](images/workspaceproperties1.png "Locate workspace created")
 
 4.  Under Settings, select **Properties**.
 
 5.  Update the **Friendly name** field to your desired name.
 
-    ![This image shows where, under properties of the workspace, you will enter a name under friendly name and save.](images/savefriendlyname.png "Enter workspace friendly name")
+    ![This image shows where, under properties of the workspace, you will enter a name under friendly name and save.](images/savefriendlyname1.png "Enter workspace friendly name")
 
 6.  Select **Save**.
 
@@ -1894,7 +1925,7 @@ In this task, you will take a **MSIX package** created from the [MSIX packaging 
     pause
     ```
 
-8. Find the **Windows Virtual Desktop** resources.
+8. Find the **Azure Virtual Desktop** resources.
 
 9. Select the **Host pools** and select the Pooled host pool.
 
