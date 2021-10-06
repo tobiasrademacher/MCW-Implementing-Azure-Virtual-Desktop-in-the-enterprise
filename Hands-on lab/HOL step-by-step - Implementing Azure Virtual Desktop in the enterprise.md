@@ -509,7 +509,7 @@ In this task, you will be completing the steps on the Domain Controller in Azure
 7.  Navigate to where you unzipped the AzFilesHybrid. For example:
 
     ```
-    cd C:\Users\ADAdmin\Documents\AzFilesHybrid
+    cd C:\Users\ADAdmin\Documents\AzFilesHybrid\AzFilesHybrid
     ```
 
     ![This image shows how the path to the file should be the documents folder location in file explorer.](images/filelocation.png "Documents folder path")
