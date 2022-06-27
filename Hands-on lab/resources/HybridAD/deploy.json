@@ -4,7 +4,7 @@
   "parameters": {
     "assetLocation": {
       "type": "string",
-      "defaultValue": "https://raw.githubusercontent.com/PeterR-msft/M365WVDWS/master/AAD-Hybrid-Lab/",
+      "defaultValue": "https://raw.githubusercontent.com/microsoft/MCW-Implementing-Azure-Virtual-Desktop-in-the-enterprise/main/Hands-on%20lab/resources/HybridAD/",
       "metadata": {
         "description": "This is the location in which all the linked templates are stored."
       }
@@ -295,7 +295,7 @@
               "Name": "AdminCreds",
               "Value": {
                 "UserName": "[parameters('adminUsername')]",
-                "Password": "PrivateSettingsRef:AdminPassword"
+                "Password": "[parameters('adminPassword')]"
               },
               "TypeName": "System.Management.Automation.PSCredential"
             },
@@ -308,7 +308,7 @@
               "Name": "UserCreds",
               "Value": {
                 "UserName": "user",
-                "Password": "PrivateSettingsRef:UserPassword"
+                "Password": "[parameters('defaultUserPassword')]"
               },
               "TypeName": "System.Management.Automation.PSCredential"
             }
