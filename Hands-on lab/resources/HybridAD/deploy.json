@@ -295,7 +295,7 @@
               "Name": "AdminCreds",
               "Value": {
                 "UserName": "[parameters('adminUsername')]",
-                "Password": "[parameters('adminPassword')]"
+                "Password": "PrivateSettingsRef:AdminPassword"
               },
               "TypeName": "System.Management.Automation.PSCredential"
             },
@@ -308,7 +308,7 @@
               "Name": "UserCreds",
               "Value": {
                 "UserName": "user",
-                "Password": "[parameters('defaultUserPassword')]"
+                "Password": "PrivateSettingsRef:UserPassword"
               },
               "TypeName": "System.Management.Automation.PSCredential"
             }
