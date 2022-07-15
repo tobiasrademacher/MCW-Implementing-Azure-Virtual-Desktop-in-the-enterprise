@@ -10,7 +10,7 @@ Before the hands-on lab setup guide
 </div>
 
 <div class="MCWHeader3">
-June 2022
+July 2022
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -19,7 +19,7 @@ Microsoft may have patents, patent applications, trademarks, copyrights, or othe
 
 The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
 
-© 2021 Microsoft Corporation. All rights reserved.
+© 2022 Microsoft Corporation. All rights reserved.
 
 Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx> are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
@@ -74,7 +74,7 @@ This ARM Template will provision the following resources:
 
   - 1 Network Security Group (NSG)
 
-    - Permits AD traffic, permits RDP incoming traffic, restricts DMZ access.
+    - Permits AD traffic, permits RDP incoming traffic, and restricts DMZ access.
 
   - DNS configured to point to the domain controller.
 
@@ -92,7 +92,7 @@ This ARM Template will provision the following resources:
 
 1. Open a browser using "InPrivate" or "Incognito" mode, and navigate to the ARM template: [AAD hybrid lab ARM template from GitHub](https://github.com/microsoft/MCW-Implementing-Azure-Virtual-Desktop-in-the-enterprise/tree/main/Hands-on%20lab/resources/HybridAD).
 
-2. Review the notes on the GitHub page for the ARM template prior to deployment.
+2. Review the notes on the GitHub page for the ARM template before deployment.
 
 3. Under Quick Start, click **Deploy to Azure**. This will open a new browser tab to the Azure Portal for custom deployments.
 
@@ -105,15 +105,16 @@ This ARM Template will provision the following resources:
     - Create a new **Resource group**
     - Select a **Region**
     - Create an **Admin password**
-    - Create an **AD Domain name**, such as **myavd.sample**
+    - Create an **AD Domain name**, such as **myavd.com**
     - Create a **Custom UPN suffix** for AVD, such as **"myavd"**
 
-        >**Note**: Unless you are using a fully qualified domain name for the domain controller, make sure to use a domain that doesn't resolve to a domain that isn't yours.  Example: **myavd.sample**.  Otherwise, the deployment will fail.
+      >**Note**: Keep this short, no more than 5 characters, or you can run into errors due to the length of your virtual machine names.
+
     - Create a **Default user password**
     - For **VM Size**, choose a [SKU in your region](https://azure.microsoft.com/global-infrastructure/services/?products=virtual-machines). Our default is `Standard_A2_v2`.
     - Select **Review + create**
 
-    >**Note**: Make sure that you save these inputs, they will be needed for reference when you go through the HOL Step-by-Step.
+    >**Note**: Make sure that you save these inputs, especially the password, they will be needed for reference when you go through the HOL Step-by-Step.
 
     ![This image shows the values to enter into the custom template for the setup of the AVD domain controller.](images/avdcustomdeployment.png "Azure Virtual Desktop custom deployment template")
 
