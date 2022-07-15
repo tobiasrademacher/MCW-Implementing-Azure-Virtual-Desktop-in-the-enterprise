@@ -544,34 +544,32 @@ In this task, you will be completing the steps on the Domain Controller in Azure
     ```
 
 11. Create the following PowerShell variables replacing the subscription id, resource group name, and storage account with the information specific to your lab environment:
-    
 
-        ```
-        $SubscriptionId = "<subscription-id>"
-        $ResourceGroupName = "<resource-group-name>"
-        $StorageAccountName = "<storage-account-name>"
-        ```
+    ```
+    $SubscriptionId = "<subscription-id>"
+    $ResourceGroupName = "<resource-group-name>"
+    $StorageAccountName = "<storage-account-name>"
+    ```
 
-        ![This images illustrates setting the three varibles.](images/setvariables.png "Setting variables in PowerShell")
+    ![This images illustrates setting the three varibles.](images/setvariables.png "Setting variables in PowerShell")
 
-        >**Note**: The Resource Group Name and Storage Account Name were assigned in Task 1.
+    >**Note**: The Resource Group Name and Storage Account Name were assigned in Task 1.
 
-        >**Note**: You can run **Get-AzSubscription** to lookup the available subscription names.
+    >**Note**: You can run **Get-AzSubscription** to lookup the available subscription names.
 
-        ![This image shows where you would find the subscription Id when running the Get-AzSubscription command.](images/subscriptionid.png "Subscription Id")
+    ![This image shows where you would find the subscription Id when running the Get-AzSubscription command.](images/subscriptionid.png "Subscription Id")
 
 
 12. Select the target subscription for the current session.
   
-
-        ```
-        Select-AzSubscription -SubscriptionId $SubscriptionId
-        ```
+    ```
+    Select-AzSubscription -SubscriptionId $SubscriptionId
+    ```
 
 13. Register the storage account with your Active Directory domain.
 
     ```
-     Join-AzStorageAccount -ResourceGroupName $ResourceGroupName -StorageAccountName $StorageAccountName
+    Join-AzStorageAccount -ResourceGroupName $ResourceGroupName -StorageAccountName $StorageAccountName
    
     ```
 
@@ -586,15 +584,15 @@ In this task, you will be completing the steps on the Domain Controller in Azure
 
 16. Confirm that the feature is enabled.
 
-        ```
-        $storageaccount = Get-AzStorageAccount -ResourceGroupName $ResourceGroupName -Name $StorageAccountName
-        ```
+    ```
+    $storageaccount = Get-AzStorageAccount -ResourceGroupName $ResourceGroupName -Name $StorageAccountName
+    ```
 
-17.  List the directory service of the selected service account.
+17. List the directory service of the selected service account.
  
-        ```
-        $storageAccount.AzureFilesIdentityBasedAuth.DirectoryServiceOptions
-        ```
+    ```
+    $storageAccount.AzureFilesIdentityBasedAuth.DirectoryServiceOptions
+    ```
 
 18. List the directory domain information if the storage account has enabled AD authentication for file shares.
 
@@ -603,7 +601,6 @@ In this task, you will be completing the steps on the Domain Controller in Azure
     ```
 
     ![This image is what the responses should be when running the previous PowerShell tasks.](images/confirmpowershell.png "PowerShell task responses")
-
 
 19. Confirm activation with your domain by navigating to the Azure portal, going to the storage account and selecting **Files shares** under **Data storage**. Refer to the File share settings to see **Configured** on Active Directory (AD), as shown in the example below.
 
