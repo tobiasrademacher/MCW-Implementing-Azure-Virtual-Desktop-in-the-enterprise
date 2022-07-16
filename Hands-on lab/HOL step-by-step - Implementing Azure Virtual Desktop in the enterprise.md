@@ -927,11 +927,11 @@ Despite the Azure support teams best efforts, the Marketplace images are not alw
 The authors for this content have developed a scripted solution to assist in automating some common baseline image build tasks. The script includes a UI form, enabling you to quickly select which actions to perform. The result will be a custom gold image that incorporates Microsoft's main business applications, along with the necessary
 policies and settings for an optimized user experience.
 
-The script and related tools are maintained within this github repo at https://github.com/microsoft/MCW-Implementing-Azure-Virtual-Desktop-in-the-enterprise/tree/main/Hands-on%20lab/resources. This is based on the tools availabe from https://github.com/shawntmeyer/WVD/tree/master/Image-Build/Customizations.
+The script and related tools are maintained within this github repo at https://github.com/microsoft//MCW-Implementing-Azure-Virtual-Desktop-in-the-enterprise/tree/main/Hands-on%20lab/resources/AVDImageTools. This is based on the tools availabe from https://github.com/shawntmeyer/WVD/tree/master/Image-Build/Customizations.
 
-[Download Link](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/shawntmeyer/WVD/tree/master/Image-Build/Customizations) 
+[Download Link](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/microsoft/MCW-Implementing-Azure-Virtual-Desktop-in-the-enterprise/tree/main/Hands-on%20lab/resources/AVDImageTools) 
 
-https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/shawntmeyer/WVD/tree/master/Image-Build/Customizations 
+https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/microsoft/MCW-Implementing-Azure-Virtual-Desktop-in-the-enterprise/tree/main/Hands-on%20lab/resources/AVDImageTools
 
 For additional documentation about the script (e.g., parameters, functions, etc.), refer to the comments in **Prepare-WVDImage.ps1**.
 
@@ -943,90 +943,88 @@ The UI form offers the following actions:
 
 **Office 365 ProPlus**
 
--   Install the **latest** version of Office 365 ProPlus monthly channel.
+- Install the **latest** version of Office 365 ProPlus monthly channel.
 
--   Apply recommended settings.
+- Apply recommended settings.
 
--   Source documentation: [Install Office on a gold VHD image](https://docs.microsoft.com/en-us/azure/virtual-desktop/install-office-on-wvd-master-image).
+- Source documentation: [Install Office on a gold VHD image](https://docs.microsoft.com/en-us/azure/virtual-desktop/install-office-on-wvd-master-image).
 
 **OneDrive for Business**
 
--   Install the **latest** version of OneDrive for Business *per-machine*.
+- Install the **latest** version of OneDrive for Business *per-machine*.
 
--   Source documentation: [Install Office on a gold VHD image](https://docs.microsoft.com/en-us/azure/virtual-desktop/install-office-on-wvd-master-image).
+- Source documentation: [Install Office on a gold VHD image](https://docs.microsoft.com/en-us/azure/virtual-desktop/install-office-on-wvd-master-image).
 
 **Microsoft Teams**
 
--   Install the **latest** version of Microsoft Teams *per-machine*.
+- Install the **latest** version of Microsoft Teams *per-machine*.
 
--   Source documentation: [Use Microsoft Teams on Azure Virtual desktop](https://docs.microsoft.com/en-us/azure/virtual-desktop/teams-on-avd).
+- Source documentation: [Use Microsoft Teams on Azure Virtual desktop](https://docs.microsoft.com/en-us/azure/virtual-desktop/teams-on-avd).
 
 **Microsoft Edge Chromium**
 
--   Install the **latest** version of Microsoft Edge Enterprise.
+- Install the **latest** version of Microsoft Edge Enterprise.
 
--   Apply recommended settings.
+- Apply recommended settings.
 
--   Source documentation: [Deploy Microsoft Edge using System Center Configuration Manager](https://docs.microsoft.com/en-us/deployedge/deploy-edge-with-configuration-manager).
+- Source documentation: [Deploy Microsoft Edge using System Center Configuration Manager](https://docs.microsoft.com/en-us/deployedge/deploy-edge-with-configuration-manager).
 
 **FSLogix Profile Containers**
 
--   Install the **latest** version of the FSLogix Agent.
+- Install the **latest** version of the FSLogix Agent.
 
--   Apply recommended settings.
+- Apply recommended settings.
 
--   Source documentation: [Download and Install FSLogix](https://docs.microsoft.com/en-us/FSLogix/install-ht).
+- Source documentation: [Download and Install FSLogix](https://docs.microsoft.com/en-us/FSLogix/install-ht).
 
 **OS Settings**
 
--   Apply the recommended AVD settings for image capture.
+- Apply the recommended AVD settings for image capture.
 
--   Source documentation: [Prepare and customize a gold VHD image](https://docs.microsoft.com/en-us/azure/virtual-desktop/set-up-customize-master-image).
+- Source documentation: [Prepare and customize a gold VHD image](https://docs.microsoft.com/en-us/azure/virtual-desktop/set-up-customize-master-image).
 
--   Apply the recommended settings for capturing an Azure VM.
+- Apply the recommended settings for capturing an Azure VM.
 
--   Source documentation: [Prepare a Windows VHD or VHDX to upload to Azure](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/prepare-for-upload-vhd-image). 
+- Source documentation: [Prepare a Windows VHD or VHDX to upload to Azure](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/prepare-for-upload-vhd-image). 
 
--   Run Disk Cleanup.
+- Run Disk Cleanup.
 
--   Source documentation: [cleanmgr](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cleanmgr). 
+- Source documentation: [cleanmgr](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cleanmgr). 
 
 **Running the script**
 
-1.  [**Download**](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/shawntmeyer/WVD/tree/master/Image-Build/Customizations) the .zip file to your local workstation.
+1. [**Download**](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/microsoft/MCW-Implementing-Azure-Virtual-Desktop-in-the-enterprise/tree/main/Hands-on%20lab/resources/AVDImageTools) the .zip file to your local workstation.
 
-    https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/shawntmeyer/WVD/tree/master/Image-Build/Customizations 
+    https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/microsoft/MCW-Implementing-Azure-Virtual-Desktop-in-the-enterprise/tree/main/Hands-on%20lab/resources/AVDImageTools
 
-    ![This image shows how you will open Microsoft Edge and paste the above link into the browser to download the file.](images/savecustomizations.png "Download .zip file")
+    ![This image shows how you will open Microsoft Edge and paste the above link into the browser to download and open the file.](images/savecustomizations.png "Download .zip file")
 
-2.  **Save** the .zip file on your local workstation. Open the RDP window to your gold image VM. **Save as** the .zip file to the documents folder.
+2. **Open** the .zip file on your local workstation. Open the RDP window to your gold image VM. **Save as** the .zip file to the documents folder.
 
-3.  On the gold image VM, right-click on the .zip file on your desktop and select **Extract All\...**.
+3. Extract the files to **C:\AVDGold**.
 
-    ![This image shows that, after the file downloads, select the customizations document and extract the files to documents.](images/extractcustomizations.png "Customizations document extraction")
+    ![This screenshot shows extracting the downloaded files to C:\AVDGold](images/extractavdgold.png "Extacting Files to C:\AVDGold")
 
-4.  Extract the files to **C:\Documents**.
-
-5.  Open an elevated PowerShell window by searching for PowerShell on the Windows 10 VM. Right-click and run as administrator.
+4. Open an elevated PowerShell window by searching for PowerShell on the Windows 10 VM. Right-click and run as administrator.
 
     ![This image shows how you will search for the PowerShell application and right-click to run as administrator.](images/adminpowershell.png "Run PowerShell as an administrator")
 
-6.  Navigate to \"C:\Users\\(loginaccount)\Documents\Customizations".
+5. Navigate to \"C:\AVDGold\AVDImageTools\Prepare-AVDImage".
 
     ```
-    cd C:\Users\(LoginAccount)\Documents\Customizations\Prepare-WVDImage
+    cd C:\AVDGold\AVDImageTools\Prepare-AVDImage
     ```
 
-7.  Run the following command to allow for script execution:
+6. Run the following command to allow for script execution:
 
     ```
     Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
     ```
 
-8.  Execute the script by running the following command:
+7. Execute the script by running the following command:
 
     ```
-    .\Prepare-WVDImage.ps1 -DisplayForm
+    .\Prepare-AVDImage.ps1 -DisplayForm
     ```
 
 ![This image shows what you should be executing in PowerShell.](images/prepareimage.png "Prepare image script")
@@ -1035,31 +1033,33 @@ This will trigger the PowerShell form to launch. Select the appropriate options 
 
 ![This image shows that the script will open the AVD golden image preparation window.](images/avdgoldenimage.png "Golden image preparation")
 
--   Select **Install Office 365** to Install Office 365 ProPlus while excluding Teams, Groove, and Skype. This will enable the Email and Calendar Caching settings below.
+- Select **Install Office 365** to Install Office 365 ProPlus while excluding Teams, Groove, and Skype. This will enable the Email and Calendar Caching settings below.
 
     >**Note**: Update these settings as necessary. The Microsoft recommended settings are pre-selected. when you do not wish to apply these settings to the image, then set each to \'Not Configured\'.
 
--   Select **Install FSLogix Agent** to install the FSLogix Agent. When you select this option, the option to specify the FSLogix User Profile Container VHD Path is enabled. When you do not want to specify this option in the image, blank out this setting.
+- Select **Install FSLogix Agent** to install the FSLogix Agent. When you select this option, the option to specify the FSLogix User Profile Container VHD Path is enabled. You do not want to specify this option in the image so blank out this setting.
 
--   Select **Install OneDrive per Machine** to install the OneDrive sync client per machine. When you select this option, it will enable the AAD Tenant ID field. Enter your tenant id here to enable silent Known Folder Move functionality in your image. When you do not want this in your image, blank out the value.
+- Select **Install OneDrive per Machine** to install the OneDrive sync client per machine. When you select this option, it will enable the AAD Tenant ID field. Enter your tenant id here to enable silent Known Folder Move functionality in your image. For this lab, we don't want this in our image, so blank out this setting as well.
 
--   Select **Install Microsoft Teams per Machine** to install the per machine Teams install.
+- Select **Install Microsoft Teams per Machine** to install the per machine Teams install.
 
--   Select **Install Microsoft Edge Chromium v80+** to install the Microsoft Edge Enterprise browser based on Chromium.
+- Select **Install Microsoft Edge Enterprise+** to install the Microsoft Edge Enterprise browser based on Chromium.
 
--   Select **Disable Windows Update** to disable Windows Update in the image.
+- Select **Disable Windows Update** to disable Windows Update in the image.
 
--   Select **Run System Clean Up (CleanMgr.exe)** to execute Disk Cleanup.
+- Clear **Remove inbox Windows 10 Appps**.
+
+- Select **Run System Clean Up (CleanMgr.exe)** to execute Disk Cleanup.
 
     ![After selecting the options above, the preparation selections prior to selecting execute should match this image.](images/goldenimagesettings.png "Image preparation selections prior to execute")
 
-9.  With the desired options selected, select **Execute**.
+1. With the desired options selected, select **Execute**.
 
     The form will close at this point and the script will begin configuring the image. **DO NOT close any of the remaining windows that appear until the script has finished execution**. Doing so will interrupt the process and will require you to start over.
 
     The script will take several minutes to complete depending on the options you selected. Additional input from you is not required during this stage, so feel free to minimize the RDP session and work on other tasks.
 
-    -   When you selected to install Office 365, you will see a setup.exe window during execution.
+    - When you selected to install Office 365, you will see a setup.exe window during execution.
 
     -   When you selected to install OneDrive, you will see a OneDrive window during execution.
 
@@ -1072,11 +1072,11 @@ This will trigger the PowerShell form to launch. Select the appropriate options 
     ![This image shows PowerShell commands while the applications are being installed on the AVD golden image.](images/powershellstatus.png "PowerShell running script")
 
 
-10.  After the script has completed, select the Window start icon and note that Office, Microsoft Edge Chromium, and Microsoft Teams have been installed.
+2.   After the script has completed, select the Window start icon and note that Office, Microsoft Edge Chromium, and Microsoft Teams have been installed.
 
    ![This image shows how to the view of the newly installed applications.](images/newapplications.png "Windows view of new applications")
 
-11.  Once the script has completed execution, complete these final tasks:
+3.   Once the script has completed execution, complete these final tasks:
 
      -   Delete the C:\\BuildArtifacts directory.
 
