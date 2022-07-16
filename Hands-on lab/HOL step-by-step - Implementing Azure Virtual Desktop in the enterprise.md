@@ -927,7 +927,9 @@ Despite the Azure support teams best efforts, the Marketplace images are not alw
 The authors for this content have developed a scripted solution to assist in automating some common baseline image build tasks. The script includes a UI form, enabling you to quickly select which actions to perform. The result will be a custom gold image that incorporates Microsoft's main business applications, along with the necessary
 policies and settings for an optimized user experience.
 
-The script and related tools are maintained within this github repo at  maintained in GitHub - [Download Link](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/shawntmeyer/WVD/tree/master/Image-Build/Customizations) 
+The script and related tools are maintained within this github repo at https://github.com/microsoft/MCW-Implementing-Azure-Virtual-Desktop-in-the-enterprise/tree/main/Hands-on%20lab/resources. This is based on the tools availabe from https://github.com/shawntmeyer/WVD/tree/master/Image-Build/Customizations.
+
+[Download Link](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/shawntmeyer/WVD/tree/master/Image-Build/Customizations) 
 
 https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/shawntmeyer/WVD/tree/master/Image-Build/Customizations 
 
