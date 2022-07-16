@@ -55,12 +55,11 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
     - [Task 3: Prepare an AVD image](#task-3-prepare-an-avd-image)
     - [Task 4: Run Sysprep](#task-4-run-sysprep)
     - [Task 5: Create a managed image from the gold Image VM](#task-5-create-a-managed-image-from-the-gold-image-vm)
-    - [Task 6: Provision a Host Pool with a custom image](#task-6-provision-a-host-pool-with-a-custom-image)
   - [Exercise 5: Create a host pool for personal desktops](#exercise-5-create-a-host-pool-for-personal-desktops)
     - [Task 1: Create a new Host Pool and Workspace](#task-1-create-a-new-host-pool-and-workspace)
     - [Task 2: Create a friendly name for the workspace](#task-2-create-a-friendly-name-for-the-workspace)
     - [Task 3: Assign an Azure AD group to an application group](#task-3-assign-an-azure-ad-group-to-an-application-group)
-  - [Exercise 6: Create a host pool and assign pooled remote apps.](#exercise-6-create-a-host-pool-and-assign-pooled-remote-apps)
+  - [Exercise 6: Create a host pool from your custom image and assign pooled remote apps.](#exercise-6-create-a-host-pool-from-your-custom-image-and-assign-pooled-remote-apps)
     - [Task 1: Create a new host pool and workspace](#task-1-create-a-new-host-pool-and-workspace-1)
     - [Task 2: Create a friendly name for the workspace](#task-2-create-a-friendly-name-for-the-workspace-1)
     - [Task 3: Add Remote Apps to your Host Pool](#task-3-add-remote-apps-to-your-host-pool)
@@ -1027,33 +1026,33 @@ The UI form offers the following actions:
     .\Prepare-AVDImage.ps1 -DisplayForm
     ```
 
-![This image shows what you should be executing in PowerShell.](images/prepareimage.png "Prepare image script")
+    ![This image shows what you should be executing in PowerShell.](images/prepareimage.png "Prepare image script")
 
-This will trigger the PowerShell form to launch. Select the appropriate options based on the following input information.
+    This will trigger the PowerShell form to launch. Select the appropriate options based on the following input information.
 
-![This image shows that the script will open the AVD golden image preparation window.](images/avdgoldenimage.png "Golden image preparation")
+    ![This image shows that the script will open the AVD golden image preparation window.](images/avdgoldenimage.png "Golden image preparation")
 
-- Select **Install Office 365** to Install Office 365 ProPlus while excluding Teams, Groove, and Skype. This will enable the Email and Calendar Caching settings below.
+    - Select **Install Office 365** to Install Office 365 ProPlus while excluding Teams, Groove, and Skype. This will enable the Email and Calendar Caching settings below.
 
-    >**Note**: Update these settings as necessary. The Microsoft recommended settings are pre-selected. when you do not wish to apply these settings to the image, then set each to \'Not Configured\'.
+        >**Note**: Update these settings as necessary. The Microsoft recommended settings are pre-selected. when you do not wish to apply these settings to the image, then set each to \'Not Configured\'.
 
-- Select **Install FSLogix Agent** to install the FSLogix Agent. When you select this option, the option to specify the FSLogix User Profile Container VHD Path is enabled. You do not want to specify this option in the image so blank out this setting.
+    - Select **Install FSLogix Agent** to install the FSLogix Agent. When you select this option, the option to specify the FSLogix User Profile Container VHD Path is enabled. You do not want to specify this option in the image so blank out this setting.
 
-- Select **Install OneDrive per Machine** to install the OneDrive sync client per machine. When you select this option, it will enable the AAD Tenant ID field. Enter your tenant id here to enable silent Known Folder Move functionality in your image. For this lab, we don't want this in our image, so blank out this setting as well.
+    - Select **Install OneDrive per Machine** to install the OneDrive sync client per machine. When you select this option, it will enable the AAD Tenant ID field. Enter your tenant id here to enable silent Known Folder Move functionality in your image. For this lab, we don't want this in our image, so blank out this setting as well.
 
-- Select **Install Microsoft Teams per Machine** to install the per machine Teams install.
+    - Select **Install Microsoft Teams per Machine** to install the per machine Teams install.
 
-- Select **Install Microsoft Edge Enterprise+** to install the Microsoft Edge Enterprise browser based on Chromium.
+    - Select **Install Microsoft Edge Enterprise+** to install the Microsoft Edge Enterprise browser based on Chromium.
 
-- Select **Disable Windows Update** to disable Windows Update in the image.
+    - Select **Disable Windows Update** to disable Windows Update in the image.
 
-- Clear **Remove inbox Windows 10 Appps**.
+    - Clear **Remove inbox Windows 10 Appps**.
 
-- Select **Run System Clean Up (CleanMgr.exe)** to execute Disk Cleanup.
+    - Select **Run System Clean Up (CleanMgr.exe)** to execute Disk Cleanup.
 
     ![After selecting the options above, the preparation selections prior to selecting execute should match this image.](images/goldenimagesettings.png "Image preparation selections prior to execute")
 
-1. With the desired options selected, select **Execute**.
+8. With the desired options selected, select **Execute**.
 
     The form will close at this point and the script will begin configuring the image. **DO NOT close any of the remaining windows that appear until the script has finished execution**. Doing so will interrupt the process and will require you to start over.
 
@@ -1061,50 +1060,45 @@ This will trigger the PowerShell form to launch. Select the appropriate options 
 
     - When you selected to install Office 365, you will see a setup.exe window during execution.
 
-    -   When you selected to install OneDrive, you will see a OneDrive window during execution.
+    - When you selected to install OneDrive, you will see a OneDrive window during execution.
 
-    -   When you selected to run System Clean Up, you will see the Disk Cleanup wizard during execution. This window may stay on the \"Windows Update Cleanup\" task for a few minutes while it cleans out older files in the Windows Side by Side.
-
-    ![This image shows how to the Window for the AVD Image Preparation Script will open for you to execute.](images/WVHScript.png "The Window for the AVD Image Preparation Script")
+    - When you selected to run System Clean Up, you will see the Disk Cleanup wizard during execution. This window may stay on the \"Windows Update Cleanup\" task for a few minutes while it cleans out older files in the Windows Side by Side.
 
     >**Note**: This script takes some time to run, so be patient as it may seem like nothing is happening for a while, and then applications will begin to install. You can watch the status from within PowerShell. After the Disk Cleanup Wizard closes, you may notice the PowerShell window does not update. It is waiting for the cleanmgr.exe process to close, which can take some time. You can select the PowerShell window and continue to hit the up arrow on your keyboard until you are presented with an active prompt.
 
     ![This image shows PowerShell commands while the applications are being installed on the AVD golden image.](images/powershellstatus.png "PowerShell running script")
 
-
-2.   After the script has completed, select the Window start icon and note that Office, Microsoft Edge Chromium, and Microsoft Teams have been installed.
+9. After the script has completed, select the Window start icon and note that Office, Microsoft Edge Chromium, and Microsoft Teams have been installed.
 
    ![This image shows how to the view of the newly installed applications.](images/newapplications.png "Windows view of new applications")
 
-3.   Once the script has completed execution, complete these final tasks:
+10. Once the script has completed execution, complete these final tasks:
 
-     -   Delete the C:\\BuildArtifacts directory.
+     - Delete the C:\AVDGold directory from the computer.
 
-     -   Delete the .zip file on your desktop.
+     - Empty the Recycle Bin.
 
-     -   Empty the Recycle Bin.
+     - Copy the C:\\Windows\\Logs\\ImagePrep\\LGPO directory to your local workstation.
 
-     -   Copy the C:\\Windows\\Logs\\ImagePrep\\LGPO directory to your local workstation.
+     - Reboot the VM.
 
-     -   Reboot the VM.
-
-        ![This image shows how, after the image preparation is complete, delete the downloaded files and empty the recycle bin.](images/deletescripts.png "Deleting the scripts")
+        ![This image shows how, after the image preparation is complete, delete the AVDGold files and empty the recycle bin.](images/deletescripts.png "Deleting the scripts")
 
         ![This image shows how to navigate to the Windows start menu and reboot the Windows 10 VM.](images/win10reboot.png "Reboot Windows 10")
 
 ### Task 4: Run Sysprep
 
-1.  After the VM has rebooted, reconnect your RDP session and sign in.
+1. After the VM has rebooted, reconnect your RDP session and sign in.
 
-2.  Open an administrative command prompt.
+2. Open an administrative command prompt.
 
-3.  Navigate to: **C:\\Windows\\System32\\Sysprep**.
+3. Navigate to: **C:\\Windows\\System32\\Sysprep**.
 
     ```
     cd C:\Windows\System32\Sysprep
     ```
 
-4.  Run the following command to sysprep the VM and shutdown:
+4. Run the following command to sysprep the VM and shutdown:
 
     ```
     sysprep.exe /oobe /generalize /shutdown
@@ -1114,46 +1108,37 @@ The system will automatically shut down and disconnect your RDP session.
 
 ### Task 5: Create a managed image from the gold Image VM
 
-1.  Sign in to the [Azure Portal](https://portal.azure.com/).
+1. Sign in to the [Azure Portal](https://portal.azure.com/).
 
-2.  At the top of the page, in the **Search resources** field, type **virtual machines**. Select **Virtual machines** from the list.
+2. At the top of the page, in the **Search resources** field, type **virtual machines**. Select **Virtual machines** from the list.
 
     ![This image shows from the Azure portal search bar, to search for virtual machines and select the service.](images/searchvm.png "Search Virtual Machines")
 
-3.  On the Virtual machines blade, locate the VM you used for your gold image and **select** the name.
+3. On the Virtual machines blade, locate the VM you used for your gold image and **select** the name.
 
-4.  On the Overview blade for your VM, confirm the **Status** shows **Stopped**. Select **Stop** in the menu bar to move it to a deallocated state.
+4. On the Overview blade for your VM, confirm the **Status** shows **Stopped**. Select **Stop** in the menu bar to move it to a deallocated state.
 
     ![This image shows that VM is running and how to select stop to deallocate the VM.](images/vmrunning.png "Stop the VM")
 
     ![This image shows how to that the VM has been stopped, and that the status of stopped, deallocated in complete.](images/vmstopped.png "Stopped and deallocated VM")
 
-5.  Once complete, select **Capture** in the menu bar.
+5. Once complete, select **Capture** in the menu bar.
 
     ![This image shows that once the VM is stopped, you can select capture to capture the VM image.](images/vmcapture.png "Capture VM image")
 
-6.  On the Create image wizard, fill in the required fields and Select **Review + create**.
+6. On the Create image wizard, fill in the required fields and Select **Review + create** then select **Create**.
 
     ![This image shows what is displayed on the Create Image blade in Azure.](images/w10VMImage.png "Create Image blade in Azure")
 
-7.  Once complete, type **shared image** in the **Search resources field** at the top of the page. Select **Shared image galleries** from the list.
+7. Once complete, type **VM image definitions** in the **Search resources field** at the top of the page. Select **VM image definitions** from the list.
 
-8.  On the Shared image galleries blade, locate your image and **Select** the name.
+8. Locate your image and **Select** the name.
 
     ![When you search on images, the images icon is the one that you will need to select as shown.](images/findimage.png "Go to Shared image gallery")
 
-9.  On the Overview blade for your image, make note of the **Name** field and **Resource group** field. These attributes are needed when you provision your host pools.
+9. On the Overview blade for your image, make note of the **Name** field and **Resource group** field. These attributes are needed when you provision your host pools.
 
     ![This image shows the information that you need to note for the name and resource group.](images/newimage.png "Windows 10 image that was created")
-
-### Task 6: Provision a Host Pool with a custom image
-
-1.  To start provisioning a host pool with your custom image, follow the instructions in [Exercise 6](#exercise-6-create-a-host-pool-and-assign-pooled-remote-apps).
-
-2.  When you get to step 5 to configure **Virtual machine settings**, select **Browse all images and disks** and then select the tab option for **My Items** to select the image that was created.
-
-    ![This image shows where you will find your custom image to add to the host pool.](images/hostpoolcustom.png "Create a host pool and add custom image")
-
 
 ## Exercise 5: Create a host pool for personal desktops
 
@@ -1257,7 +1242,7 @@ In the new Azure Virtual Desktop ARM portal, we now can use Azure Active Directo
 
 With the assignment added, you can move on to the next exercise. The users in the Azure AD group can be used to validate access to the new host pool in a later exercise.
 
-## Exercise 6: Create a host pool and assign pooled remote apps.
+## Exercise 6: Create a host pool from your custom image and assign pooled remote apps.
 
 Duration:  45 minutes
 

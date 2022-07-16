@@ -1,6 +1,6 @@
 # ***************************************************************************
 #
-# Purpose: WVD Image Prep
+# Purpose: AVD Image Prep
 #
 # ------------- DISCLAIMER -------------------------------------------------
 # This script code is provided as is with no guarantee or waranty concerning
@@ -15,10 +15,10 @@
 # ***************************************************************************
 <#
 .DESCRIPTION
-   Prepare a Windows System either running on Hyper-V or in Azure to be sysprep'd added as a Windows Virtual Desktop image.
+   Prepare a Windows System either running on Hyper-V or in Azure to be sysprep'd added as a Azure Virtual Desktop image.
    Script can install Office 365 from Microsoft CDN, OneDrive per machine, Teams per machine, FSLogix Agent, and Edge Chromium
    Script will configure each of these items in accordance with reference articles specified in the code below.
-   Script will also perform WVD specific and Azure generic image configurations per reference articles.
+   Script will also perform AVD specific and Azure generic image configurations per reference articles.
 #>
 [CmdletBinding(DefaultParameterSetName = 'Automation')]
 Param
@@ -1017,7 +1017,7 @@ Function Invoke-ImageCustomization {
     }  
     #endregion
 
-    #region WVD Image Settings
+    #region AVD Image Settings
 
     $Script:Section = 'WVD Image Settings'
 
@@ -1102,7 +1102,7 @@ Function Invoke-ImageCustomization {
         Set-RegistryValue -Key 'HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server' -Name "fDenyTSConnections" -Value 0 -Type DWord
         Update-LocalGPOTextFile -Scope Computer -RegistryKeyPath 'Software\Policies\Microsoft\Windows NT\Terminal Services' -RegistryValue fDenyTSConnections -RegistryType DWord -RegistryData 0
     
-        # Set RDP Port to 3389 - Unnecessary for WVD due to reverse connect, but helpful for backdoor administration with a jump box
+        # Set RDP Port to 3389 - Unnecessary for AVD due to reverse connect, but helpful for backdoor administration with a jump box
         Set-RegistryValue -Key 'HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\Winstations\RDP-Tcp' -name "PortNumber" -Value 3389 -Type DWord
     
         # Listener is listening on every network interface
@@ -1204,7 +1204,7 @@ If ($DisplayForm) {
 
     $WVDGoldenImagePrep = New-Object system.Windows.Forms.Form
     $WVDGoldenImagePrep.ClientSize = '700,800'
-    $WVDGoldenImagePrep.text = "WVD Image Preparation"
+    $WVDGoldenImagePrep.text = "AVD Image Preparation"
     $WVDGoldenImagePrep.TopMost = $false
     $WVDGoldenImagePrep.StartPosition = "CenterScreen"
 
@@ -1247,7 +1247,7 @@ If ($DisplayForm) {
         })
 
     $ScriptTitle = New-Object system.Windows.Forms.Label
-    $ScriptTitle.text = "WVD Golden Image Preparation"
+    $ScriptTitle.text = "AVD Golden Image Preparation"
     $ScriptTitle.AutoSize = $true
     $ScriptTitle.width = 25
     $ScriptTitle.height = 10
