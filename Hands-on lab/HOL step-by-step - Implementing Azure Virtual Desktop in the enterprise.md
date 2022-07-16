@@ -871,18 +871,18 @@ For more information on how to setup a Bastion host in Azure|https://docs.micros
 
 ### Task 1: Create a new Virtual Machine (VM) in Azure
 
-1.  Sign in to the [Azure Portal](https://portal.azure.com/).
+1. Sign in to the [Azure Portal](https://portal.azure.com/) with the same account you used to setup the storage account.
 
-2.  On the Azure portal home page, select **Create a resource**.
+2. On the Azure portal home page, select **Create a resource**.
 
-3.  On the New page, search for **Microsoft Windows 10**. Select **Windows 10 Enterprise multi-session, Version 1909** or higher and **Create**.
+3. On the New page, search for **Microsoft Windows 10**. Select one of the **Windows 10 Enterprise multi-session** builds and **Create**.
 
 
     ![This image shows the window will display the creation of a New Microsoft Windows 10 VM using software plan Windows 10 Enterprise multi-session, Version 1909.](images/windows10VM.png "New Microsoft Windows 10 VM using software plan Windows 10 Enterprise multi-session, Version 1909")
 
     >**Note**: In this exercise we are selecting a base Windows 10 image to start with and installing Office 365 ProPlus using a custom deployment script. We are also using the latest available release of Windows 10 Enterprise multi-session, but you can choose the version based on your requirements.
 
-4.  On the Create a virtual machine page, fill in the required fields shown below. 
+4. On the Create a virtual machine page, fill in the required fields shown below. 
 
     ![This image shows what your configuration should be for the virtual machine image.](images/win10vmcreate.png "Create virtual machine")
 
@@ -892,15 +892,15 @@ For more information on how to setup a Bastion host in Azure|https://docs.micros
 
     ![This image shows that, in the "Create a virtual machine" page within the Azure portal for the Windows 10 VM, allow port 3389 as an inbound port.](images/windows10VMcreate.png "The 'Create a virtual machine' page within the Azure portal for the Windows 10 VM")
 
-5.  Select the checkbox to confirm eligible Windows 10 licensing and create the VM by selecting **Review + create**.
+5. Select the checkbox to confirm eligible Windows 10 licensing and create the VM by selecting **Review + create** and then **Create**.
 
     ![This image shows the Windows 10 licensing confirmation and the selection to Review and create.](images/windows10licensing.png "Confirm Windows 10 licensing")
 
-6.  Once the VM is successfully deployed, go to the resource, and connect using RDP. Sign in using the credentials you supplied when creating the VM.
+6. Once the VM is successfully deployed, go to the resource, and connect using RDP. Sign in using the credentials you supplied when creating the VM.
 
     ![This image shows the select connect in the Windows 10 VM overview to RDP to the vm.](images/connectwin10vm.png "Connect to Windows 10 VM")
 
-7.  Download the RDP file and open the RDP file to connect.
+7. Download the RDP file and open the RDP file to connect.
 
     ![This image shows the download RDP button and the file that is downloaded to connect to the vm.](images/connectrdp.png "Download and run RDP file")
 
@@ -908,15 +908,15 @@ For more information on how to setup a Bastion host in Azure|https://docs.micros
 
 Despite the Azure support teams best efforts, the Marketplace images are not always up to date. The best and most secure practice is to keep your gold image up to date.
 
-1.  From your gold image VM, open the **Settings** app and select **Updates & Security**.
+1. From your gold image VM, open the **Settings** app and select **Updates & Security**.
 
     ![This image shows that, on the new Windows 10 VM image, go to settings window and select update and security.](images/w10VMSettings.png "The settings window within the Windows 10 VM")
 
-2.  Install all missing updates, rebooting as necessary.
+2. Install all missing updates, rebooting as necessary.
 
     >**Note**: After initial updates found during startup have been installed and you have rebooted the VM, check for updates again before proceeding.  There may be additional updates that need to be installed.
 
-3.  Once the VM is fully patched, the Windows Update Settings page should resemble the following screenshot.
+3. Once the VM is fully patched, the Windows Update Settings page should resemble the following screenshot.
 
     ![This image shows that, after checking for and running any updates, the settings window showing that Windows update is up to date.](images/w10vmSettingsUpToDate.png "The settings window showing that Windows update is up to date")
 
@@ -927,7 +927,7 @@ Despite the Azure support teams best efforts, the Marketplace images are not alw
 The authors for this content have developed a scripted solution to assist in automating some common baseline image build tasks. The script includes a UI form, enabling you to quickly select which actions to perform. The result will be a custom gold image that incorporates Microsoft's main business applications, along with the necessary
 policies and settings for an optimized user experience.
 
-The script and related tools are maintained in GitHub - [Download Link](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/shawntmeyer/WVD/tree/master/Image-Build/Customizations) 
+The script and related tools are maintained within this github repo at  maintained in GitHub - [Download Link](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/shawntmeyer/WVD/tree/master/Image-Build/Customizations) 
 
 https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/shawntmeyer/WVD/tree/master/Image-Build/Customizations 
 
