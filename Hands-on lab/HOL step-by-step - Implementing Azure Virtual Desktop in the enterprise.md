@@ -1166,24 +1166,25 @@ In this exercise we will be creating an Azure Virtual Desktop host pool for pers
    
     ![This image shows where to select host pools under manage and select add to add a new host pool.](images/avdHostPool.png "Azure Virtual Desktop blade")
 
-4.  On the Basics page, refer to the following screenshot to fill in the required fields. Change **Validation environment** to **Yes**. Once complete, select **Next: Virtual Machines**.
+4.  On the Basics page, refer to the following screenshot to fill in the required fields. Change **Validation environment** to **Yes**. Set the host pool type to **Personal** and Assignment type to **Automatic**. Once complete, select **Next: Virtual Machines**.
 
     ![This image shows where you will enter the information for the host pool.](images/createhostpool.png "Create host pool page")
 
-5.  On the Virtual Machines page, provision a Virtual machine with the **Windows 10 multi-user + M365 apps**. Once complete, select **Next: Workspace**.
-   
-6.  For the **Image**, select **Browse all images and disks** and search to find **Windows 10 Enterprise multi-session, Version 1909 + Microsoft 365 Apps** and select that image.
-    >**Note**: Selecting this image is very important. You will need the Microsoft 365 for assigning apps in this exercise.
+5. Toggle **Add Azure virtual machines** to **Yes** and configure the Virtual Machines settings as shown in the screenshot below. For the virtual machine image select a minimum of **Windows 10 Enterprise Cloud PC, version 21H2 + Microsoft 365 Apps - Gen 1**.
+
+    >**Note**: Selecting am image with Microsoft 365 Apps is very important. You will need the Microsoft 365 for assigning apps in this exercise.
 
     ![This image shows the image that you need for your host pool virtual machine.](images/vmwith365.png "Host pool Virtual Machine with image")
 
     ![The image shows the blade that you will enter in the information for the host pool name and select next for virtual machines.](images/nextworkspace5.png "Virtual Machine information")
 
-7.  On the Workspace page, select **Yes** to register a new desktop app group. Select **Create new** and provide a **Workspace name**. Select **OK** and **Review + create**.
+6.  On the Workspace page, select **Yes** to register a new desktop app group. Select **Create new** and provide a **Workspace name**. Select **OK** and **Review + create**.
 
     ![This image shows how from the create a host pool workspace tab, enter the required information.](images/hostpoolWorkspace.png "Create a host pool workspace tab")
 
-8.  On the Create a host pool page, select **Create**.
+7.  On the Create a host pool page, select **Create**.
+
+    >**Note**: If you get an error when deploying the VMS
 
 ### Task 2: Create a friendly name for the workspace
 
@@ -1203,13 +1204,9 @@ The name of the Workspace is displayed when the user signs in. Available resourc
 
 4.  Under Settings, select **Properties**.
 
-5.  Update the **Friendly name** field to your desired name.
+5.  Update the **Friendly name** field to your desired name and select **Save**.
 
     ![The image shows that under properties of the workspace, you will enter a name under friendly name and save.](images/savefriendlyname.png "Enter a friendly name")
-
-6.  Select **Save**.
-
-    ![This image shows how from the workspace properties tab, view the workspace that you created.](images/workspaceFriendlyName.png "workspace properties tab")
 
 ### Task 3: Assign an Azure AD group to an application group
 
@@ -1248,6 +1245,10 @@ Duration:  45 minutes
 
 In this exercise, you will be creating a non-persistent host pool for publishing remote apps. This enables you to assign users access to specific applications rather than an entire desktop. This type of application deployment serves many purposes and is not new to AVD, but has existed in Windows Server Remote Desktop Services for many years.
 
+Before continuing with this exercise, you should check your available regional vCPUs and increase your quota if nessesary. You'll need a minimum of 4 vCPU cores avilable for this exercise.
+
+![This image demoonstrates how to increase your regional vCPU quota to ensure you have enough vCPUs for the lab.](images/increasecpuquota.png "Increase region vCPU quota")
+
 **Additional Resources**
 
   |              |            |  
@@ -1259,80 +1260,77 @@ In this exercise, you will be creating a non-persistent host pool for publishing
 
 ### Task 1: Create a new host pool and workspace
 
-1.  Sign in to the [Azure Portal](https://portal.azure.com/).
+1. Sign in to the [Azure Portal](https://portal.azure.com/).
 
-2.  Search for **Azure Virtual Desktop** and select it from the list.
+2. Search for **Azure Virtual Desktop** and select it from the list.
 
     ![This image shows how to search for Azure Virtual Desktop and select the service from the Azure Portal search bar.](images/searchavd.png "Search for Azure Virtual Desktop")
 
-3.  Under Manage, select **Host pools** and select **+ Create**.
+3. Under Manage, select **Host pools** and select **+ Create**.
 
     ![This image shows where to select host pools under manage and select add to add a new host pool.](images/avdHostPool.png "Azure Virtual Desktop blade")
 
-4.  On the Basics page, refer to the following screenshot to fill in the required fields and change **Validation environment** to **Yes**. Selecting **Pooled** for host pool type. Once complete, select **Next: Virtual Machine**.
+4. On the Basics page, refer to the following screenshot to fill in the required fields and change **Validation environment** to **Yes**. Selecting **Pooled** for host pool type. Once complete, select **Next: Virtual Machine**.
 
     ![This image shows the create a host pool blade, where you will enter in the information for the virtual machines that will host the remote apps and select next for workspace.](images/remoteapppool.png "Create host pool")
 
-5.  When you configure **Virtual machine settings**, select **Browse all images and disks** and then select the tab option for **My Items** to select the image that was created earlier in **Exercise 4**.
+5. When you configure **Virtual machine settings**, select **Browse all images and disks** and then select the tab option for **My Items** to select the image that was created earlier in **Exercise 4**.
 
     ![This image shows where you will find your custom image to add to the host pool.](images/hostpoolcustom.png "Host pool custom image")
 
     >**Note**: Selecting this image is very important. You will need the Microsoft 365 for assigning apps in this exercise.
 
+6. Now enter in the rest of the settings for your host pool as seen in the screen show below.
+
     ![This image shows the information you will enter for the host pool name and select next for virtual machines.](images/nextworkspace4.png "Create a host pool name")
 
-6.  On the Workspace page, select **Yes** to register a new desktop app group. Select **Create new** and provide a **Workspace name**. Select **OK** and **Review + create**.
+7. On the Workspace page, select **Yes** to register a new desktop app group. Select **Create new** and provide a **Workspace name**. Select **OK** and **Review + create**.
 
     ![This image shows where you will select yes and create a new workspace, and then select review and create when complete.](images/newworkspaceremoteapps.png "Create a new workspace")
 
-7.  On the Create a host pool page, select **Create**.
+8. On the Create a host pool page, select **Create**.
 
 ### Task 2: Create a friendly name for the workspace
 
 The name of the Workspace is displayed when the user signs in. Available resources are organized by Workspace. For a better user experience, we will provide a friendly name for our new Workspace.
 
-1.  Sign in to the [Azure Portal](https://portal.azure.com/).
+1. Sign in to the [Azure Portal](https://portal.azure.com/).
 
-2.  Search for **Azure Virtual Desktop** and select it from the list.
+2. Search for **Azure Virtual Desktop** and select it from the list.
 
     ![This image shows how to search for Azure Virtual Desktop and select the service.](images/searchavd.png "Search for Azure Virtual Desktop")
 
-3.  Under Manage, select **Workspaces**. Locate the Workspace that was created for remote apps and select the name.
+3. Under Manage, select **Workspaces**. Locate the Workspace that was created for remote apps and select the name.
 
     ![This image shows where to locate the workspace that was created in Task 1 and select it.](images/workspaceproperties1.png "Locate workspace created")
 
-4.  Under Settings, select **Properties**.
+4. Under Settings, select **Properties**.
 
-5.  Update the **Friendly name** field to your desired name.
+5. Update the **Friendly name** field to your desired name and select **Save**.
 
     ![This image shows where, under properties of the workspace, you will enter a name under friendly name and save.](images/savefriendlyname1.png "Enter workspace friendly name")
 
-6.  Select **Save**.
-
-    ![This image shows from the workspace properties tab, you will view the workspace that you created.](images/workspaceFriendlyName.png "Workspace properties tab")
-
-
 ### Task 3: Add Remote Apps to your Host Pool
 
-1.  Sign in to the [Azure Portal](https://portal.azure.com/).
+1. Sign in to the [Azure Portal](https://portal.azure.com/).
 
-2.  Search for **Azure Virtual Desktop** and select it from the list.
+2. Search for **Azure Virtual Desktop** and select it from the list.
 
-3.  Under Manage, select **Host pools** and select the host pool that you created in Task 1.  Select **Application groups** and select **Add** to create a new application group.
-   
+3. Under Manage, select **Host pools** and select the host pool that you created in Task 1.  Select **Application groups** and select **Add** to create a new application group.
+
     ![This image shows that from the Azure Virtual Desktop blade, you will select the host pool and then add to add an application groups.](images/newappgroup.png "Manage Application groups")
 
-4.  In the Basics tab, name the application group 
-   
+4. In the Basics tab, name the application group 
+
     ![This image shows that from this blade, you will enter a name for the application group.](images/appgroupname.png "New application group")
 
-5.  Select **Next: Applications**.
+5. Select **Next: Applications**.
 
-    ![This image shows that from the application group blade, you will select to add users or user groups and select the AVD Remote App All users from the blade that opens next.](images/assigngroup.png "Select applications")
+6. On the Applications page, select **+ Add Application**.
 
-6.  On the Applications page, select **+ Add Application**.
+    ![This screenshot shows the + Add applications link highlighted on the applications tab.](images/addapplications.png "Add application")
 
-7.  On the Add Application fly out, next to Application source, select **Start Menu**. add the following applications, selecting **Save** between selections.
+7. On the Add Application fly out, next to Application source, select **Start Menu**. Add the following applications, selecting **Save** between selections.
 
     - Outlook
 
@@ -1346,17 +1344,17 @@ The name of the Workspace is displayed when the user signs in. Available resourc
 
     - Excel
 
-    ![This image shows the results after selecting and saving each application, and that it will be populated in the list of applications.](images/selectapps.png "Save applications")
+    ![This image shows the blade to add each application.](images/selectapps.png "Save applications")
 
     ![This image shows the final list of applications will look like this.](images/listofapps.png "Application list")
 
-8.  Select **Next: Assignments**.
+8. Select **Next: Assignments**.
 
-9.  On the assignments tab, select **Add assignments**.  Search for the **AVD Remote App All Users** and **AAD DC Administrators** created earlier in this guide and choose **Select**.
+9. On the assignments tab, select **Add assignments**.  Search for the **AVD Remote App All Users** created earlier in this guide and choose **Select**.
 
-    >**Note**: AAD DC Administrators will allow you to use your Azure tenant login to access resources in Exercise 7.
+    ![This image shows that from the application group blade, you will select to add users or user groups and select the AVD Remote App All users from the blade that opens next.(images/assigngroup.png "Select applications")
 
-10.  Select **Next: Workspace**.
+10. Select **Next: Workspace**.
 
 11. On the Workspace page, select **Yes** to register the application group.
 
@@ -1391,15 +1389,15 @@ There are multiple clients available for you to access AVD resources. Refer to t
 
 ### Task 1: Connecting with the HTML5 web client
 
-1.  Open a supported web browser.
+1. Open a supported web browser. Use a different browser (or a private session) so you can use one of the synced accounts that isn't the admin account you've been using to configure Azure Virtual Desktop.
 
-2.  Navigate to the https://rdweb.wvd.microsoft.com/arm/webclient.
+2. Navigate to the https://rdweb.wvd.microsoft.com/arm/webclient.
 
     >**Note**: You will be asked to login when you access the above URL.  The credentials that you use are those from the lab.
 
-3.  Sign in using a synchronized identity that has been assigned to an application group.
+3. Sign in using a synchronized identity that has been assigned to an application group.
 
-    >**Note**: When you added the **AAD DC Administrators** to the groups in the previous exercises, you will be able to use your Global Administrator information.  This **must** be a user that is synchronized with the AD DS with Azure AD Connect.  To verify, go to Azure Active Directory users and verify the directory sync users.
+    >**Note**: This **must** be a user that is synchronized with the AD DS with Azure AD Connect.  To verify, go to Azure Active Directory users and verify the directory sync users.
 
     ![This image shows where you would verify that a user is synchronized with the domain controller.](images/confirmsync.png "Synchronized domain controller")
 
@@ -1409,26 +1407,25 @@ There are multiple clients available for you to access AVD resources. Refer to t
 
     ![This image shows where you will enter the password for the username that you entered.](images/enterpw.png "Account password")
 
-4.  Select an available resource from the web client. In this example we will connect to a host pool containing pooled desktop.
+4. Select an available resource from the web client. In this example we will connect to a host pool containing pooled desktop.
 
     ![This image shows that once you login to the portal, you will see the apps that are available for you to use.](images/appsavailable.png "App portal applications")
 
-5.  On the **Access local resources** prompt, review the available options for and select **Allow**.
+5. On the **Access local resources** prompt, review the available options for and select **Allow**.
 
     ![This image shows where you will select the default desktop and allow local resources.](images/allowlocal.png "Desktop resources")
 
-6.  On the **Enter your credentials** prompt, sign in using the same account from Step 3 and select **Submit**. 
-   
+6. On the **Enter your credentials** prompt, sign in using the same account from Step 3 and select **Submit**. 
+
     >**Note**: The username and password to login to the AVD desktop will be credentials from the domain controller username and password created upon initial deployment.  When you need the user email, RDP into the domain controller VM and find the user in the **Active Directory Users and Groups** and **OrgUsers**.
 
     ![This image shows that on the domain controller VM, you can find the username here.](images/dcusername.png "Domain username")
 
     ![This image shows where to enter the username from the domain controller and the password created during initial lab deployment.](images/dccreds.png "Enter username and password")
 
-7.  Once connected, validate the components relative to your configuration. The desktop should show icons for Microsoft Edge and Microsoft Teams.  When you go to the Windows start menu, you can find the Office applications.
+7. Once connected, validate the components relative to your configuration. The desktop should show icons for Microsoft Edge and Microsoft Teams.  When you go to the Windows start menu, you can find the Office applications.
 
     ![This image shows what the desktop AVD image should look like this.](images/avddesktopimage.png "AVD Desktop")
-
 
 **Troubleshooting**
 
@@ -1442,15 +1439,15 @@ If issues continue even after you\'ve switched browsers, the problem may not be 
 
 If the Web client keeps prompting for credentials, follow these instructions:
 
-1.  Confirm the web client URL is correct.
+1. Confirm the web client URL is correct.
 
-2.  Confirm that the credentials you\'re using are for the Azure Virtual Desktop environment tied to the URL.
+2. Confirm that the credentials you\'re using are for the Azure Virtual Desktop environment tied to the URL.
 
-3.  Clear browser cookies.
+3. Clear browser cookies.
 
-4.  Clear browser cache.
+4. Clear browser cache.
 
-5.  Open your browser in Private mode.
+5. Open your browser in Private mode.
 
 ## Exercise 8: Setup monitoring for AVD
 
