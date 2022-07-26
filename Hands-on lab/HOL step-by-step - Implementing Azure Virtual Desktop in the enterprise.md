@@ -73,7 +73,8 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
     - [Task 5: Enable logging for workspaces](#task-5-enable-logging-for-workspaces)
     - [Task 6: Enabling Azure Monitor for the session hosts](#task-6-enabling-azure-monitor-for-the-session-hosts)
   - [Exercise 9: Improving your AVD environment](#exercise-9-improving-your-avd-environment)
-    - [Task 1: Enabling Autoscale](#task-1-enabling-autoscale)
+    - [Task 1: Configure permissions for Autoscale](#task-1-configure-permissions-for-autoscale)
+    - [Task 2: Enabling Autoscale](#task-2-enabling-autoscale)
     - [Task 2: Utilizing Application Packages (MSIX)](#task-2-utilizing-application-packages-msix)
     - [Task 3: Protect AVD with Microsoft Defender for Endpoint](#task-3-protect-avd-with-microsoft-defender-for-endpoint)
   - [After the hands-on lab](#after-the-hands-on-lab)
@@ -1455,12 +1456,11 @@ Duration:  45 minutes
 
 In this exercise, you will setup monitoring for our AVD host pools. There are multiple reasons why monitoring serves a critical role: troubleshooting, performance, security, etc. There are also multiple components that make up the AVD service, which can add some variation on how customers implement monitoring (e.g., adding additional third-party solutions). By the end of this exercise, you will have the following monitoring capabilities enabled:
 
--   Diagnostic logging for the AVD service
+- Diagnostic logging for the AVD service
 
--   Azure Monitor for the session host VMs
+- Azure Monitor for the session host VMs
 
--   Log Analytics Monitoring Agent for the session host VMs
-
+- Log Analytics Monitoring Agent for the session host VMs
 
 **Additional Resources**
 
@@ -1482,27 +1482,27 @@ environments, it is common to have all monitor data pointing to a single dedicat
 
 In this exercise we will create a dedicated workspace for our environment. When you already have a workspace created, move on to Task 2.
 
-1.  Sign in to the [Azure Portal](https://portal.azure.com/).
+1. Sign in to the [Azure Portal](https://portal.azure.com/).
 
-2.  At the top of the page, in the **Search resources** field, type \"**log analytics**\". Select **Log Analytics workspaces** from the list.
+2. At the top of the page, in the **Search resources** field, type \"**log analytics workspace**\". Select **Log Analytics workspaces** from the list.
 
     ![This image shows how to search for log analytics and select the service from the Azure Portal search bar.](images/searchloganalytics.png "Search for Log Analytics")
 
-3.  On the Log Analytics workspaces blade, select **+Add**.
+3. On the Log Analytics workspaces blade, select **+ Create**.
 
     ![This image shows how within the Log Analytics blade, you will select add to create a new workspace.](images/createlogworkspace.png "Add a Log Analytics workspace")
 
-4.  On the Create Log Analytics workspace blade, fill in the following information and select **Review + Create**.
+4. On the Create Log Analytics workspace blade, fill in the following information and select **Review + Create**.
 
-    -    **Subscription:** Select the desired subscription for the Log Analytics workspace.
+    - **Subscription:** Select the desired subscription for the Log Analytics workspace.
 
-    -    **Resource Group:** Create a new resource group or select one from the list.
+    - **Resource Group:** Create a new resource group or select one from the list.
 
-    -    **Name:** Enter a unique name for the workspace.
+    - **Name:** Enter a unique name for the workspace.
 
-    -    **Region:** Select a region for the workspace.
+    - **Region:** Select a region for the workspace.
 
-5.  Select **Create**.
+5. Select **Create**.
 
     ![This image shows how to select a resource group and enter a unique name for the Log Analytics workspace.](images/configlogworkspace.png "Configure the Log Analytics workspace")
 
@@ -1526,98 +1526,97 @@ Each AVD ARM object has different diagnostic data categories available. For exam
 
 ### Task 3: Enable logging for host pools
 
-1.  Sign in to the [Azure Portal](https://portal.azure.com/).
+1. Sign in to the [Azure Portal](https://portal.azure.com/).
 
-2.  At the top of the page, in the **Search resources** field, type \"**azure virtual desktop**\". Select **Azure Virtual Desktop** from the list.
+2. At the top of the page, in the **Search resources** field, type \"**azure virtual desktop**\". Select **Azure Virtual Desktop** from the list.
 
     ![This image shows how to search for Azure Virtual Desktop and select the service from the Azure Portal search bar.](images/searchavd.png "Search for Azure Virtual Desktop")
 
-3.  On the Azure Virtual Desktop blade, under **Manage**, select **Host pools**.
+3. On the Azure Virtual Desktop blade, under **Manage**, select **Host pools**.
 
-4.  On the Azure Virtual Desktop \| Host pools blade, locate a host pool and select the name.
+4. On the Azure Virtual Desktop \| Host pools blade, locate a host pool and select the name.
 
-5.  On the blade for your host pool, under **Monitoring**, select **Diagnostic settings**.
+5. On the blade for your host pool, under **Monitoring**, select **Diagnostic settings**.
 
-6.  On the Diagnostics settings blade, select **+Add diagnostic setting**.
+6. On the Diagnostics settings blade, select **+Add diagnostic setting**.
 
     ![This image shows the host pool blade, and where you will locate diagnostic settings under the monitoring menu heading, and select add diagnostic settings.](images/hostpooldiag.png "Add Host Pool Diagnostic settings")
 
-7.  On the Diagnostic settings page, fill in the following information and select **Save**.
+7. On the Diagnostic settings page, fill in the following information and select **Save**.
 
-    -    **Diagnostic settings name:** Enter a name for these settings. ARM objects can have multiple diagnostic settings applied.
+    - **Diagnostic settings name:** Enter a name for these settings. ARM objects can have multiple diagnostic settings applied.
 
-    -    **Category details \| log:** Check the box for the logs that you want to collect.
+    - **Category details \| log:** Check the box for the logs that you want to collect.
 
-    -    **Destination details \| Send to Log Analytics:** Check this box.
+    - **Destination details \| Send to Log Analytics:** Check this box.
 
          - **Subscription:** Select the desired subscription.
 
          - **Log Analytics workspace:** Select the desired workspace.
 
-
     ![This image shows the diagnostics settings blade, where you will create a name, select logs, and select to send to Log Analytics.](images/hostpooldiagsettings.png "Host Pool diagnostic settings")
 
 ### Task 4: Enable logging for application groups
 
-1.  Sign in to the [Azure Portal](https://portal.azure.com/).
+1. Sign in to the [Azure Portal](https://portal.azure.com/).
 
-2.  At the top of the page, in the **Search resources** field, type \"**azure virtual desktop**\". Select **Azure Virtual Desktop** from the list.
+2. At the top of the page, in the **Search resources** field, type \"**azure virtual desktop**\". Select **Azure Virtual Desktop** from the list.
 
     ![This image shows how to search for Azure Virtual Desktop and select the service from the Azure Portal search bar.](images/searchavd.png "Search for Azure Virtual Desktop")
 
-3.  On the Azure Virtual Desktop blade, under **Manage**, select **Application groups**.
+3. On the Azure Virtual Desktop blade, under **Manage**, select **Application groups**.
 
-4.  On the Azure Virtual Desktop \| Application groups blade, locate an application group and select the name.
+4. On the Azure Virtual Desktop \| Application groups blade, locate an application group and select the name.
 
-5.  On the blade for your application group, under **Monitoring**, select **Diagnostic settings**.
+5. On the blade for your application group, under **Monitoring**, select **Diagnostic settings**.
 
-6.  On the Diagnostics settings blade, select **+Add diagnostic setting**.
+6. On the Diagnostics settings blade, select **+Add diagnostic setting**.
 
     ![This image shows how to select the application group that was created and add diagnostic settings.](images/appgroupadddiag.png "Add Application Group diagnostic settings")
 
-7.  On the Diagnostic settings page, fill in the following information and select **Save**.
+7. On the Diagnostic settings page, fill in the following information and select **Save**.
 
-    -    **Diagnostic settings name:** Enter a name for these settings. ARM objects can have multiple diagnostic settings applied.
+    - **Diagnostic settings name:** Enter a name for these settings. ARM objects can have multiple diagnostic settings applied.
 
-    -    **Category details \| log:** Check the box for the logs that you want to collect.
+    - **Category details \| log:** Check the box for the logs that you want to collect.
 
-    -    **Destination details \| Send to Log Analytics:** Check this box.
+    - **Destination details \| Send to Log Analytics:** Check this box.
 
-            - **Subscription:** Select the desired subscription.
+        - **Subscription:** Select the desired subscription.
 
-            - **Log Analytics workspace:** Select the desired workspace.
+        - **Log Analytics workspace:** Select the desired workspace.
 
     ![This image shows how in the diagnostics settings blade, you will create a name, select logs, and select to send to Log Analytics.](images/appgroupdiagsettings.png "Application Group diagnostic settings")
 
 ### Task 5: Enable logging for workspaces
 
-1.  Sign in to the [Azure Portal](https://portal.azure.com/).
+1. Sign in to the [Azure Portal](https://portal.azure.com/).
 
-2.  At the top of the page, in the **Search resources** field, type \"**azure virtual desktop**\". Select **Azure Virtual Desktop** from the list.
+2. At the top of the page, in the **Search resources** field, type \"**azure virtual desktop**\". Select **Azure Virtual Desktop** from the list.
 
     ![This image shows how to access Azure Virtual Desktop from the Azure portal search bar.](images/searchavd.png "Search for Azure Virtual Desktop")
 
-3.  On the Azure Virtual Desktop blade, under **Manage**, select **Workspaces**.
+3. On the Azure Virtual Desktop blade, under **Manage**, select **Workspaces**.
 
-4.  On the Azure Virtual Desktop \| Workspaces blade, locate a workspace and select the name.
+4. On the Azure Virtual Desktop \| Workspaces blade, locate a workspace and select the name.
 
-5.  On the blade for your workspace, under **Monitoring**, select **Diagnostic settings**.
+5. On the blade for your workspace, under **Monitoring**, select **Diagnostic settings**.
 
-6.  On the Diagnostics settings blade, select **+Add diagnostic setting**.
+6. On the Diagnostics settings blade, select **+Add diagnostic setting**.
 
     ![This image shows the selected the workspace that was created and add diagnostic settings.](images/workspaceadddiag.png "Add Workspace diagnostic logging")
 
-7.  On the Diagnostic settings page, fill in the following information and select **Save**.
+7. On the Diagnostic settings page, fill in the following information and select **Save**.
 
-    -    **Diagnostic settings name:** Enter a name for these settings. ARM objects can have multiple diagnostic settings applied.
+    - **Diagnostic settings name:** Enter a name for these settings. ARM objects can have multiple diagnostic settings applied.
 
-    -    **Category details \| log:** Check the box for the logs that you want to collect.
+    - **Category details \| log:** Check the box for the logs that you want to collect.
 
-    -    **Destination details \| Send to Log Analytics:** Check this box.
+    - **Destination details \| Send to Log Analytics:** Check this box.
 
-            -    **Subscription:** Select the desired subscription.
+        - **Subscription:** Select the desired subscription.
 
-            -    **Log Analytics workspace:** Select the desired workspace.
+        - **Log Analytics workspace:** Select the desired workspace.
 
     ![This image is the diagnostics settings blade, where you will create a name, select logs, and select to send to Log Analytics.](images/appgroupdiagsettings.png "Workspace diagnostic settings")
 
@@ -1627,30 +1626,29 @@ At this point you should have diagnostic data enabled on at least 1 AVD ARM obje
 
 Azure Monitor is leveraged with AVD to monitor the performance and health of your session host VMs. This feature can be enabled for Azure VMs in several ways. In this exercise we will walk through enabling Azure Monitor on VMs using the Azure portal. Refer to the following links for guidance on automation.
 
+1. Sign in to the [Azure Portal](https://portal.azure.com/).
 
-1.  Sign in to the [Azure Portal](https://portal.azure.com/).
-
-2.  At the top of the page, in the **Search resources** field, type \"**virtual machines**\". Select **Virtual Machines** from the list.
+2. At the top of the page, in the **Search resources** field, type \"**virtual machines**\". Select **Virtual Machines** from the list.
 
     ![This image shows how to access Azure Virtual Desktop from the Azure portal search bar.](images/searchvm.png "Search for Virtual machines")
 
-3.  On the Virtual Machines blade, locate a session host VM and select the name.
+3. On the Virtual Machines blade, locate a session host VM and select the name.
 
-4.  On the blade for the virtual machine, under **Monitoring**, select **Insights**.
+4. On the blade for the virtual machine, under **Monitoring**, select **Insights**.
 
     ![This image shows that from the domain controller VM, you will select insights under monitoring in the menu.](images/vminsights.png "Virtual Machine Insights")
 
-5.  On the Insights blade, select **Enable**. This will initiate a validation check.
+5. On the Insights blade, select **Enable**. This will initiate a validation check.
 
     ![This image shows the insights blade, where you will select enable to enable insights on the virtual machine.](images/enableinsights.png "Enable VM Insights")
 
     >**Note**: The virtual machine must be running to enable Azure Monitor.
 
-6.  On the Insights setup page, fill in the following information and select **Enable**.
+6. On the Insights setup page, fill in the following information and select **Enable**.
 
-    -    **Workspace Subscription:** Select the desired subscription.
+    - **Workspace Subscription:** Select the desired subscription.
 
-    -    **Choose a Log Analytics Workspace:** Select the workspace used in the previous task.
+    - **Choose a Log Analytics Workspace:** Select the workspace used in the previous task.
 
     ![This image shows the enable insights blade, where you will select the Log Analytics workspace and select enable.](images/vminsightsconfig.png "Log Analytics workspace configuration for VM Insights")
 
@@ -1661,6 +1659,8 @@ Monitor the notification bell in the upper-right corner and wait for the deploym
 **New Monitoring Agents Installed**. Two new agents are installed on the VM.
 
 **Monitoring Agent Configured for Log Analytics** The Microsoft Monitoring Agent is configured for your log analytics workspace.
+
+![This image shows the new agents installed for monitoring the VM with log analytics.](images/vmonitoringextensions.png "Log Analytics extensions install on the vm")
 
 At this point you should have Azure Monitor enabled on at least one session host VM. To enable Azure Monitor for additional session hosts, repeat the above steps. For automation, leverage Azure Policy or PowerShell to enable monitoring on multiple VMs.
 
@@ -1691,7 +1691,6 @@ In this exercise, you will our AVD experience bay utilizing additional features 
 
 - Protect your environment via Microsoft Defender for Endpoint
 
-
 **Additional Resources**
 
 | Description | Links |
@@ -1704,161 +1703,113 @@ In this exercise, you will our AVD experience bay utilizing additional features 
 | Azure Cloud Shell | https://docs.microsoft.com/en-us/azure/cloud-shell/overview |
 
 
-### Task 1: Enabling Autoscale
+### Task 1: Configure permissions for Autoscale
 
-In this task, you will create an Azure Automation account and Logic App that will regularly update the scaling of your pool based on the number of connections.  Azure Automation allows for the execution of scripts and commands with an identity related to the automation.  Logic App allows for regular execution of commands and tasks.  By combining these two resources, we allow for repetitive tasks of a detailed nature which will allow us to automatically increase and decrease the number of hosts in an AVD host pool based on demand of the environment.
+In this task, we'll configure the permissions necessary to enable auto scall in Azure Virtual Desktop.
 
-1. Use PowerShell on a system with the [Azure Module](https://docs.microsoft.com/en-us/powershell/azure/install-az-ps?view=azps-5.9.0) installed (such as from Exercise 3, Task 3).
+1. Navigate to the Azure Portal and the subscription Azure Virtual Desktop is running in.
 
-2. Run the following command connect to Azure using the subscription of your AVD:
+2. Select Access control (AIM). Select **+ Add** and **Add custom role**.
 
-    ```powershell
-    Connect-AzAccount
+    ![](images/addcustomrole.png "Adding a custom role to an Azure Subscription")
+
+3. Enter a role name and description, then select **Next**.
+
+    ![](images/avdcustomrolebasics.png "Create a custom AVD Role Basics tab")
+
+4. On the permissions tab, select **Next**, we aren't adding any permissions yet.
+
+5. On the assignable scopes tab, select **Next**.
+
+6. On the JSON tab, select **Edit**, then copy and paste the JSON below into the "actions": [] array.
+
+    ```JSON
+    "Microsoft.Insights/eventtypes/values/read",
+    "Microsoft.Compute/virtualMachines/deallocate/action",
+    "Microsoft.Compute/virtualMachines/restart/action",
+    "Microsoft.Compute/virtualMachines/powerOff/action",
+    "Microsoft.Compute/virtualMachines/start/action",
+    "Microsoft.Compute/virtualMachines/read",
+    "Microsoft.DesktopVirtualization/hostpools/read",
+    "Microsoft.DesktopVirtualization/hostpools/write",
+    "Microsoft.DesktopVirtualization/hostpools/sessionhosts/read",
+    "Microsoft.DesktopVirtualization/hostpools/sessionhosts/write",
+    "Microsoft.DesktopVirtualization/hostpools/sessionhosts/usersessions/delete",
+    "Microsoft.DesktopVirtualization/hostpools/sessionhosts/usersessions/read",
+    "Microsoft.DesktopVirtualization/hostpools/sessionhosts/usersessions/sendMessage/action"
     ```
 
-3.  Use the following commands to download installation script for the Automation Account:
+    ![](images/editjson.png)
 
-    ```powershell
-    New-Item -ItemType Directory -Path ".\AVDTemp" -Force
-    Set-Location -Path ".\AVDTemp"
-    $Uri = "https://raw.githubusercontent.com/Azure/RDS-Templates/master/wvd-templates/wvd-scaling-script/CreateOrUpdateAzAutoAccount.ps1"
-    # Download the script
-    Invoke-WebRequest -Uri $Uri -OutFile ".\CreateOrUpdateAzAutoAccount.ps1"
-    ```
+7. Select **Save**, **Review + Create**, then **Review + assign**.
 
-4. Use the following to call the installation script with the appropriate parameters:
+8. Now we need to assign the role to the Azure Virtual Desktop service principal. Back on the **Access controll (AIM)** settings for the subscription, select **+ Add** and **Add role assignment**.
 
-    ```powershell
-    $LAWorkspace = Get-AzOperationalInsightsWorkspace | ?{ $_.name -notlike "DefaultWork*" }
-    $Params = @{
-        "UseARMAPI"             = $true
-        "Location"              = $LAWorkspace.location
-        "WorkspaceName"         = $LAWorkspace.name       # Optional. If specified, Log Analytics will be used to configure the custom log table that the runbook PowerShell script can send logs to
-    }
+    ![](images/addroleassignment.png "Add role assignment in Azure subscription")
 
-    .\CreateOrUpdateAzAutoAccount.ps1 @Params
+9. Select the **AVD Autoscale** custom role we just created and select **Next**.
 
-    ```
+    ![](images/assigncustomrole.png "Select the new custom role")
 
-5. Now that the Azure Automation account is created, keep the PowerShell window open in the background and go to the [Azure Portal](https://portal.azure.com/) in your browser to finish the setup.
+10. Select **+ Select members**, search for and select **Azure Virtual Desktop**.
 
-    ![This image shows the return to the Azure Portal web page.](images/azureportal.png "Azure Portal")
+    ![](images/selectazurevirtualdesktop.png "Select the Azure Virtual Desktop service principal")
 
-6. Go to the Azure Automation account.
+11. Select **Review + assign** then **Create**
 
-    ![This image shows where to search to find the Azure Automation account in the portal.](images/automationAccount.png "Azure Portal")
+### Task 2: Enabling Autoscale
 
-7. Select Run As accounts under Account Settings.
+In this task, you will enable the scaling of your pool based on the number of connections.  Azure Virtual Desktop allows you to create scaling plans which will allow us to automatically increase and decrease the number of hosts in an AVD host pool based on demand of the environment.
 
-8. Select **Create** to create a new account.
+1. Navigate to the Azure Portal and go to Azure Virtual Desktop.
 
-    ![This image shows where you will find the automation account and select Run As of the Automation Account.](images/createRunAs.png "Create Automation Run As Account")
+2. Select **Scalin plans** under **Manage**, then select **Create scaling plan**
 
-  >**Note**: This process may take a few minutes, but you can track the progress.
+    ![This screenshot shows the Scaling plans in Azure virtual desktop with the button hilighted to Create a scaling plan.](images/createscalingplan.png "Create a new AVD scaling plans")
 
-9. When it is complete, there will be a resource named **AzureRunAsConnection**.
+3. Select the resource group and location for Azure Virtual Desktop. Then give your scaling plan a friend name and select **Next: Schedules >**
 
-10. Selecting the **Azure Run As account**, you can see the application ID, tenant ID, subscription ID, and certificate thumbprint.
+    ![In this image, the basic settings for the scaling plan are highlighted.](images/scalingplanbasics.png "AVD Scaling Plan Basics")
 
-    ![This image shows the completed Run As Automation account.](images/AutomationRunAsDetails.png "Azure automation Run As account")
+4. Select **+ Add schedule**. Keep the defaults in General and select **Next**.
 
-11. Go back to the PowerShell window from earlier.
+    ![This image shows the general settings for a new schedule.](images/scalingschedulegeneral.png "General settings for a new scaling schedule")
 
-12. Run the following code to download a script to create the Logic App:
+5. Within Ramp-up, review the settings, but we'll take the defatul settings again. Start time entails two things, the start of when you start to power on VMs as well as the end-time of off-peak hours. Minumum is the minimum percentate of VMs that should be powered on starting at this time. The capacity threshold is what percentage of capacity needs to be in use before another virtual machine is powered on. For example, with a pool of 10 VMs and a capacity of 20 sessions, at 8:00 am, a minimum of two VMs would be on. Once you would get to 12 active sessions, a 3rd virtual machine will be powered on. Select **Next**.
 
-    ```powershell
-    $Uri = "https://raw.githubusercontent.com/Azure/RDS-Templates/master/wvd-templates/wvd-scaling-script/CreateOrUpdateAzLogicApp.ps1"
-    # Download the script
-    Invoke-WebRequest -Uri $Uri -OutFile ".\CreateOrUpdateAzLogicApp.ps1"
-    ```
+    ![](images/scalingschedulerampup.png "Schedule settings for ramp-up")
 
-13. Run the following code to use the script to create your Logic App:
+6. Peak hours is another one we won't make any changes, but review the settings. The minimum number of VMs that are turned on will carry over from ramp-up as well as the capacity threshold.
 
-    ```powershell
-    $AADTenantId = (Get-AzContext).Tenant.Id
+    ![](images/scalingschedulepeakhours.png "Schedule settings for peak hours")
 
-    $AzSubscription = (Get-AzContext).Subscription
+7. Ramp down is the time you want to start shutting down virtual machines and is the end of peak hours. Here mimimum percentage of hosts should be smaller than ramp-up and peak hours as you want to start shutting down virtual machines. The default is 10 percent meaning in a pool of 10 virutal machines, you want to leave no less than 1 VM powered on. The capacity threshold will turn virtual machines on if you hit it, but this should be a larger numbers so you aren't powering on virtual machines on as you try to ramp down. The finaly set of settings is around logging users out. In order to shut down virutal machiens, you need users to log off and shift their sesssions to other hosts. These settings allow you to configure if you for the user logout, how long after they log out the machine is shut down, and the message give to users. Leave all settings the default and select **Next**.
 
-    $ResourceGroup = Get-AzResourceGroup  "AVDAutoScaleResourceGroup"
+    ![](images/scalingschedulerampdown.png "Schedule settings for ramp-down")
 
-    $AVDHostPool = Get-AzWvdHostPool | ?{ $_.HostPoolType -eq "Pooled" } | Select -First 1 | Get-AzResource
+8. Off-peak hours is the time that ramp-down will end and will also take the capacity thresholod from the ramp-down settings. This capacity threshold takes the higher value from ramp-down as you don't want machines powered on during off-peak hours unless absolutely necessary. The off-peak hours will end when the next ramp-up time starts. Select **Add**.
 
-    $LogAnalyticsWorkspaceId = $LAWorkspace.CustomerId.Guid
-    $LogAnalyticsPrimaryKey =  ($LAWorkspace | Get-AzOperationalInsightsWorkspaceSharedKey).PrimarySharedKey
-    $RecurrenceInterval = 15
-    $BeginPeakTime = "09:00"
-    $EndPeakTime = "18:00"
-    $TimeDifference = "-7:00"
-    $SessionThresholdPerCPU = 2 #this number is abnormally low for the lab; this is not what you would use in most production environments
-    $MinimumNumberOfRDSH = 1
-    $MaintenanceTagName = "NoScaling"
-    $LimitSecondsToForceLogOffUser = 1 #this number is abnormally low for the lab; this is not what you would use in most production environments
-    $LogOffMessageTitle = "Automation Log Off for Scaling"
-    $LogOffMessageBody = "To improve resource utilization we need to move your session to a new host. Please save your work and log back in to AVD continue working on a new host. For assistance, please contact the Help Desk."
+    ![](images/scalingscheduleoffpeak.png "Schedule settings for off-peak hours.")
 
-    $AutoAccount =  Get-AzAutomationAccount -Name "AVDAutoScaleAutomationAccount" -ResourceGroupName $ResourceGroup.ResourceGroupName
-    $AutoAccountConnection = Get-AzAutomationConnection -ResourceGroupName $AutoAccount.ResourceGroupName -AutomationAccountName $AutoAccount.AutomationAccountName | Select -first 1
+9. You'll see your new schedule added to the scaling plan schedule. Select **Next: Host pool assignments >**.
 
-    $WebhookURIAutoVar = Get-AzAutomationVariable -Name 'WebhookURIARMBased' -ResourceGroupName $AutoAccount.ResourceGroupName -AutomationAccountName $AutoAccount.AutomationAccountName
+    ![](images/scalingschedule.png "Schedule added to the scaling plan")
 
-    $Params = @{
-        "AADTenantId"                   = $AADTenantId                             # Optional. If not specified, it will use the current Azure context
-        "SubscriptionID"                = $AzSubscription.Id                       # Optional. If not specified, it will use the current Azure context
-        "ResourceGroupName"             = $ResourceGroup.ResourceGroupName         # Optional. Default: "AVDAutoScaleResourceGroup"
-        "Location"                      = $ResourceGroup.Location                  # Optional. Default: "West US2"
-        "UseARMAPI"                     = $true
-        "HostPoolName"                  = $AVDHostPool.Name
-        "HostPoolResourceGroupName"     = $AVDHostPool.ResourceGroupName           # Optional. Default: same as ResourceGroupName param value
-        "LogAnalyticsWorkspaceId"       = $LogAnalyticsWorkspaceId                 # Optional. If not specified, script will not log to the Log Analytics
-        "LogAnalyticsPrimaryKey"        = $LogAnalyticsPrimaryKey                  # Optional. If not specified, script will not log to the Log Analytics
-        "ConnectionAssetName"           = $AutoAccountConnection.Name              # Optional. Default: "AzureRunAsConnection"
-        "RecurrenceInterval"            = $RecurrenceInterval                      # Optional. Default: 15
-        "BeginPeakTime"                 = $BeginPeakTime                           # Optional. Default: "09:00"
-        "EndPeakTime"                   = $EndPeakTime                             # Optional. Default: "17:00"
-        "TimeDifference"                = $TimeDifference                          # Optional. Default: "-7:00"
-        "SessionThresholdPerCPU"        = $SessionThresholdPerCPU                  # Optional. Default: 1
-        "MinimumNumberOfRDSH"           = $MinimumNumberOfRDSH                     # Optional. Default: 1
-        "MaintenanceTagName"            = $MaintenanceTagName                      # Optional.
-        "LimitSecondsToForceLogOffUser" = $LimitSecondsToForceLogOffUser           # Optional. Default: 1
-        "LogOffMessageTitle"            = $LogOffMessageTitle                      # Optional. Default: "Machine is about to shutdown."
-        "LogOffMessageBody"             = $LogOffMessageBody                       # Optional. Default: "Your session will be logged off. Please save and close everything."
-        "WebhookURI"                    = $WebhookURIAutoVar.Value
-    }
+10. Select your load balanced host pool in teh drop down, ensure **Enable autoscale** is selected, select **Review + create**, then select **Create**.
 
-    .\CreateOrUpdateAzLogicApp.ps1 @Params
-    ```
-
-14. After this script completes, go back to the [Azure Portal](https://portal.azure.com/).
-
-    ![This image shows the Azure Portal home web page.](images/azureportal.png "Azure Portal")
-
-15. Find the Logic App that was created by the script.
-
-    ![This image shows the search to access Azure Portal Logic App services.](images/logicApps.png "Azure Portal")
-
-16. Select the **Logic app designer** link under Development Tools, you will see the graphical representation of the workflow created by the script.
-
-17. You can select **Recurrence** to change how often the script runs.
-
-18. Select the **Run** button to trigger the scaling immediately.
-
-    ![This image shows the Logic App graphical design view.](images/logicAppDesigner.png "Logic App Designer")
-
-19. View the occurrences of your runs by going back to the **Overview** of the Logic App.
-
-    ![This image shows the opening of the Logic App overview that will show the Run History and see previous runs.](images/logicAppOverview.png "Logic App Overview")
+    ![](images/scalingplancreate.png "Create the scaling plan")
 
 At this point, your AVD Host Pool that is Pooled will spin up and down hosts based on the load of the environment.
 
 ### Task 2: Utilizing Application Packages (MSIX)
 
-In this task, you will take a **MSIX package** created from the [MSIX packaging tool](https://docs.microsoft.com/en-us/windows/msix/packaging-tool/tool-overview) and utilize the Azure portal to attach the MSIX package dynamically to AVD pools as users login.  MSIX Packages are disk images containing all files, configurations, and publication details needed to run supported applications that can be mounted by Windows systems on the fly to allow users to run the application without having to install the application to the host machine. By utilizing this technique, we can minimize the footprint and management needs of the AVD hosts while still utilizing multiple applications on the systems without installing the applications permanent on the system.
+In this task, you will take a **MSIX package** created from the [MSIX packaging tool](https://docs.microsoft.com/en-us/windows/msix/packaging-tool/tool-overview) and utilize the Azure portal to attach the MSIX package dynamically to AVD pools as users login.  MSIX Packages are disk images containing all files, configurations, and publication details needed to run supported applications that can be mounted by Windows systems on the fly to allow users to run the application without having to install the application to the host machine. By utilizing this technique, we can minimize the footprint and management needs of the AVD hosts while still utilizing multiple applications on the systems without installing the applications permanently on the system.
 
 1. Go to the [Azure Portal](https://portal.azure.com/).
 
     ![This image shows the Azure Portal home web page.](images/azureportal.png "Azure Portal")
 
-2. Go to the **Storage Account** created in Exercise 3 for the FSLogix profiles that was already joined to Active Directory.
+2. Go to the **Storage Account** created in Exercise 3 for the FSLogix profiles already joined to Active Directory.
 
 3. Select the **File shares** under data storage and select the share created for AVD files.
 
