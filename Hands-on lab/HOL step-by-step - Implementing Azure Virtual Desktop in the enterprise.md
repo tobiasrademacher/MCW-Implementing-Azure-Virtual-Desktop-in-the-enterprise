@@ -1815,21 +1815,101 @@ In this task, you will take a **MSIX package** created from the [MSIX packaging 
 
     ![This image shows that you will open share for AVD File Share on storage account.](images/avdFileShare.png "AVD File Share")
 
-4. Select the **+ Add directory** button to create a new folder and name it **msix**.
+4. Ensure the **MSIX** directory you create earlier is there, if not, create one using the **+ Add directory** button.
 
     ![This image shows where to add a directory on storage account.](images/avdFileShareAdd.png "File Share add directory")
 
     > **Note:** Normally in production you would create an additional share for MSIX files and place the files there.  You would need to make sure the share or container the MSIX files are in you follow the same steps you use for the FSLogix storage account and apply the appropriate permissions to them (users normally only need Read access) and make sure there is enough room to store them.  We are placing it on the same share for this exercise for expediency sake and easier setup. It is not uncommon to have a central MSIX storage with permissions to each MSIX file based on groups assigned to the appropriate application and the MSIX repository used by multiple pools or deployments, but ensure network connectivity and speed are kept consistent.
 
-5. Take note of the storage account (i.e.: `dncloudavdstorage` ) and the name of the file share (i.e.: `labavdfileshare`).
+5. In a new tab in your browser, navigate to (URL of the .VHD file) and download AVD-MSIX.vhd
 
-6. Open a PowerShell window with the Azure Module installed and connect to the Azure subscription with this command if it is not already connected:
+6. Back in your storage account, upload the .VHD file to the MSIX folder.
 
-    ```powershell
-    Connect-AzAccount
+    ![Select Upload file, and upload the avd-msix.vhd file to the fileshare.](images/uploadvhd.png "Uplad AVD-MSIX.vhd")
+
+7. The MSIX images on the VHD have been signed with Device Gaurd v2 in order for it to work, the root certificate needs to be installed on the servers used for publishing the apps. These servers don't have public IP address, so we'll use the domain controller as jump box to the app servers. Create a remote desktop session to the domain controller.
+
+8. Get the IP address from the first server in your remote app pool. It should be something like 10.1.0.8.
+
+    ![The IP address of the first virtual machine in the remote app pool is highlighted.](images/ipappserver.png "The private IP address of the server")
+
+9. On the domain controller, open up Remote Desktop Connection and conenct to the IP address of your first remote app server. You can use the avdadmin account you setup as a local admin when creating the server by entering **/avdadmin** for the username.
+
+    ![The remote desktop conenction on the domain controller with the IP address of the first remote app server is show.](images/connecttoappserver.png "Remote desktop connect to the first remote app server")
+
+10. Once you're logged into the first app server, open up Microsoft Edge and navigate to the followign url:
+
+    ```text
+    https://www.microsoft.com/pkiops/certs/microsoft%20enterprise%20identity%20verification%20root%20certificate%20authority%202020.crt
     ```
 
-7. Run this command to upload the MSIX file to the folder:
+11. Open the download certificate, this root certificate is needed to verify the MSIX packages. Select **Open** when the Security Warning is shown.
+
+    ![In Microsoft Edge, select open file for the downloaded certificate.](images/downloadcertificate.png "Download the certificate from the URL in Edge")
+
+    ![Select oepn from the Security Warning dialog that pops up.](images/opencertificate.png "Select Open in the Security Warning")
+
+12. With the certifciate opened, select **Install Certificate...**.
+
+    ![Install the certificate by selecting Install Certificate...](images/installcertificate.png "Select Install Certificate...")
+
+13. In the Certificate Import Wizard, select **Local Machine** for the Store Location. Then select **Next**.
+
+    ![Choose Local Machine for the Storage location in the Import Wizard.](images/localmachinecertificate.png "Install the certificate in the Local Machine store")
+
+14. On the next step of the wizre, select **Place all certificates in the following store**. Then select **Browser** and **Trusted Root Certification Authorities**. Click **Next**.
+
+    ![Chosed to place all certificates in the following source, then browse to trusted root certification authorities.](images/trustedrootcertificate.png "Place the certificate in Trusted Root Certification Authorities")
+
+15. Select **Finish** and you'll see a dialog that the import was completed succefully.
+
+    ![Select the Finish button to complete the certificate import.](images/finishcertificateinstall.png "Finish the Certificate import")
+
+    ![Confirmation dialog that the certificate import completely succesfully.](images/succesfulcertimport.png "Succesful certificate import dialog")
+
+16. Log of out of the remote desktop session for the first remote app server. Repeat steps 8 - 16 on the second remote app server in the pool to import the certificate there also.
+
+    >**Note**: In a larger image, this certifcate import could be done in the Gold Image used for provising machines or incorporated in to the provisioning of any new app servers in the pool.
+
+17. Once the certificate has been successfully imported into both remote app servers, navigate back to **Azure Virtual Desktop** in the Azure portal.
+
+18. Select **Host Pools**, your remote app pool, **MSIX packages**, and then **+ Add**.
+
+    !["In Azure Virtual Desktop, Host pools is highlighted, then the remote app pool. Followed by MSIX package and then the + Add button.](images/navigatetomsix.png "The links to click to navigate an add a new MSIX package")
+
+19. In the MSIX image path, paste in the file share path to your MSIX file. It should be in the format below. After pasting it in, wait a few seconds and the rest of the dialog boxes should appear.
+
+    ```text
+    \\<storage account name>.file.core.windows.net\<share name>\msix\AVD-MSIX.vhd.
+    ```
+
+20. Select **Firefox** in the MSIX package, type **Firefox** into the Dispaly Name, and set the State to **Active**. Then select **Add**.
+
+    ![Fill in the path to the .vhd file, select the Firefox package, set the display name to Firefox and make the app active.](images/addfirefoxpackage.png "Add the Firefox MSIX package")
+
+21. Repeat steps 19 and 20 to add the NotePad++ package using the same path, to the .vhd file and configuring the settings for Notepad++ as seen in this screenshot.
+
+    ![Fill in the path to the .vhd file, select the Notepadd++ package, set the display name to Notepad++ and make the app active.](images/addnotepadpackage.png "Add the Notepad++ MSIX package")
+
+22. In **Azure Virtual Desktop**, select **Application groups** under Manage, then select your **remoteapps** group.
+
+23. Within your **remoteapps** group, select **Applications** and **+Add**
+
+    ![Select +Add to add a new remote app to your group.](images/addnewmsixapp.png "Add a new remote app")
+
+24. 
+
+23. On the domain controller, open up remote desktop 
+24. 
+25. Take note of the storage account (i.e.: `dncloudavdstorage` ) and the name of the file share (i.e.: `labavdfileshare`).
+
+26. Open Azure Cloud Shell in the Azure Portal.
+
+    ![](images/azurecloudshell.png)
+
+    >**Note**: if prompted for Bash or PowerShell, choose PowerShell. You may also be prompted to create a store account, just leave the default settings and select **Create storate**.
+
+27. Run this command to upload the MSIX file to the folder:
 
     ```powershell
     $SAName = Read-Host "What is the name of the storage account with AVD file shares? (ie: mystorageacct1592)" # Provide the name to the storage account here instead of prompting
@@ -1838,68 +1918,67 @@ In this task, you will take a **MSIX package** created from the [MSIX packaging 
     $sa = Get-AzStorageAccount | ? StorageAccountName -eq $SAName
     $SAS = New-AzStorageAccountSASToken -Context $sa.Context -Service File -ResourceType Object -Permission rwd -Protocol HttpsOnly -ExpiryTime ((Get-Date).AddHours(4))
 
-    .\azcopy.exe copy 'https://openhackpublic.blob.core.windows.net/windows-virtual-desktop/msix/MCW-WVD-MSIX.vhd' "https://$($sa.StorageAccountName).file.core.windows.net/$SAShare/msix/MCW-WVD-MSIX.vhd$SAS"
+    azcopy copy 'https://openhackpublic.blob.core.windows.net/windows-virtual-desktop/msix/MCW-WVD-MSIX.vhd' "https://$($sa.StorageAccountName).file.core.windows.net/$SAShare/msix/MCW-WVD-MSIX.vhd$SAS"
 
     "\\$($sa.StorageAccountName).file.core.windows.net\$SAShare\msix\MCW-WVD-MSIX.vhd" | scb
     Write-Output "Use the path [\\$($sa.StorageAccountName).file.core.windows.net\$SAShare\msix\MCW-WVD-MSIX.vhd] later in this exercise"
-    pause
     ```
 
-8. Find the **Azure Virtual Desktop** resources.
+28. Copy and save the path to the VHD displayed in PowerShell after running the script above.
 
-9. Select the **Host pools** and select the Pooled host pool.
+29. Find the **Azure Virtual Desktop** resources and select Host pools.
 
     ![This image shows the selecting Host Pools of Azure Virtual Desktop.](images/avdHostPools.png "AVD Host Pools")
 
-10. Select the **Pooled** host pool.
+30. Select the host pool used for your published apps (not the remote desktop session) and **MSIX packages** under the manage section.
 
     ![This image shows the selecting Pooled host pools of Azure Virtual Desktop.](images/avdPooledPool.png "Pooled host pool")
 
-11. Go to  **MSIX packages** under the Manage section and select **+ Add** to add an MSIX package to the pool.
+31. Select **+ Add** to add an MSIX package to the pool.
 
     ![This image shows where to go for the MSIX packages section and select add a package.](images/avdAddMSIXPackages.png "AVD add MSIX package")
 
-12. In the MSIX image path, put the following path replacing `<storageacctname>` with the name over the Storage Account and `<shareName>` with the share that holds the MSIX above:
+32. In the MSIX image path, put the following path replacing `<storageacctname>` with the name over the Storage Account and `<shareName>` with the share that holds the MSIX above. This should be the same page you copied and pasted from the PowerShell output earlier.
 
     ```markdown
     \\<storageacctname>.file.core.windows.net\<shareName>\msix\MCW-WVD-MSIX.vhd
     ``` 
     
-13. Select the **MSIX Package** to add.
+33. Select the **MSIX Package** to add.
 
     ![This image shows where to select the MSIX package to add.](images/avdAddMSIXPackage.png "Add MSIX package")
 
-14. Ensure there is an application listed under **Package applications**.
+34. Ensure there is an application listed under **Package applications**.
 
-15. For **Registration type**, select **On-demand registration**.
+35. For **Registration type**, select **On-demand registration**.
 
-16. Under **State**, select **Active**.
+36. Under **State**, select **Active**.
 
-17. Select **Add** to add the package.
+37. Select **Add** to add the package.
 
     ![This image shows the settings for adding application package to AVD.](images/avdAddPackageSettings.png "Add MSIX settings")
 
-18. Go to the **Application groups** and select **remoteapps**.
+38. Go to the **Application groups** and select **remoteapps**.
 
     ![This image shows where to select AVD Application Group.](images/avdApplicationGroup.png "Go to Application group")
 
-19. Select **+ Add** to add an application.
+39. Select **+ Add** to add an application.
 
     ![This image shows where to Add Application Group.](images/avdAddApplication.png "Add application")
 
-20. Choose **MSIX package** from the Application source.
+40. Choose **MSIX package** from the Application source.
 
-21. Select the MSIX package and MSIX application you just added.
+41. Select the MSIX package and MSIX application you just added.
 
-22. Ensure the **Application name** matches the name.
+42. Ensure the **Application name** matches the name.
 
-23. Select **Save** to include
+43. Select **Save** to include
 
     ![This image shows how to set the MSIX application settings and select Save.](images/avdSaveMSIXApp.png "Setup MSIX application")
 
-24. Go to the [AVD Web Client](https://rdweb.wvd.microsoft.com/arm/webclient) (or AVD client if installed locally).
+44. Go to the [AVD Web Client](https://rdweb.wvd.microsoft.com/arm/webclient) (or AVD client if installed locally).
 
-25. Select the new application icon to launch the application (refresh the page if the new application does not show up).
+45. Select the new application icon to launch the application (refresh the page if the new application does not show up).
 
 This application is now running on the host pool although the application itself is not installed to the host system.  This allows for the application to also be updated by changing which MSIX package the application points to and the next time a user logs into the application. 
 

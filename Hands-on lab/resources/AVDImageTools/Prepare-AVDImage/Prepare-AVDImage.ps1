@@ -16,9 +16,12 @@
 <#
 .DESCRIPTION
    Prepare a Windows System either running on Hyper-V or in Azure to be sysprep'd added as a Azure Virtual Desktop image.
-   Script can install Office 365 from Microsoft CDN, OneDrive per machine, Teams per machine, FSLogix Agent, and Edge Chromium
+   Script can install Office 365 from Microsoft CDN, OneDrive per machine, Teams per machine, and FSLogix Agent
    Script will configure each of these items in accordance with reference articles specified in the code below.
    Script will also perform AVD specific and Azure generic image configurations per reference articles.
+
+   # Updated 2022-08-04
+   - Removed Edge, this is the new installed by default browser so it's no longer needed in this script
 #>
 [CmdletBinding(DefaultParameterSetName = 'Automation')]
 Param
@@ -70,10 +73,6 @@ Param
     [Parameter(ParameterSetName = 'Automation', Mandatory = $false)]
     [bool]$TeamsInstall = $true,
 
-    #Install Microsoft Edge Chromium. Update $EdgeURL variable to point to latest version as needed.
-    [Parameter(ParameterSetName = 'Automation', Mandatory = $false)]
-    [bool]$EdgeInstall = $false,
-
     #Disable Windows Update
     [Parameter(ParameterSetName = 'Automation', Mandatory = $false)]
     [bool]$DisableUpdates,
@@ -106,7 +105,6 @@ If (Test-Path "$Script:LogDir\LGPO") { Remove-Item -Path "$Script:LogDir\LGPO" -
 [uri]$WebSocketWebUrl = "https://docs.microsoft.com/en-us/azure/virtual-desktop/teams-on-wvd"
 [uri]$TeamsUrl = "https://teams.microsoft.com/downloads/desktopurl?env=production&plat=windows&arch=x64&managedInstaller=true&download=true"
 [uri]$FSLogixUrl = "https://aka.ms/fslogix_download"
-[uri]$EdgeUpdatesAPIURL = "https://edgeupdates.microsoft.com/api/products?view=enterprise"
 #endregion
 
 #region functions
@@ -605,10 +603,6 @@ Function Invoke-ImageCustomization {
         [Parameter(Mandatory = $false)]
         [bool]$TeamsInstall,
 
-        #Install Microsoft Edge Chromium. Update $EdgeURL variable to point to latest version as needed.
-        [Parameter(Mandatory = $false)]
-        [bool]$EdgeInstall,
-
         #Disable Windows Update
         [Parameter(Mandatory = $false)]
         [bool]$DisableUpdates,
@@ -928,59 +922,6 @@ Function Invoke-ImageCustomization {
 
     #endregion FSLogix Agent
 
-    #region Edge Enterprise
-    If ( $EdgeInstall ) {
-
-        $Script:Section = 'Edge Enterprise'
-        $ref = 'https://docs.microsoft.com/en-us/deployedge/deploy-edge-with-configuration-manager'
-        # Disable Edge Updates
-        Write-Log -Message "Starting Microsoft Edge Enterprise Installation and Configuration in accordance with '$ref'."
-
-        $dirTemplates = "$PSScriptRoot\Edge\Templates"
-        Write-Log -message "Now downloading latest Edge installer and Administrative Templates."
-
-        $EdgeUpdatesJSON = Invoke-WebRequest -Uri $EdgeUpdatesAPIURL -UseBasicParsing
-        $content = $EdgeUpdatesJSON.content | ConvertFrom-Json
-        $policyfiles = ($content | Where-Object {$_.Product -eq 'Policy'}).releases    
-        $latestpolicyfiles = $policyfiles | Sort-Object ProductVersion | Select-Object -last 1        
-        $EdgeTemplatesUrl = ($latestpolicyfiles.artifacts | Where-Object {$_.location -like '*.zip'}).Location         
-        $Edgereleases = ($content | Where-Object {$_.Product -eq 'Stable'}).releases
-        $latestrelease = $Edgereleases | Where-Object {$_.Platform -eq 'Windows' -and $_.Architecture -eq 'x64'} | Sort-Object ProductVersion | Select-Object -last 1
-        $EdgeUrl = $latestrelease.artifacts.location
-                
-        $templateszip = "$PSScriptRoot\MicrosoftEdgePolicyTemplates.zip"
-        Get-InternetFile -url $EdgeTemplatesUrl -outputfile $templateszip
-        $destPath = "$PSScriptRoot\EdgeTemplates"
-        Expand-Archive $templateszip -DestinationPath $destpath -Force
-        $msifile = "$PSScriptRoot\MicrosoftEdgeEnteprisex64.msi"
-        Get-InternetFile -url $EdgeUrl -outputfile $msifile
-        Write-Log -message "Now copying the latest Group Policy ADMX and ADML files to the Policy Definition Folders."
-        $null = Get-ChildItem -Path "$destpath" -File -Recurse -Filter '*.admx' | ForEach-Object { Copy-Item -Path $_.FullName -Destination "$env:WINDIR\PolicyDefinitions\" -Force }
-        $null = Get-ChildItem -Path "$destpath" -Directory -Recurse | Where-Object {$_.Name -eq 'en-us'} | Get-ChildItem -File -recurse -filter '*.adml' | ForEach-Object { Copy-Item -Path $_.FullName -Destination "$env:WINDIR\PolicyDefinitions\en-us\" -Force }
-        Write-Log -Message "Disabling Edge Desktop shortcut creation via policy."
-        Update-LocalGPOTextFile -scope 'Computer' -RegistryKeyPath 'Software\Policies\Microsoft\EdgeUpdate' -RegistryValue 'CreateDesktopShortcutDefault' -RegistryType DWORD -RegistryData 0
-        If ($DisableUpdates) {
-            Write-Log -Message "Now disabling Edge Automatic Updates via policy."
-            Update-LocalGPOTextFile -scope 'Computer' -RegistryKeyPath 'Software\Policies\Microsoft\EdgeUpdate' -RegistryValue 'UpdateDefault' -RegistryType DWORD -RegistryData 0
-        }
-        Invoke-LGPO -SearchTerm "$Script:Section"
-        $installer = "msiexec.exe"
-        Write-Log -message "Starting installation of Microsoft Edge Enterprise."
-        $Arguments = "/i `"$msifile`" /q" 
-        Write-Log -message "Running '$installer $Arguments'"
-        $Install = Start-Process -FilePath "$installer" -ArgumentList $Arguments -Wait -PassThru
-        Write-Log -message "'$installer' exit code is [$($Install.ExitCode)]."
-        Write-Log -Message 'Removing Edge Desktop Shortcut'
-		$links = get-childitem -path "$env:SystemDrive\Users\Public\Desktop" -filter '*Edge.lnk' -file
-		ForEach ($link in $links) {
-			remove-item -path $link.FullName -Force -ErrorAction SilentlyContinue
-		}
-        Write-Log -Message "Complete $Script:Section script section."
-
-    }
-
-    #endregion Edge Enterprise
-
     #region Workplace Join
 
     $Script:Section = 'WorkPlace Join'
@@ -1230,7 +1171,6 @@ If ($DisplayForm) {
                 $FSLogixVHDPath = $VHDPath.text
             }
             $TeamsInstall = $InstallTeams.Checked
-            $EdgeInstall = $InstallEdge.Checked
             $DisableUpdates = $DisableWU.Checked
             $CleanupImage = $RunCleanMgr.Checked
             $RemoveApps = $AppRemove.Checked
@@ -1240,7 +1180,6 @@ If ($DisplayForm) {
                 -OneDriveInstall $OneDriveInstall -AADTenantID $AADTenantID `
                 -FSLogixInstall $FSLogixInstall -FSLogixVHDPath $FSLogixVHDPath `
                 -TeamsInstall $TeamsInstall `
-                -EdgeInstall $EdgeInstall `
                 -DisableUpdates $DisableUpdates `
                 -CleanupImage $CleanupImage `
                 -RemoveApps $RemoveApps
@@ -1382,14 +1321,6 @@ If ($DisplayForm) {
     $InstallTeams.location = New-Object System.Drawing.Point(30, 360)
     $InstallTeams.Font = 'Microsoft Sans Serif,14'
 
-    $InstallEdge = New-Object system.Windows.Forms.CheckBox
-    $InstallEdge.text = "Install Microsoft Edge Enterprise"
-    $InstallEdge.AutoSize = $false
-    $InstallEdge.width = 400
-    $InstallEdge.height = 30
-    $InstallEdge.location = New-Object System.Drawing.Point(30, 390)
-    $InstallEdge.Font = 'Microsoft Sans Serif,14'
-
     $DisableWU = New-Object system.Windows.Forms.CheckBox
     $DisableWU.text = "Disable All Software Updates"
     $DisableWU.AutoSize = $false
@@ -1426,7 +1357,7 @@ If ($DisplayForm) {
         [void] $CalendarSyncMode.Items.Add($Item)
     }
 
-    $WVDGoldenImagePrep.controls.AddRange(@($Execute, $ScriptTitle, $CalendarSyncMode, $EmailCacheMonths, $CalSyncTime, $VHDPath, $TenantID, $InstallOffice365, $InstallFSLogix, $InstallOneDrive, $DisableWU, $InstallTeams, $InstallEdge, $AppRemove, $RunCleanMgr, $LabelVHDLocation, $LabelAADTenant, $labelEmailCache, $labelCalSyncType, $labelCalSyncTime))
+    $WVDGoldenImagePrep.controls.AddRange(@($Execute, $ScriptTitle, $CalendarSyncMode, $EmailCacheMonths, $CalSyncTime, $VHDPath, $TenantID, $InstallOffice365, $InstallFSLogix, $InstallOneDrive, $DisableWU, $InstallTeams, $AppRemove, $RunCleanMgr, $LabelVHDLocation, $LabelAADTenant, $labelEmailCache, $labelCalSyncType, $labelCalSyncTime))
 
     [void]$WVDGoldenImagePrep.ShowDialog()
 }
@@ -1437,7 +1368,6 @@ Else {
         -OneDriveInstall $OneDriveInstall -AADTenantID $AADTenantID `
         -FSLogixInstall $FSLogixInstall -FSLogixVHDPath $FSLogixVHDPath `
         -TeamsInstall $TeamsInstall `
-        -EdgeInstall $EdgeInstall `
         -DisableUpdates $DisableUpdates `
         -CleanupImage $CleanupImage `
         -RemoveApps $RemoveApps
