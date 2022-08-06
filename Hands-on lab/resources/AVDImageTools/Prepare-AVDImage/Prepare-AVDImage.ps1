@@ -1079,9 +1079,16 @@ Function Invoke-ImageCustomization {
         $ConnectedAdapters = get-ciminstance -classname "win32_networkadapter" -filter "netconnectionstatus = 2"
         ForEach ($Adapter in $ConnectedAdapters) {
             $InterfaceAlias = $Adapter.NetConnectionID
-            If ((Get-NetConnectionProfile -InterfaceAlias $InterfaceAlias).NetworkCategory -eq 'Public') {
-                Set-NetConnectionProfile -InterfaceAlias $InterfaceAlias -NetworkCategory Private
+            try{
+                $netProfile = Get-NetConnectionProfile -InterfaceAlias $InterfaceAlias -ErrorAction SilentlyContinue
+                If ($netProfile.NetworkCategory -eq 'Public') {
+                    Set-NetConnectionProfile -InterfaceAlias $InterfaceAlias -NetworkCategory Private
+                }
             }
+            catch{
+                Write-Output "The network adapter $InterfaceAlias doesn't have a connection profile"
+            }
+
         }
     
         # Allow WinRM
@@ -1144,7 +1151,7 @@ If ($DisplayForm) {
     )
 
     $WVDGoldenImagePrep = New-Object system.Windows.Forms.Form
-    $WVDGoldenImagePrep.ClientSize = '700,800'
+    $WVDGoldenImagePrep.ClientSize = '700,600'
     $WVDGoldenImagePrep.text = "AVD Image Preparation"
     $WVDGoldenImagePrep.TopMost = $false
     $WVDGoldenImagePrep.StartPosition = "CenterScreen"
@@ -1154,7 +1161,7 @@ If ($DisplayForm) {
     $Execute.text = "Execute"
     $Execute.width = 655
     $Execute.height = 60
-    $Execute.location = New-Object System.Drawing.Point(20, 670)
+    $Execute.location = New-Object System.Drawing.Point(20, 500)
     $Execute.Font = 'Microsoft Sans Serif,18,style=Bold'
     $Execute.ForeColor = "#ffffff"
     $Execute.Add_Click( {
@@ -1326,7 +1333,7 @@ If ($DisplayForm) {
     $DisableWU.AutoSize = $false
     $DisableWU.width = 400
     $DisableWU.height = 30
-    $DisableWU.location = New-Object System.Drawing.Point(30, 420)
+    $DisableWU.location = New-Object System.Drawing.Point(30, 390)
     $DisableWU.Font = 'Microsoft Sans Serif,14'
 
     $AppRemove = New-Object System.Windows.Forms.CheckBox
@@ -1334,7 +1341,7 @@ If ($DisplayForm) {
     $AppRemove.AutoSize = $false
     $AppRemove.Width = 550
     $AppRemove.height = 30
-    $AppRemove.Location = New-Object System.Drawing.Point(30, 450)
+    $AppRemove.Location = New-Object System.Drawing.Point(30, 420)
     $AppRemove.Font = 'Microsoft Sans Serif,14'
     
     $RunCleanMgr = New-Object system.Windows.Forms.CheckBox
@@ -1342,7 +1349,7 @@ If ($DisplayForm) {
     $RunCleanMgr.AutoSize = $false
     $RunCleanMgr.width = 400
     $RunCleanMgr.height = 30
-    $RunCleanMgr.location = New-Object System.Drawing.Point(30, 480)
+    $RunCleanMgr.location = New-Object System.Drawing.Point(30, 450)
     $RunCleanMgr.Font = 'Microsoft Sans Serif,14'
 
     ForEach ($Item in $DropdownArraySyncMonths) {
