@@ -9,7 +9,7 @@ Hands-on lab step-by-step guide
 </div>
 
 <div class="MCWHeader3">
-July 2022
+August 2022
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -877,6 +877,8 @@ For more information on how to setup a Bastion host in Azure|https://docs.micros
 
 3. On the New page, search for **Microsoft Windows 10**. Select one of the **Windows 10 Enterprise multi-session** builds and **Create**.
 
+    >**Note:** The higher the version the better to minimize the number of Windows updates you need to isntall later.
+
 
     ![This image shows the window will display the creation of a New Microsoft Windows 10 VM using software plan Windows 10 Enterprise multi-session, Version 1909.](images/windows10VM.png "New Microsoft Windows 10 VM using software plan Windows 10 Enterprise multi-session, Version 1909")
 
@@ -960,14 +962,6 @@ The UI form offers the following actions:
 - Install the **latest** version of Microsoft Teams *per-machine*.
 
 - Source documentation: [Use Microsoft Teams on Azure Virtual desktop](https://docs.microsoft.com/en-us/azure/virtual-desktop/teams-on-avd).
-
-**Microsoft Edge Chromium**
-
-- Install the **latest** version of Microsoft Edge Enterprise.
-
-- Apply recommended settings.
-
-- Source documentation: [Deploy Microsoft Edge using System Center Configuration Manager](https://docs.microsoft.com/en-us/deployedge/deploy-edge-with-configuration-manager).
 
 **FSLogix Profile Containers**
 
@@ -1069,11 +1063,13 @@ The UI form offers the following actions:
 
     ![This image shows PowerShell commands while the applications are being installed on the AVD golden image.](images/powershellstatus.png "PowerShell running script")
 
-9. After the script has completed, select the Window start icon and note that Office, Microsoft Edge Chromium, and Microsoft Teams have been installed.
+9. As part of the script, you may be logged off or the computer rebooted. If so, log back in and run the script again. This time without OneDrive selected.
+
+10. After the script has completed, select the Window start icon and note that Office and Microsoft Teams have been installed.
 
    ![This image shows how to the view of the newly installed applications.](images/newapplications.png "Windows view of new applications")
 
-10. Once the script has completed execution, complete these final tasks:
+11. Once the script has completed execution, complete these final tasks:
 
      - Delete the C:\AVDGold directory from the computer.
 
@@ -1897,90 +1893,23 @@ In this task, you will take a **MSIX package** created from the [MSIX packaging 
 
     ![Select +Add to add a new remote app to your group.](images/addnewmsixapp.png "Add a new remote app")
 
-24. 
+24. Set the Application source to **MSIX package**, select **Firefox**, and provide an Application name of **Firefox**. Select Save.
 
-23. On the domain controller, open up remote desktop 
-24. 
-25. Take note of the storage account (i.e.: `dncloudavdstorage` ) and the name of the file share (i.e.: `labavdfileshare`).
+    ![Set the application source to MSIX package, select the firefox application, name it firefox and select the Save button.](images/addfirefoxapplication.png "Adding the Firefox application")
 
-26. Open Azure Cloud Shell in the Azure Portal.
+25. Repeate steps 23 and 24 to add the Notepad++ application.
 
-    ![](images/azurecloudshell.png)
+26. You should have Firefox and Notepad++ added as available applications now.
 
-    >**Note**: if prompted for Bash or PowerShell, choose PowerShell. You may also be prompted to create a store account, just leave the default settings and select **Create storate**.
+    !["Firefox and Notepad++ are highlighted in the list of available applications. They have an application type of MSIX.](images/msixapplicationsadded.png "Firefox and Notepad++ added ot the list of applications")
 
-27. Run this command to upload the MSIX file to the folder:
+27. Go to the [AVD Web Client](https://rdweb.wvd.microsoft.com/arm/webclient) (or AVD client if installed locally) and login as one of your end users.
 
-    ```powershell
-    $SAName = Read-Host "What is the name of the storage account with AVD file shares? (ie: mystorageacct1592)" # Provide the name to the storage account here instead of prompting
-    $SAShare = Read-Host "What is the name of the file share in the storage account used for AVD? (ie: labavdfilesshare)"
+28. Select the new application icon to launch the application (refresh the page if the new application does not show up).
 
-    $sa = Get-AzStorageAccount | ? StorageAccountName -eq $SAName
-    $SAS = New-AzStorageAccountSASToken -Context $sa.Context -Service File -ResourceType Object -Permission rwd -Protocol HttpsOnly -ExpiryTime ((Get-Date).AddHours(4))
+    !["The notepad++ application published from the msix package is running in the browser.](images/notepadplusplus.png "Notepad++ running as a publisehd app")
 
-    azcopy copy 'https://openhackpublic.blob.core.windows.net/windows-virtual-desktop/msix/MCW-WVD-MSIX.vhd' "https://$($sa.StorageAccountName).file.core.windows.net/$SAShare/msix/MCW-WVD-MSIX.vhd$SAS"
-
-    "\\$($sa.StorageAccountName).file.core.windows.net\$SAShare\msix\MCW-WVD-MSIX.vhd" | scb
-    Write-Output "Use the path [\\$($sa.StorageAccountName).file.core.windows.net\$SAShare\msix\MCW-WVD-MSIX.vhd] later in this exercise"
-    ```
-
-28. Copy and save the path to the VHD displayed in PowerShell after running the script above.
-
-29. Find the **Azure Virtual Desktop** resources and select Host pools.
-
-    ![This image shows the selecting Host Pools of Azure Virtual Desktop.](images/avdHostPools.png "AVD Host Pools")
-
-30. Select the host pool used for your published apps (not the remote desktop session) and **MSIX packages** under the manage section.
-
-    ![This image shows the selecting Pooled host pools of Azure Virtual Desktop.](images/avdPooledPool.png "Pooled host pool")
-
-31. Select **+ Add** to add an MSIX package to the pool.
-
-    ![This image shows where to go for the MSIX packages section and select add a package.](images/avdAddMSIXPackages.png "AVD add MSIX package")
-
-32. In the MSIX image path, put the following path replacing `<storageacctname>` with the name over the Storage Account and `<shareName>` with the share that holds the MSIX above. This should be the same page you copied and pasted from the PowerShell output earlier.
-
-    ```markdown
-    \\<storageacctname>.file.core.windows.net\<shareName>\msix\MCW-WVD-MSIX.vhd
-    ``` 
-    
-33. Select the **MSIX Package** to add.
-
-    ![This image shows where to select the MSIX package to add.](images/avdAddMSIXPackage.png "Add MSIX package")
-
-34. Ensure there is an application listed under **Package applications**.
-
-35. For **Registration type**, select **On-demand registration**.
-
-36. Under **State**, select **Active**.
-
-37. Select **Add** to add the package.
-
-    ![This image shows the settings for adding application package to AVD.](images/avdAddPackageSettings.png "Add MSIX settings")
-
-38. Go to the **Application groups** and select **remoteapps**.
-
-    ![This image shows where to select AVD Application Group.](images/avdApplicationGroup.png "Go to Application group")
-
-39. Select **+ Add** to add an application.
-
-    ![This image shows where to Add Application Group.](images/avdAddApplication.png "Add application")
-
-40. Choose **MSIX package** from the Application source.
-
-41. Select the MSIX package and MSIX application you just added.
-
-42. Ensure the **Application name** matches the name.
-
-43. Select **Save** to include
-
-    ![This image shows how to set the MSIX application settings and select Save.](images/avdSaveMSIXApp.png "Setup MSIX application")
-
-44. Go to the [AVD Web Client](https://rdweb.wvd.microsoft.com/arm/webclient) (or AVD client if installed locally).
-
-45. Select the new application icon to launch the application (refresh the page if the new application does not show up).
-
-This application is now running on the host pool although the application itself is not installed to the host system.  This allows for the application to also be updated by changing which MSIX package the application points to and the next time a user logs into the application. 
+This application is now running on the host pool, although the application itself is not installed on the host system.  This allows the application to also be updated by changing which MSIX package the application points to and the next time a user logs into the application.
 
 ### Task 3: Protect AVD with Microsoft Defender for Endpoint
 
@@ -1993,43 +1922,42 @@ In this task, you will enable Microsoft Defender for Endpoint service and deploy
 
     ![This image shows the Azure Portal home page.](images/azureportal.png "Azure Portal")
 
-2. Open the Azure **Security Center** (ASC) service.
+2. Open **Microsoft Defender for Cloud**.
 
-    ![In this image, you are searching and navigating to Azure Security Center (ASC)](images/findAsc.png "Azure Security Center")
+    ![In this image, you are searching and navigating to Microsoft Defender for Cloud.](images/findAsc.png "Microsoft Defender for Cloud")
 
-3. Go the **Azure Defender** under the Cloud Security section.
+3. Select **Upgrade* on the **Getting started** page.
 
-4. Select **Enable Azure Defender** to setup the trial edition of Azure Defender for your subscription.
+    !["The skip link is highlighted next to the Upgrade button. This bypasses the trial upgrade.](images/skipupgrade.png "Skip the 30 day trial upgrade")
+
+4. Go the **Workload protections** under the Cloud Security section.
+
+5. Select **Enable Microsoft Defender for Cloud** to setup the trial edition of Azure Defender for your subscription.
 
     ![This image shows how to navigate to the Azure Defender section to enable the trial of Azure Defender.](images/enableAzureDefender.png "Enable Azure Defender")
 
-5. Go back to **Azure Defender**.
+6. Select Upgrade to start the 30-day trial upgrade you skipped earlier. You could also have upgraded from initial Getting Started page.
 
-6. Under the Advanced protection section, select **VM vulnerability assessment** where it lists the unprotected count of systems.
+    !["Select the Upgrade button to enroll in the 30 day trial of Microsoft Defender for Cloud enhance security features.](images/upgradedefender.png "Upgrade Microsoft Defender for Cloud")
 
-    ![This image shows how to where to select the VM assessment of Security Center to deploy to VMs.](images/defenderVMassesment.png "VM assessment")
+7. Select **Install agents** to deploy the security agents to your virtual machines. You'll also see the count of unprotected resources in the entire subscription.
 
-7. Check the boxes next to all the VMs that host the AVD Host pools.
+    !["The install agents button is highlighted that can be clicked to deploy the Microsoft Defender for Cloud agent to the unprotected VMs](images/installagents.png "Install agents")
 
-8. Select **Fix** to proceed to deployment of the agent.
+8. Refresh the **Workload protections** screen. At the top, you should see all of your resources in the subscription now fully covered.
 
-    ![This image shows the VMs to choose for the hosts of the AVD and fix VMs to enable a vulnerability assessment.](images/defenderFixVMs.png "Fix defender for vulnerability assessment on AVD VMs")
+    ![Workload protection shows Defender for Cloud coverage as 11 of 11 resources being fully protected.](images/fullprotectedresources.png "Fully covered workloads")
 
-9. Select the **Qualys** agent for deploying to Azure Defender and select **Proceed**.
+9. It can take some time for agents to be fully deployed, but if you let it run for a while, you'll start seeing your resources show up in the Inventory.
 
-    ![In this image, you are choosing the Qualys agent that is included with the Azure Defender for servers.](images/defenderSelectQualys.png "Choose Qualys")
+!["One of the application pool virutal machines is shown in the Microsoft Defender for Cloud inventory"](images/defenderinventory.png "Microsoft Defender for Cloud Inventory")
 
-10. Select **Fix X resources** to begin the deployment of the agent.
-
-    ![This image shows the final step to ensure the VMs expected to be fixed after completing the previous steps.](images/deployDefenderByFix.png "Fix VMs with defender")
-
-This will begin deploying Azure Defender to the Virtual Machines currently deployed.  Depending on your AVD environment, you can deploy them to systems as they are added to your domain in the AVD OU by utilizing Group Policies using the [domain group policy scenario](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/onboard-windows-10-multi-session-device?view=o365-worldwide#scenario-2-using-domain-group-policy).  Another option when your host is not persistent or deployed from an image, is to use the instructions for [onboarding non-persistent VDI devices](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/configure-endpoints-vdi?view=o365-worldwide). 
-
+10. Depending on your AVD environment, you can deploy them to systems as they are added to your domain in the AVD OU by utilizing Group Policies using the [domain group policy scenario](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/onboard-windows-10-multi-session-device?view=o365-worldwide#scenario-2-using-domain-group-policy).  Another option when your host is not persistent or deployed from an image, is to use the instructions for [onboarding non-persistent VDI devices](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/configure-endpoints-vdi?view=o365-worldwide).
 
 ## After the hands-on lab
 
 Duration:  15 minutes
-   
+
 ### Task 1: Delete Resource groups to remove lab environment
 
 1. Go to the **Azure portal**.
@@ -2044,13 +1972,10 @@ Duration:  15 minutes
 
     ![This image shows where to find and select the resource groups create for this lab, select one of these resource groups and select delete resource group.](images/resourcegroup1.png "Go to the Resource groups")
 
-   
 5. Enter the name of the **Resource group** and select **Delete**.
 
     ![This image shows that, in the blade that opens, you will type the full name of the resource group and select delete.](images/deleteresourcegroup1.png "Delete the resource groups")
 
-   
 6. Repeat these steps for all **Resource groups** created for this lab, including those for **Azure Monitor** and **Log Analytics**.
-   
-You should follow all steps provided *after* attending the Hands-on lab.
 
+You should follow all steps provided *after* attending the Hands-on lab.
