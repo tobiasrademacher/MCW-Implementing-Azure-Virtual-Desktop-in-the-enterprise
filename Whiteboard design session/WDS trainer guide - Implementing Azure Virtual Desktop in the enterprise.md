@@ -9,7 +9,7 @@ Whiteboard design session trainer guide
 </div>
 
 <div class="MCWHeader3">
-September 2021
+August 2022
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -31,18 +31,21 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
   - [Whiteboard design session flow](#whiteboard-design-session-flow)
   - [Before the whiteboard design session: How to prepare](#before-the-whiteboard-design-session-how-to-prepare)
   - [During the whiteboard design session: Tips for an effective whiteboard design session](#during-the-whiteboard-design-session-tips-for-an-effective-whiteboard-design-session)
-- [Implementing Azure Virtual Desktop in the enterprise whiteboard design session student guide](#implementing-windows-virtual-desktop-in-the-enterprise-whiteboard-design-session-student-guide)
+- [Implementing Azure Virtual Desktop in the enterprise whiteboard design session student guide](#implementing-azure-virtual-desktop-in-the-enterprise-whiteboard-design-session-student-guide)
   - [Abstract and learning objectives](#abstract-and-learning-objectives)
   - [Step 1: Review the customer case study](#step-1-review-the-customer-case-study)
     - [Customer situation](#customer-situation)
     - [Customer needs](#customer-needs)
     - [Customer objections](#customer-objections)
     - [Infographic for common scenarios](#infographic-for-common-scenarios)
+    - [Security Scenarios](#security-scenarios)
+    - [Network Scenarios](#network-scenarios)
+    - [Azure Virtual Desktop standard architecture](#azure-virtual-desktop-standard-architecture)
   - [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution)
   - [Step 3: Present the solution](#step-3-present-the-solution)
   - [Wrap-up](#wrap-up)
   - [Additional references](#additional-references)
-- [Implementing Azure Virtual Desktop in the enterprise whiteboard design session trainer guide](#implementing-windows-virtual-desktop-in-the-enterprise-whiteboard-design-session-trainer-guide)
+- [Implementing Azure Virtual Desktop in the enterprise whiteboard design session trainer guide](#implementing-azure-virtual-desktop-in-the-enterprise-whiteboard-design-session-trainer-guide)
   - [Step 1: Review the customer case study](#step-1-review-the-customer-case-study-1)
   - [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution-1)
   - [Step 3: Present the solution](#step-3-present-the-solution-1)
@@ -241,7 +244,7 @@ Contoso Healthcare has completed an initial cloud assessment of their current in
 ### Security Scenarios
 The security scenario applies to the potential security, monitoring, and compliance auditing options needed to design the solution.
 
-![Common scenario of how Azure Monitor and Network Watcher can be used for both Azure and non-Azure VMs and network connections.  On the right, the on-premises servers are connected to Azure Monitor with an agent and Network Watcher is monitoring the connection between the on-premises datacenter and Azure.  In Azure, Azure Monitor is connected to the Azure Virtual Desktop host pool instances, and network watcher is monitoring the connect to these hosts and the VNET.  The metric and activity log information is then fed into Azure Monitor, Log Analytics, Azure Policy, and Azure Security Center for managing these resources for performance, activity, and compliance.](images/security.png "Security Scenario")
+![Common scenario of how Azure Monitor and Network Watcher can be used for both Azure and non-Azure VMs and network connections.  On the right, the on-premises servers are connected to Azure Monitor with an agent and Network Watcher is monitoring the connection between the on-premises datacenter and Azure.  In Azure, Azure Monitor is connected to the Azure Virtual Desktop host pool instances, and network watcher is monitoring the connect to these hosts and the VNET.  The metric and activity log information is then fed into Azure Monitor, Log Analytics, Azure Policy, and Microsoft Defender for Cloud for managing these resources for performance, activity, and compliance.](images/security.png "Security Scenario")
 
 
 ### Network Scenarios
@@ -393,7 +396,7 @@ Directions: Reconvene with the larger group to hear the facilitator/SME share th
 | Azure Virtual Desktop licensing requirements and pricing | <https://azure.microsoft.com/en-us/pricing/details/virtual-desktop/> |
 | Prepare and customize a master VHD image | <https://docs.microsoft.com/en-us/azure/virtual-desktop/set-up-customize-master-image> |
 | Azure Policy overview | <https://docs.microsoft.com/en-us/azure/governance/policy/overview> |
-| Azure Security Center | <https://docs.microsoft.com/en-us/azure/security-center/> |
+| Microsoft Defender for Cloud | <https://docs.microsoft.com/en-us/azure/defender-for-cloud//> |
 | Azure Active Directory | <https://docs.microsoft.com/en-us/azure/active-directory/> |
 | FSLogix File Storage containers in Azure Virtual Desktop | <https://docs.microsoft.com/en-us/azure/virtual-desktop/fslogix-containers-azure-files> |
 | Connect WVD with a web client | <https://docs.microsoft.com/en-us/azure/virtual-desktop/connect-web> |
@@ -488,15 +491,15 @@ Design an Azure Virtual Desktop infrastructure that addresses the needs and requ
 
 1. What is required to audit, log, and monitor controls for ISO 27001 and HIPAA? 
     
-    Azure Policy initiatives for ISO 27001 and HIPAA should be enabled for the resource groups that are created to govern the Azure Virtual Desktop infrastructure.  In addition, Azure Security Center should be upgraded to the Standard tier subscription to properly monitor and alert on control compliance to ISO 27001 and HIPAA standards.
+    Azure Policy initiatives for ISO 27001 and HIPAA should be enabled for the resource groups that are created to govern the Azure Virtual Desktop infrastructure.  In addition, Microsoft Defender for Cloud should be upgraded to the Standard tier subscription to properly monitor and alert on control compliance to ISO 27001 and HIPAA standards.
     
     To address compliance with the California Personal Protection Act, the Azure Policy initiative for GDPR will be assigned and custom policies will be added as needed to comply with the CPPA.
 
 2. How will you address monitoring these controls in Azure and the on-premises data centers?
    
-   Azure Monitor agents should be installed on all Azure and on-premises virtual machines in order to govern the Azure Policy initiatives.  These agents will provide activity logs that can be monitored within Azure Security Center.
+   Azure Monitor agents should be installed on all Azure and on-premises virtual machines in order to govern the Azure Policy initiatives.  These agents will provide activity logs that can be monitored within Microsoft Defender for Cloud.
 
-    ATP should be used to monitor threats.
+    Microsoft Defender should be used to monitor threats.
     
     Azure Sentinel should be used for incident response and investigation.
 
@@ -504,7 +507,7 @@ Design an Azure Virtual Desktop infrastructure that addresses the needs and requ
     
     All connections for data in-transit will be transmitted through an encrypted SSL connection.  Data at-rest will be encrypted at-rest. 
     
-    Cloud App Security for managing authorized applications. This will be used to block unauthorized cloud storage services to protect data from being copied.
+    Microsoft Defender for Cloud Apps for managing authorized applications. This will be used to block unauthorized cloud storage services to protect data from being copied.
 
 4. How will you maintain identity access management for the cloud and current Active Directory infrastructure, and how will they synchronize?
     
@@ -516,7 +519,7 @@ Design an Azure Virtual Desktop infrastructure that addresses the needs and requ
 
 6. Describe the reasons for the specific security services selected.
 
-    Azure Monitor, Log Analytics, ATP, Cloud App Security, Azure Security Center, and Azure Sentinel will provide services to monitor, manage and investigate any potential vulnerabilities, threats, or anomalies within the environment to protect users and data across Azure, Microsoft 365, and on-premises resources.
+    Azure Monitor, Log Analytics, Microsoft Defender for Identity, Microsoft Defender for Cloud Apps, Microsoft Defender for Cloud, and Azure Sentinel will provide services to monitor, manage and investigate any potential vulnerabilities, threats, or anomalies within the environment to protect users and data across Azure, Microsoft 365, and on-premises resources.
 
 *Networking*
 
@@ -547,7 +550,7 @@ Design an Azure Virtual Desktop infrastructure that addresses the needs and requ
     
     Azure Monitor, Azure Log Analytics, and Advanced Threat Protection should all be turned on with actions and alerts to the security group.  
     
-    The Azure Security Center standard subscription will provide a central dashboard for monitoring, locating, and alerting on common threats found in the Microsoft Threat database.
+    The Microsoft Defender for Cloud standard subscription will provide a central dashboard for monitoring, locating, and alerting on common threats found in the Microsoft Threat database.
     
     Network Watcher will be utilized to monitor network connection speeds and health.
     
@@ -601,7 +604,7 @@ Design an Azure Virtual Desktop infrastructure that addresses the needs and requ
 
 2. The CISO at Contoso Healthcare needs to be convinced that data will not be exposed. How would Microsoft support the data protection needs for Contoso Healthcare?
 
-    The designed solution for Contoso Healthcare includes Microsoft 365 E5 with Enterprise Mobility + Security (EMS) E5.  This provides a full suite of data and information protection to classify sensitive data and audit activity.  Cloud App Security can also be used to block access to unauthorized file sharing services to avoid users from copying files to unprotected locations.  Data protection controls can be monitored through Microsoft 365 Security Policy Advisor, and Azure Security Center.
+    The designed solution for Contoso Healthcare includes Microsoft 365 E5 with Enterprise Mobility + Security (EMS) E5.  This provides a full suite of data and information protection to classify sensitive data and audit activity.  Microsoft Defender for Cloud Apps can also be used to block access to unauthorized file sharing services to avoid users from copying files to unprotected locations.  Data protection controls can be monitored through Microsoft 365 Security Policy Advisor, and Microsoft Defender for Cloud.
 
 3. Contoso Healthcare must be able to log and audit all activity on the desktop image.  How will this be handled within the cloud and on-premises environments?
     
@@ -609,7 +612,7 @@ Design an Azure Virtual Desktop infrastructure that addresses the needs and requ
 
 4. Connections between the cloud and existing data centers must be secure and reliable to support their requirements.  How will this be addressed and monitored?
 
-    The initial design will utilize a secure and encrypted site-to-site VPN connections from Azure to the California and Northern Virginia data centers.  An option has also been provided to utilize an Azure ExpressRoute connection to provide private dedicated connectivity from Azure to the California and Northern Virginia data centers.  Network Watcher will be used to monitor network traffic and throughput over the connections.  Azure Security Center and Advanced Threat Protection will be in place to monitor and alert on potential vulnerabilities and threats.
+    The initial design will utilize a secure and encrypted site-to-site VPN connections from Azure to the California and Northern Virginia data centers.  An option has also been provided to utilize an Azure ExpressRoute connection to provide private dedicated connectivity from Azure to the California and Northern Virginia data centers.  Network Watcher will be used to monitor network traffic and throughput over the connections.  Microsoft Defender for Cloud and Advanced Threat Protection will be in place to monitor and alert on potential vulnerabilities and threats.
 
 5. Contoso Healthcare has made a substantial capital investment in their current data centers that they do not want to decommission. How can the infrastructure be architected to support the current data centers?
 
