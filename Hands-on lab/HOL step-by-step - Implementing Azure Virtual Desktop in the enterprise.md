@@ -287,7 +287,7 @@ By default, Azure AD Connect does not synchronize the built-in domain administra
 
     ![This image shows the final setup window, select the box to start the synchronization process and select install.](images/azureadready.png "Azure AD Connect Ready to configure")
 
-7. After a few minutes, the Azure AD Connect installation will complete. Select **Exit**.
+7. After a few minutes, the Azure AD Connect installation will be complete. Select **Exit**.
 
     ![The installation is complete, and the Configuration complete window will be present.](images/AADCcomplete.png "The Configuration is completed window")
 
@@ -551,7 +551,7 @@ In this task, you will complete the steps on the Domain Controller in Azure usin
 
     >**Note**: The Resource Group Name and Storage Account Name were assigned in Task 1.
 
-    >**Note**: You can run **Get-AzSubscription** to lookup the available subscription names.
+    >**Note**: You can run **Get-AzSubscription** to look up the available subscription names.
 
     ![This image shows where you would find the subscription Id when running the Get-AzSubscription command.](images/subscriptionid.png "Subscription Id")
 
@@ -1216,7 +1216,7 @@ In the new Azure Virtual Desktop ARM portal, we can now use Azure Active Directo
 
 5.  Under Manage, select **Assignments** and select **+ Add**.
 
-    ![This image shows where to find manage in the menu and select assignments and add.](images/addassignments.png)
+    ![This image shows where to find "manage" in the menu and select assignments and add.](images/addassignments.png)
 
 6. In the fly-out, enter **AVD** in the search to find the name of your Azure AD group. In this exercise, we will select **AVD Pooled Desktop Users** and **AAD DC Administrators**.
     >**Note**: AAD DC Administrators will allow you to use your Azure tenant login to access resources in Exercise 7.

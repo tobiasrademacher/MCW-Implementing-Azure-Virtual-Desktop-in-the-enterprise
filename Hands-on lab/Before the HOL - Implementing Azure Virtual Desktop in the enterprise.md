@@ -43,7 +43,7 @@ Before you start setting up your Azure Virtual Desktop workspace, make sure you 
 
 - A global administrator account within the Azure Active Directory tenant.
 
-  - This also applies to Cloud Solution Provider (CSP) organizations creating an Azure Virtual Desktop workspace for their customers. If you are in a CSP organization, you must be able to sign in as a global administrator of the customer\'s Azure Active Directory tenant.
+  - This also applies to Cloud Solution Provider (CSP) organizations creating an Azure Virtual Desktop workspace for their customers. If you are in a CSP organization, you must be able to sign in as a global administrator of the customer's Azure Active Directory tenant.
 
   - The administrator account must be sourced from the Azure Active Directory tenant in which you are trying to create the Azure Virtual Desktop workspace. This process does not support Azure Active Directory B2B (guest) accounts.
 
@@ -119,7 +119,7 @@ This ARM Template will provision the following resources:
 
 6. Agree to the Terms and conditions and click **Create**.
 
-    The deployment is now underway. On average, this process can take 30 minutes to complete. It is important that you monitor the deployment progress to ensure there are no problems. You can monitor progress by clicking the **notification** bell in the upper right corner and clicking **Deployment in progress...**.
+    The deployment is now underway. On average, this process can take 30 minutes to complete. It is important that you monitor the deployment progress to ensure there are no problems. You can monitor progress by clicking the **notification** bell in the upper right corner and clicking **Deployment in progress...**
 
     >**Note**: While automation can make things simpler and repeatable, sometimes it can fail. If at any time during the ARM template deployment there is a failure, review the failure, delete the Resource Group and try the ARM template again, adjusting for any possible errors.
 
