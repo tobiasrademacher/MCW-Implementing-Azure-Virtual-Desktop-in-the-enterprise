@@ -117,9 +117,9 @@ This ARM Template will provision the following resources:
 
     ![This image shows the values to enter into the custom template for the setup of the AVD domain controller.](images/avdcustomdeployment.png "Azure Virtual Desktop custom deployment template")
 
-6. Agree to the Terms and conditions and click **Create**.
+6. Agree to the Terms and conditions and select **Create**.
 
-    The deployment is now underway. On average, this process can take 30 minutes to complete. It is important that you monitor the deployment progress to ensure there are no problems. You can monitor progress by clicking the **notification** bell in the upper right corner and clicking **Deployment in progress...**
+    The deployment is now underway. On average, this process can take 30 minutes to complete. It is important that you monitor the deployment progress to ensure there are no problems. You can monitor progress by selecting the **notification** bell in the upper right corner and selecting **Deployment in progress...**
 
     >**Note**: While automation can make things simpler and repeatable, sometimes it can fail. If at any time during the ARM template deployment there is a failure, review the failure, delete the Resource Group and try the ARM template again, adjusting for any possible errors.
 
