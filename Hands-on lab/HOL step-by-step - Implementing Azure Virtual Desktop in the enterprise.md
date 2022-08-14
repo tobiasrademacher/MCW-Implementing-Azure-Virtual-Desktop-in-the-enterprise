@@ -216,7 +216,7 @@ By default, Azure AD Connect does not synchronize the built-in domain administra
 
     ![This image shows the final screen of the wizard that will allow you to review and finish the new user setup.](images/finishnewuser.png "Finish new user setup")
 
-    >**Note**: This account will be important in future tasks. Make a note of the username and password you create. When setting the password, uncheck the box **User must change password at next logon**.
+    >**Note**: This account will be important in future tasks. Make a note of the username and password you create. When setting the password, uncheck the box **User must change password at the next logon**.
 
 4. In Active Directory Users and Computers, right-click on the new user account object and select **Add to a group**.
 
@@ -1815,7 +1815,7 @@ In this task, you will take an **MSIX package** created from the [MSIX packaging
 
     ![Select Upload file and upload the AVD-MSIX.vhd file to the file share.](images/uploadvhd.png "Upload AVD-MSIX.vhd")
 
-7. The MSIX images on the VHD have been signed with Device Gaurd v2; for it to work, the root certificate needs to be installed on the servers used for publishing the apps. These servers don't have a public IP address, so we'll use the domain controller as jump box to the app servers. First, create a remote desktop session to the domain controller.
+7. The MSIX images on the VHD have been signed with Device Gaurd v2; for it to work, the root certificate needs to be installed on the servers used for publishing the apps. These servers don't have a public IP address, so we'll use the domain controller as a jump box to the app servers. First, create a remote desktop session to the domain controller.
 
 8. Get the IP address from the first server in your remote app pool. It should be something like 10.1.0.8.
 
