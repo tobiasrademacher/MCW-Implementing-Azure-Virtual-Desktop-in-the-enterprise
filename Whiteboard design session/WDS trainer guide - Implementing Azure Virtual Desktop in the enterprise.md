@@ -38,9 +38,9 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
     - [Customer needs](#customer-needs)
     - [Customer objections](#customer-objections)
     - [Infographic for common scenarios](#infographic-for-common-scenarios)
-    - [Security Scenarios](#security-scenarios)
-    - [Network Scenarios](#network-scenarios)
-    - [Azure Virtual Desktop standard architecture](#azure-virtual-desktop-standard-architecture)
+      - [Security Scenarios](#security-scenarios)
+      - [Network Scenarios](#network-scenarios)
+      - [Azure Virtual Desktop standard architecture](#azure-virtual-desktop-standard-architecture)
   - [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution)
   - [Step 3: Present the solution](#step-3-present-the-solution)
   - [Wrap-up](#wrap-up)
@@ -241,19 +241,17 @@ Contoso Healthcare has completed an initial cloud assessment of their current in
 
 ### Infographic for common scenarios
 
-### Security Scenarios
+#### Security Scenarios
 The security scenario applies to the potential security, monitoring, and compliance auditing options needed to design the solution.
 
 ![Common scenario of how Azure Monitor and Network Watcher can be used for both Azure and non-Azure VMs and network connections.  On the right, the on-premises servers are connected to Azure Monitor with an agent and Network Watcher is monitoring the connection between the on-premises datacenter and Azure.  In Azure, Azure Monitor is connected to the Azure Virtual Desktop host pool instances, and network watcher is monitoring the connect to these hosts and the VNET.  The metric and activity log information is then fed into Azure Monitor, Log Analytics, Azure Policy, and Microsoft Defender for Cloud for managing these resources for performance, activity, and compliance.](images/security.png "Security Scenario")
 
-
-### Network Scenarios
+#### Network Scenarios
 Network scenarios diagram the potential options for connecting from Microsoft Azure to the on-premises network.
 
 ![Diagram presenting the site-to-site connection configuration for the on-premises datacenter to connect to Azure through a VPN connection between the on-premises firewall and the Azure firewall.](images/network.png "Network Scenario")
 
-
-### Azure Virtual Desktop standard architecture
+#### Azure Virtual Desktop standard architecture
 This diagram outlines a simple Azure Virtual Desktop architecture with Azure and Microsoft 365. This includes the Azure Virtual Desktop user connection and the Azure Virtual Desktop host pools.
 
 ![Diagram referencing that there are multiple devices that will need to connect to the Windows desktop virtual image for Windows 10 and Microsoft 365 applications via the WVD host pool.](images/avdarchitecture.png "Azure Virtual Desktop standard architecture")
