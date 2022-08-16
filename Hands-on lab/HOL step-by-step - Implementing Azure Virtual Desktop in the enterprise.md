@@ -264,7 +264,6 @@ By default, Azure AD Connect does not synchronize the built-in domain administra
 
     >**Note**: The installation of Azure AD Connect may fail if the server has not been updated to enable TLS 1.2. If this is the case, run the following PowerShell script to enable and then re-open Azure AD Connect.
 
-
 3. Accept the license terms and privacy notice, then select continue. On the next screen, select **Use express settings**. The required components will install.
 
     ![The install wizard will take you to the Azure AD Connect setup screen.](images/AzureADconnectExpressSetting.png "Azure AD Connect setup screen")
@@ -553,7 +552,6 @@ In this task, you will complete the steps on the Domain Controller in Azure usin
     >**Note**: You can run **Get-AzSubscription** to look up the available subscription names.
 
     ![This image shows where you would find the subscription Id when running the Get-AzSubscription command.](images/subscriptionid.png "Subscription Id")
-
 
 12. Select the target subscription for the current session.
   
@@ -880,7 +878,6 @@ For more information on how to set up a Bastion host in Azure|https://docs.micro
     ![What your configuration should be for the virtual machine image.](images/win10vmcreate.png "Create virtual machine")
 
     >**Note**: Make a note of the **username** and **password** used to create the VM. This information will be required to access the VM after creation.
-
     >**Note**: This guide does not walk through the process of creating a VM in Azure. However, for **Inbound port rules**, be sure to allow **RDP (3389)**, or have a bastion host deployed for remote access.
 
     ![In the "Create a virtual machine" page within the Azure portal for the Windows 10 VM, allow port 3389 as an inbound port.](images/windows10VMcreate.png "The 'Create a virtual machine' page within the Azure portal for the Windows 10 VM")
