@@ -22,7 +22,6 @@ The names of manufacturers, products, or URLs are provided for informational pur
 
 Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx> are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
-
 **Contents**
 
 <!-- TOC -->
@@ -94,7 +93,7 @@ In this lab, attendees will deploy the [Azure Virtual Desktop (AVD)](https://azu
 
 ## Solution architecture
 
-![This is the Solution architecture diagram described in the text below.](images/avdsolutiondiagramv2.png "Solution architecture") 
+![This is the Solution architecture diagram described in the text below.](images/avdsolutiondiagramv2.png "Solution architecture")
 
 This diagram shows an Azure Virtual Desktop architecture with on-premises servers for Active Directory. In the diagram, the host pools provide the AVD session to the different supported devices. Azure Monitor, Network Watcher, and Log Analytics monitor and log activity and performance metrics.
 
@@ -166,11 +165,11 @@ In this exercise, you will be configuring [Azure AD Connect](https://docs.micros
 
 6. On your local machine, open the **RUN** dialog window, type **MSTSC**, and enter.
 
-    ![This image shows the Run dialog window to run MSTSC.](images/run.png "Run on Windows") 
+    ![This image shows the Run dialog window to run MSTSC.](images/run.png "Run on Windows")
 
 7. In the **Remote Desktop Connection** window, paste the public IP address from the previous step. Select **Connect**.
 
-    ![This image shows how the Window for Remote Desktop Connection will open to enter the public IP address for the domain controller VM.](images/remoteDesktop.png "Window for Remote Desktop Connection") 
+    ![This image shows how the Window for Remote Desktop Connection will open to enter the public IP address for the domain controller VM.](images/remoteDesktop.png "Window for Remote Desktop Connection")
 
 8. When prompted, sign in with the AD domain UPN credentials. For example, when you used the ARM template from [Before HOL setup guide](), the credentials will be something along the lines of: [adadmin\@MyADDomain.com](mailto:adadmin@MyADDomain.com) with the password you entered when deploying the ARM template in the before the hands-on lab. If prompted, select **Yes** to accept the RDP certification warning. If the dialog appears asking to make the server discoverable on the network, select No.
 
@@ -206,13 +205,13 @@ By default, Azure AD Connect does not synchronize the built-in domain administra
 
 2. In Active Directory Users and Computers, right-click the **Users** organization unit and select **New \> User** from the menu.
 
-    ![In this image, you find the folder path for users and right-click to add a new user.](images/newUser.png "Folder path for new user") 
+    ![In this image, you find the folder path for users and right-click to add a new user.](images/newUser.png "Folder path for new user")
 
 3. Complete the New User wizard.
 
     ![The window that will open with the fields to complete for a new user.](images/newuserobject.png "Create a new user")
 
-    ![The next window that will allow you to assign a password.](images/newUserWizard.png "New User Wizard window") 
+    ![The next window that will allow you to assign a password.](images/newUserWizard.png "New User Wizard window")
 
     ![This image shows the final screen of the wizard that will allow you to review and finish the new user setup.](images/finishnewuser.png "Finish new user setup")
 
@@ -232,7 +231,7 @@ By default, Azure AD Connect does not synchronize the built-in domain administra
 
 1. On the domain controller, run the following PowerShell script to ensure TLS 1.2 is enabled. If it isn't enabled, the configuration of Azure AD Connect will fail.
 
-    ```
+    ```powershell
     New-Item 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v4.0.30319' -Force | Out-Null
 
     New-ItemProperty -path 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v4.0.30319' -name 'SystemDefaultTlsVersions' -value '1' -PropertyType 'DWord' -Force | Out-Null
@@ -268,7 +267,7 @@ By default, Azure AD Connect does not synchronize the built-in domain administra
 
 3. Accept the license terms and privacy notice, then select continue. On the next screen, select **Use express settings**. The required components will install.
 
-    ![The install wizard will take you to the Azure AD Connect setup screen.](images/AzureADconnectExpressSetting.png "Azure AD Connect setup screen") 
+    ![The install wizard will take you to the Azure AD Connect setup screen.](images/AzureADconnectExpressSetting.png "Azure AD Connect setup screen")
 
 4. On the Connect to Azure AD page, enter the Azure AD Global Admin credentials. For example: [azadmin\@MyAADdomain.onmicrosoft.com](mailto:azadmin@MyAADdomain.onmicrosoft.com) and the correct password. Select **Next**.
 
@@ -501,13 +500,13 @@ In this task, you will complete the steps on the Domain Controller in Azure usin
 
 5. Configure the PowerShell execution policy **Unrestricted** for the current user. When prompted for confirmation, type **Y** and push return.
 
-    ```
+    ```powershell
      Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
     ```
 
 6. Navigate to where you unzipped the AzFilesHybrid. For example:
 
-    ```
+    ```cmd
     cd C:\Users\ADAdmin\Documents\AzFilesHybrid\AzFilesHybrid
     ```
 
@@ -515,33 +514,33 @@ In this task, you will complete the steps on the Domain Controller in Azure usin
 
 7. Install the Az PowerShell module. If any confirmation prompts appear, type **Y** and push return.
 
-    ```  
+    ```powershell  
     Install-Module -Name Az -Scope CurrentUser
     ```
 
 8. Install the AzFilesHybrid module. If you are prompted with a security warning, type **r** and then press enter to proceed with running it.
 
-    ```
+    ```powershell
     .\CopyToPSPath.ps1
     ```
 
 9. Import the AzFilesHybrid module. If you are prompted with a security warning, type **r** and then press enter to proceed with running it. You may also be prompted to update PowerShellGet, type **y**, and press return. After that, you'll need to restart your PowerShell session. After restarting the PowerShell session, run the command below again.
 
-    ```  
+    ```powershell
     Import-Module -Name AzFilesHybrid
     ```
 
     ![After running these commands, the results will look like this screenshot.](images/azimportresults.png "Command results")
-    
+
 10. Sign in with an account that meets the prerequisites. (A global admin in the Azure AZ tenant that houses your AVD users and the file share you created.)
 
-    ```
+    ```powershell
     Connect-AzAccount
     ```
 
 11. Create the following PowerShell variables replacing the subscription id, resource group name, and storage account with the information specific to your lab environment:
 
-    ```
+    ```powershell
     $SubscriptionId = "<subscription-id>"
     $ResourceGroupName = "<resource-group-name>"
     $StorageAccountName = "<storage-account-name>"
@@ -558,17 +557,16 @@ In this task, you will complete the steps on the Domain Controller in Azure usin
 
 12. Select the target subscription for the current session.
   
-    ```
+    ```powershell
     Select-AzSubscription -SubscriptionId $SubscriptionId
     ```
 
 13. Register the storage account with your Active Directory domain.
 
-    ```
+    ```powershell
     Join-AzStorageAccount -ResourceGroupName $ResourceGroupName -StorageAccountName $StorageAccountName
    
     ```
-
 
 14. When the script completes, you will be provided confirmation that you are connected to the storage account.
 
@@ -580,19 +578,19 @@ In this task, you will complete the steps on the Domain Controller in Azure usin
 
 16. Confirm that the feature is enabled.
 
-    ```
+    ```powershell
     $storageaccount = Get-AzStorageAccount -ResourceGroupName $ResourceGroupName -Name $StorageAccountName
     ```
 
 17. List the directory service of the selected service account.
- 
-    ```
+
+    ```powershell
     $storageAccount.AzureFilesIdentityBasedAuth.DirectoryServiceOptions
     ```
 
 18. List the directory domain information if the storage account has enabled AD authentication for file shares.
 
-    ```
+    ```powershell
     $storageAccount.AzureFilesIdentityBasedAuth.ActiveDirectoryProperties
     ```
 
@@ -644,7 +642,7 @@ To simplify administration, create four new security groups in Active Directory 
 
     - **AVD Users**
 
-        ![This image shows how to create a new group object named AVD User.](images/avduser.png "AVD User")
+        ![This image shows how to create a new group object named AVD User. The Builtin folder is highlighted.](images/avduser.png "AVD User")
 
 4. Add the AVD administrative account that you created previously to the group **AZF FSLogix Elevated Contributor**. This account will have permissions to modify file share permissions.
 
@@ -998,19 +996,19 @@ The UI form offers the following actions:
 
 5. Navigate to \"C:\AVDGold\AVDImageTools\Prepare-AVDImage".
 
-    ```
+    ```powershell
     cd C:\AVDGold\AVDImageTools\Prepare-AVDImage
     ```
 
 6. Run the following command to allow for script execution:
 
-    ```
+    ```powershell
     Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
     ```
 
 7. Execute the script by running the following command:
 
-    ```
+    ```powershell
     .\Prepare-AVDImage.ps1 -DisplayForm
     ```
 
@@ -1060,7 +1058,7 @@ The UI form offers the following actions:
 
 10. After the script has completed, select the Window start icon and note that Office and Microsoft Teams have been installed.
 
-   ![How to view the newly installed applications.](images/newapplications.png "Windows view of new applications")
+    ![How to view the newly installed applications.](images/newapplications.png "Windows view of new applications")
 
 11. Once the script has completed execution, complete these final tasks:
 
@@ -1084,15 +1082,15 @@ The UI form offers the following actions:
 
 3. Navigate to: **C:\\Windows\\System32\\Sysprep**.
 
-    ```
+    ```cmd
     cd C:\Windows\System32\Sysprep
     ```
 
 4. Run the following command to sysprep the VM and shutdown:
 
-    ```
+    ```cmd
     sysprep.exe /oobe /generalize /shutdown
-    ``` 
+    ```
 
 The system will automatically shut down and disconnect your RDP session.
 
@@ -1142,7 +1140,7 @@ In this exercise, we will create an Azure Virtual Desktop host pool for personal
 |----------|:-------------:|
 | Description | Links |
 | Create a host pool with the Azure portal | https://docs.microsoft.com/en-us/azure/virtual-desktop/create-host-pools-azure-marketplace |
-  |              |            | 
+  |              |            |
 
 ### Task 1: Create a new Host Pool and Workspace
 
@@ -1150,9 +1148,9 @@ In this exercise, we will create an Azure Virtual Desktop host pool for personal
 
 2. Search for **Azure Virtual Desktop** and select it from the list.
 
-    ![This image shows the Azure portal search and how to search for Azure Virtual Desktop and select the service.](images/searchavd.png "Search for Azure Virtual Desktop")    
+    ![This image shows the Azure portal search and how to search for Azure Virtual Desktop and select the service.](images/searchavd.png "Search for Azure Virtual Desktop")
 
-3.  Under Manage, select **Host pools** and select **+ Create**.
+3. Under Manage, select **Host pools** and select **+ Create**.
 
     ![This image shows where to select host pools under manage and select add to add a new host pool.](images/avdHostPool.png "Azure Virtual Desktop blade")
 
@@ -1178,9 +1176,9 @@ In this exercise, we will create an Azure Virtual Desktop host pool for personal
 
 ### Task 2: Create a friendly name for the workspace
 
-The name of the Workspace is displayed when the user signs in. Available resources are organized by Workspace. For a better user experience, we will provide a friendly name for our new Workspace. 
+The name of the Workspace is displayed when the user signs in. Available resources are organized by Workspace. For a better user experience, we will provide a friendly name for our new Workspace.
 
->**Note**: The workspace will not appear until Task 1 has completed deployment. 
+>**Note**: The workspace will not appear until Task 1 has completed deployment.
 
 1. Sign in to the [Azure Portal](https://portal.azure.com/).
 
@@ -1192,7 +1190,7 @@ The name of the Workspace is displayed when the user signs in. Available resourc
 
     ![This image shows where to locate the workspace created in Task 1 and select it.](images/workspaceproperties.png "Select the workspace")
 
-4.  Under Settings, select **Properties**.
+4. Under Settings, select **Properties**.
 
 5. Update the **Friendly name** field to your desired name and select **Save**.
 
@@ -1214,7 +1212,7 @@ In the new Azure Virtual Desktop ARM portal, we can now use Azure Active Directo
 
     ![This image shows where you will find the application group created in Task 1.](images/avdappgroups.png "Select the application group")
 
-5.  Under Manage, select **Assignments** and select **+ Add**.
+5. Under Manage, select **Assignments** and select **+ Add**.
 
     ![This image shows where to find "manage" in the menu and select assignments and add.](images/addassignments.png)
 
@@ -1405,7 +1403,7 @@ There are multiple clients available for you to access AVD resources. Refer to t
 
     ![This image shows where you will select the default desktop and allow local resources.](images/allowlocal.png "Desktop resources")
 
-6. On the **Enter your credentials** prompt, sign in using the same account from Step 3 and select **Submit**. 
+6. On the **Enter your credentials** prompt, sign in using the same account from Step 3 and select **Submit**.
 
     >**Note**: The username and password to login to the AVD desktop will be credentials from the domain controller username and password created upon initial deployment. When you need the user email, RDP into the domain controller VM and find the user in the **Active Directory Users and Groups** and **OrgUsers**.
 
@@ -1807,7 +1805,7 @@ In this task, you will take an **MSIX package** created from the [MSIX packaging
 
     ![Where to add a directory on the storage account.](images/avdFileShareAdd.png "File Share add directory")
 
-    > **Note:** Normally, in production, you would create an additional share for MSIX files and place the files there. You would need to make sure the share or container the MSIX files are in you follow the same steps you use for the FSLogix storage account and apply the appropriate permissions to them (users typically only need Read access) and make sure there is enough room to store them. We are placing it on the same share for this exercise for expediency and easier setup. It is not uncommon to have a central MSIX storage with permissions to each MSIX file based on groups assigned to the appropriate application and the MSIX repository used by multiple pools or deployments but ensure network connectivity and speed are kept consistent.
+    >**Note:** Normally, in production, you would create an additional share for MSIX files and place the files there. You would need to make sure the share or container the MSIX files are in you follow the same steps you use for the FSLogix storage account and apply the appropriate permissions to them (users typically only need Read access) and make sure there is enough room to store them. We are placing it on the same share for this exercise for expediency and easier setup. It is not uncommon to have a central MSIX storage with permissions to each MSIX file based on groups assigned to the appropriate application and the MSIX repository used by multiple pools or deployments but ensure network connectivity and speed are kept consistent.
 
 5. In a new tab in your browser, navigate to (URL of the .VHD file) and download AVD-MSIX.vhd
 
@@ -1845,7 +1843,7 @@ In this task, you will take an **MSIX package** created from the [MSIX packaging
 
     ![Choose Local Machine for the Storage location in the Import Wizard.](images/localmachinecertificate.png "Install the certificate in the Local Machine store")
 
-14. On the wizard's next step, select **Place all certificates in the following store**. Then select **Browser** and **Trusted Root Certification Authorities**. Click **Next**.
+14. On the wizard's next step, select **Place all certificates in the following store**. Then select **Browser** and **Trusted Root Certification Authorities**. Select **Next**.
 
     ![Chosed to place all certificates in the following source, then browse to trusted root certification authorities.](images/trustedrootcertificate.png "Place the certificate in Trusted Root Certification Authorities")
 
@@ -1907,8 +1905,7 @@ This application is now running on the host pool, although it is not installed o
 
 In this task, you will enable Microsoft Defender for Endpoint service and deploy the endpoint protection via Azure. This enables all systems to be protected by the Microsoft Defender for Endpoint service from potential vulnerabilities and alerts in the event of suspicious execution or activity.
 
-> **Note:** This will require signing up for [Azure Defender trial](https://docs.microsoft.com/en-us/azure/security-center/enable-azure-defender#to-enable-azure-defender-on-your-subscriptions-and-workspaces) on your subscription. If this is a Visual Studio subscription or you do not want to sign up for the time trial yet, you will need to wait and deploy this when you can sign up for the Azure Defender trial.
-
+>**Note:** This will require signing up for [Azure Defender trial](https://docs.microsoft.com/en-us/azure/security-center/enable-azure-defender#to-enable-azure-defender-on-your-subscriptions-and-workspaces) on your subscription. If this is a Visual Studio subscription or you do not want to sign up for the time trial yet, you will need to wait and deploy this when you can sign up for the Azure Defender trial.
 
 1. Go to the [Azure Portal](https://portal.azure.com/).
 
@@ -1942,7 +1939,7 @@ In this task, you will enable Microsoft Defender for Endpoint service and deploy
 
 9. It can take some time for agents to deploy fully, but if you let it run for a while, you'll start seeing your resources show up in the Inventory.
 
-!["One of the application pool virtual machines is shown in the Microsoft Defender for Cloud inventory"](images/defenderinventory.png "Microsoft Defender for Cloud Inventory")
+    !["One of the application pool virtual machines is shown in the Microsoft Defender for Cloud inventory"](images/defenderinventory.png "Microsoft Defender for Cloud Inventory")
 
 10. Depending on your AVD environment, you can deploy them to systems as they are added to your domain in the AVD OU by utilizing Group Policies using the [domain group policy scenario](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/onboard-windows-10-multi-session-device?view=o365-worldwide#scenario-2-using-domain-group-policy). Another option when your host is not persistent or deployed from an image, is to use the instructions for [onboarding non-persistent VDI devices](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/configure-endpoints-vdi?view=o365-worldwide).
 

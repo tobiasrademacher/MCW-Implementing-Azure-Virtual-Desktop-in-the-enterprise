@@ -18,7 +18,7 @@ Microsoft may have patents, patent applications, trademarks, copyrights, or othe
 
 The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
 
-© 2021 Microsoft Corporation. All rights reserved.
+© 2022 Microsoft Corporation. All rights reserved.
 
 Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
@@ -187,11 +187,11 @@ Timeframe: 15 minutes
 
 Directions:  With all participants in the session, the facilitator/SME presents an overview of the customer case study along with technical tips.
 
-1.  Meet your team members and trainer.
+1. Meet your team members and trainer.
 
-2.  Read all directions for steps 1-3 in the student guide.
+2. Read all directions for steps 1-3 in the student guide.
 
-3.  As a team, review the following customer case study.
+3. As a team, review the following customer case study.
 
 ### Customer situation
 
@@ -237,7 +237,7 @@ Contoso Healthcare has completed an initial cloud assessment of their current in
 
 4. Connections between the cloud and existing data centers must be secure and reliable to support their requirements.  How will this be addressed and monitored?
 
-5. Contoso Healthcare has made a substantial capital investment in their current data centers that they do not want to decommission. So would like to leverage existing infrastructure where possible.
+5. Contoso Healthcare has made a substantial capital investment in their current data centers they do not want to decommission. Leverage existing infrastructure where possible is important.
 
 ### Infographic for common scenarios
 
@@ -571,11 +571,11 @@ Design an Azure Virtual Desktop infrastructure that addresses the needs and requ
 
 3. What are the connection options for users to access the Azure Virtual Desktop image?
 
-    There are multiple connection options for users to access their Azure Virtual Desktop.  The Remote Desktop client application can be used with Windows 10, Windows 7, Android, macOS, or iOS.  Users can also connect through an HTML5-capable web browser.  Since we are unsure of the full scope of operating systems on the 500 existing workstations within Contoso Healthcare, we recommend connection through the web browser on desktop devices, and using the Remote Desktop app on mobile devices.
+    There are multiple connection options for users to access their Azure Virtual Desktop.  The Remote Desktop client application can be used with Windows 10, Windows 7, Android, macOS, or iOS.  Users can also connect through an HTML5-capable web browser.  Since we are unsure of the full scope of operating systems on the 500 existing workstations within Contoso Healthcare, we recommend connection through the web browser on desktop devices and using the Remote Desktop app on mobile devices.
 
 4. What are the minimum system requirements for users to access the Azure Virtual Desktop image?
 
-    Officially supported browsers are Microsoft Edge, Apple Safari, Google Chrome, and Mozilla Firefox (v55 or higher).  Windows 10, Windows 10 IoT Enterprise, Windows 7, and macOS operating systems are supported.  Microsoft Remote Desktop app is available for Android and iOS mobile devices.    
+    Officially supported browsers are Microsoft Edge, Apple Safari, Google Chrome, and Mozilla Firefox (v55 or higher).  Windows 10, Windows 10 IoT Enterprise, Windows 7, and macOS operating systems are supported.  Microsoft Remote Desktop app is available for Android and iOS mobile devices.
 
 *Azure Virtual Desktop host pool*
   

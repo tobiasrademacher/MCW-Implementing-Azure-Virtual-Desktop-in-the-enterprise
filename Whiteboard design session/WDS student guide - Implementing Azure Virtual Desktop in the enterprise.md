@@ -18,7 +18,7 @@ Microsoft may have patents, patent applications, trademarks, copyrights, or othe
 
 The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
 
-© 2021 Microsoft Corporation. All rights reserved.
+© 2022 Microsoft Corporation. All rights reserved.
 
 Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
@@ -61,11 +61,11 @@ Timeframe: 15 minutes
 
 Directions:  With all participants in the session, the facilitator/SME presents an overview of the customer case study along with technical tips.
 
-1.  Meet your team members and trainer.
+1. Meet your team members and trainer.
 
-2.  Read all directions for steps 1-3 in the student guide.
+2. Read all directions for steps 1-3 in the student guide.
 
-3.  As a team, review the following customer case study.
+3. As a team, review the following customer case study.
 
 ### Customer situation
 
@@ -111,7 +111,7 @@ Contoso Healthcare has completed an initial cloud assessment of their current in
 
 4. Connections between the cloud and existing data centers must be secure and reliable to support their requirements.  How will this be addressed and monitored?
 
-5. Contoso Healthcare has made a substantial capital investment in their current data centers that they do not want to decommission. So would like to leverage existing infrastructure where possible.
+5. Contoso Healthcare has made a substantial capital investment in their current data centers they do not want to decommission. Leverage existing infrastructure where possible is important.
 
 ### Infographic for common scenarios
 
@@ -131,7 +131,6 @@ Network scenarios diagram the potential options for connecting from Microsoft Az
 This diagram outlines a simple Azure Virtual Desktop architecture with Azure and Microsoft 365. This includes the Azure Virtual Desktop user connection and the Azure Virtual Desktop host pools.
 
 ![Diagram referencing that there are multiple devices that will need to connect to the Windows desktop virtual image for Windows 10 and Microsoft 365 applications via the WVD host pool.](images/avdarchitecture.png "Azure Virtual Desktop standard architecture")
-
 
 ## Step 2: Design a proof of concept solution
 
