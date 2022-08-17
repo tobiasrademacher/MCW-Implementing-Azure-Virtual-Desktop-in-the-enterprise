@@ -730,7 +730,7 @@ The first time you configure NTFS permission, do so using superuser permissions.
 
     ![Here is the script's location to copy to run in Windows PowerShell.](images/copyscript.png "Connect script")
 
-7. From a domain joined computer, open a **PowerShell** and paste the **PowerShell** script that you copied from the **Connect** blade. 
+7. From a domain joined computer, open **PowerShell**, and paste the **PowerShell** script that you copied from the **Connect** blade. 
 
     ![This image shows the pasting of the PowerShell script and the status of the connection.](images/powershellconnect.png "PowerShell file share connection")
 
@@ -753,8 +753,8 @@ The first time you configure NTFS permission, do so using superuser permissions.
     | AD Group | NTFS Permissions | Applies to |
     |----------|------------------|------------|
     | **AZF FSLogix Contributor** | Modify | This folder, subfolders, and files|
-    | **AZF FSLogix Elevated Contributor** | Full control |This folder, subfolders and files|
-    | **AZF FSLogix Reader** | Read & execute |This folder, subfolders and files|
+    | **AZF FSLogix Elevated Contributor** | Full control |This folder, subfolders, and files|
+    | **AZF FSLogix Reader** | Read & execute |This folder, subfolders, and files|
     | **AVD Users** | Modify (This folder only) |This folder only|
 
 11. Select **OK** to save your changes. Select **Yes** if you receive a **Windows Security** warning about removing inherited permissions.
@@ -1029,7 +1029,7 @@ The UI form offers the following actions:
 
     - Select **Disable Windows Update** to disable Windows Update in the image.
 
-    - Clear **Remove inbox Windows 10 Appps**.
+    - Clear **Remove inbox Windows 10 Apps**.
 
     - Select **Run System Clean Up (CleanMgr.exe)** to execute Disk Cleanup.
 
@@ -1147,7 +1147,7 @@ In this exercise, we will create an Azure Virtual Desktop host pool for personal
 
     ![This image shows the Azure portal search and how to search for Azure Virtual Desktop and select the service.](images/searchavd.png "Search for Azure Virtual Desktop")
 
-3. Under Manage, select **Host pools** and select **+ Create**.
+3. Under Manage, select **Host pools**, and select **+ Create**.
 
     ![This image shows where to select host pools under manage and select add to add a new host pool.](images/avdHostPool.png "Azure Virtual Desktop blade")
 
@@ -1209,7 +1209,7 @@ In the new Azure Virtual Desktop ARM portal, we can now use Azure Active Directo
 
     ![This image shows where you will find the application group created in Task 1.](images/avdappgroups.png "Select the application group")
 
-5. Under Manage, select **Assignments** and select **+ Add**.
+5. Under Manage, select **Assignments**, and select **+ Add**.
 
     ![This image shows where to find "manage" in the menu and select assignments and add.](images/addassignments.png)
 
@@ -1251,7 +1251,7 @@ Before continuing this exercise, check your available regional vCPUs and increas
 
     ![This image shows how to search for Azure Virtual Desktop and select the service from the Azure Portal search bar.](images/searchavd.png "Search for Azure Virtual Desktop")
 
-3. Under Manage, select **Host pools** and select **+ Create**.
+3. Under Manage, select **Host pools**, and select **+ Create**.
 
     ![This image shows where to select host pools under manage and select add to add a new host pool.](images/avdHostPool.png "Azure Virtual Desktop blade")
 
@@ -1301,7 +1301,7 @@ The name of the Workspace is displayed when the user signs in. Available resourc
 
 2. Search for **Azure Virtual Desktop** and select it from the list.
 
-3. Under Manage, select **Host pools** and select the host pool that you created in Task 1. Select **Application groups** and select **Add** to create a new application group.
+3. Under Manage, select **Host pools**, and select the host pool that you created in Task 1. Select **Application groups** and select **Add** to create a new application group.
 
     ![This image shows that from the Azure Virtual Desktop blade, you will select the host pool and then "add", to add an application group.](images/newappgroup.png "Manage Application groups")
 
@@ -1746,7 +1746,7 @@ In this task, you will enable the scaling of your pool based on the number of co
 
 1. Navigate to the Azure Portal and go to Azure Virtual Desktop.
 
-2. Select **Scalin plans** under **Manage**, then select **Create scaling plan**
+2. Select **Scaling plans** under **Manage**, then select **Create scaling plan**
 
     ![The Scaling plans in Azure virtual desktop with the button highlighted to Create a scaling plan.](images/createscalingplan.png "Create a new AVD scaling plans")
 
@@ -1798,7 +1798,7 @@ In this task, you will take an **MSIX package** created from the [MSIX packaging
 
     ![This image shows you will open share for AVD File Share on the storage account.](images/avdFileShare.png "AVD File Share")
 
-4. Ensure the **MSIX** directory you create earlier is there; if not, create one using the **+ Add directory** button.
+4. Ensure the **MSIX** directory you created earlier is there; if not, create one using the **+ Add directory** button.
 
     ![Where to add a directory on the storage account.](images/avdFileShareAdd.png "File Share add directory")
 
@@ -1810,13 +1810,13 @@ In this task, you will take an **MSIX package** created from the [MSIX packaging
 
     ![Select Upload file and upload the AVD-MSIX.vhd file to the file share.](images/uploadvhd.png "Upload AVD-MSIX.vhd")
 
-7. The MSIX images on the VHD have been signed with Device Gaurd v2; for it to work, the root certificate needs to be installed on the servers used for publishing the apps. These servers don't have a public IP address, so we'll use the domain controller as a jump box to the app servers. First, create a remote desktop session to the domain controller.
+7. The MSIX images on the VHD have been signed with Device Guard v2; for it to work, the root certificate needs to be installed on the servers used for publishing the apps. These servers don't have a public IP address, so we'll use the domain controller as a jump box to the app servers. First, create a remote desktop session to the domain controller.
 
 8. Get the IP address from the first server in your remote app pool. It should be something like 10.1.0.8.
 
     ![The IP address of the first virtual machine in the remote app pool is highlighted.](images/ipappserver.png "The private IP address of the server")
 
-9. On the domain controller, open up Remote Desktop Connection and connect to the IP address of your first remote app server. You can use the avdadmin account you set up as a local admin when creating the server by entering **/avdadmin** for the username.
+9. On the domain controller, open Remote Desktop Connection and connect to the IP address of your first remote app server. You can use the avdadmin account you set up as a local admin when creating the server by entering **/avdadmin** for the username.
 
     ![The remote desktop connection on the domain controller with the IP address of the first remote app server is shown.](images/connecttoappserver.png "Remote desktop connection to the first remote app server")
 
@@ -1930,7 +1930,7 @@ In this task, you will enable Microsoft Defender for Endpoint service and deploy
 
     !["The install agents button is highlighted that can be clicked to deploy the Microsoft Defender for Cloud agent to the unprotected VMs](images/installagents.png "Install agents")
 
-8. Refresh the **Workload protections** screen. At the top, you should see all of your resources in the subscription now fully covered.
+8. Refresh the **Workload protections** screen. At the top, you should see all your resources in the subscription now fully covered.
 
     ![Workload protection shows Defender for Cloud coverage as 11 of 11 resources being fully protected.](images/fullprotectedresources.png "Fully covered workloads")
 
