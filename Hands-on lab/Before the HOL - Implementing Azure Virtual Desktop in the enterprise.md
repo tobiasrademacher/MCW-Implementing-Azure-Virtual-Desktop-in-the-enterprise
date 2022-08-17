@@ -121,7 +121,7 @@ This ARM Template will provision the following resources:
 
     The deployment is now underway. On average, this process can take 30 minutes to complete. It is important that you monitor the deployment progress to ensure there are no problems. You can monitor progress by selecting the **notification** bell in the upper right corner and selecting **Deployment in progress...**
 
-    >**Note**: While automation can make things simpler and repeatable, sometimes it can fail. If at any time during the ARM template deployment there is a failure, review the failure, delete the Resource Group and try the ARM template again, adjusting for any possible errors.
+    >**Note**: While automation can make things simpler and repeatable, sometimes it can fail. If at any time during the ARM template deployment there is a failure, review the failure, delete the Resource Group, and try the ARM template again, adjusting for any possible errors.
 
     Once the ARM template is done being deployed, the status will change to complete. At this point, the domain controller is ready for RDP connectivity.
 
