@@ -103,14 +103,14 @@ This ARM Template will provision the following resources:
 
     - Create a new **Resource group**
     - Select a **Region**
-    - Create an **Admin password**
+    - Create an **Admin Password**
     - Create an **Ad Domain Name**, such as **myavd.com**
     - Create a **Customupnsuffix** for AVD, such as **"myavd"**
 
       >**Note**: Keep this short, no more than five characters, or you can run into errors due to the length of your virtual machine names.
 
-    - Create a **Default user password**
-    - For **VM Size**, choose a [SKU in your region](https://azure.microsoft.com/global-infrastructure/services/?products=virtual-machines). Our default is `Standard_A2_v2`.
+    - Create a **Default User Password**
+    - For **Vm Size**, choose a [SKU in your region](https://azure.microsoft.com/global-infrastructure/services/?products=virtual-machines). Our default is `Standard_A2_v2`.
     - Select **Review + create**
 
     >**Note**: Make sure you save these inputs, especially the password; they will be needed for reference when you go through the HOL Step-by-Step.
