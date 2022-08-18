@@ -85,7 +85,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 
 ## Abstract and learning objectives
 
-In this hands-on lab, you will implement an Azure Virtual Desktop (AVD) - formerly Windows Virtual Desktop - infrastructure and learn how to set up a working AVD environment end-to-end in a typical Enterprise model. At the end of the lab, attendees will have deployed an Azure Active Directory Tenant with Azure AD Connect to an Active Directory Domain Controller running in Azure. You will also deploy the Azure infrastructure for the Azure Virtual Desktop Tenant(s), Host Pool(s), and session host(s). Then you will connect to an AVD session utilizing different supported devices and browsers. You will publish desktops and remote apps. Finally, you will configure user profiles and FSLogics with Azure file shares. Finally, you will configure monitoring and security for the Azure Virtual Desktop infrastructure and understand the steps to manage the gold images.
+In this hands-on lab, you will implement an Azure Virtual Desktop (AVD) infrastructure and learn how to set up a working AVD environment end-to-end in a typical Enterprise model. At the end of the lab, attendees will have deployed an Azure Active Directory Tenant with Azure AD Connect to an Active Directory Domain Controller running in Azure. You will also deploy the Azure infrastructure for the Azure Virtual Desktop Tenant(s), Host Pool(s), and session host(s). Then you will connect to an AVD session utilizing different supported devices and browsers. You will publish desktops and remote apps. Finally, you will configure user profiles and FSLogics with Azure file shares. Finally, you will configure monitoring and security for the Azure Virtual Desktop infrastructure and understand the steps to manage the gold images.
 
 ## Overview
 
@@ -125,7 +125,7 @@ Before you start setting up your Azure Virtual Desktop workspace, make sure you 
   
 - Make sure to track your user accounts and where you are using them.
 
-   Regions and locations, make sure to stay consistent as much as possible.
+- Regions and locations, make sure to stay consistent as much as possible.
 
 ## Troubleshooting
 
@@ -191,7 +191,7 @@ To simplify tasks in this lab, we will start by disabling [IE Enhanced Security]
 
 4. Open Internet Explorer, and navigate to [Download Microsoft Edge for Business](https://www.microsoft.com/en-us/edge/business/download). Select to download the **Windows 64-bit** version.
 
-    ![The screenshot shows the Windows 64-bit download link on the website](images/downloadedge.png "Download Windows 64-bit edge")
+    ![The screenshot shows the Windows 64-bit download link on the website.](images/downloadedge.png "Download Windows 64-bit edge")
 
 5. Select to Agree and Download, then select to Run the .msi. Internet Explorer has been officially retired, so you will use Edge as the default browser for this lab.
 
