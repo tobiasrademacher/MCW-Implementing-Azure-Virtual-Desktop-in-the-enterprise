@@ -331,7 +331,7 @@ It is also important to keep in mind that these groups can also originate from t
 
 3. On the Azure Active Directory page, select **Groups** on the left and select **+ New group**.
 
-    ![An image highlighting the New group button in Azure AD Groups](images/newgroupbutton.png "New Azure AD Group button")
+    ![An image highlighting the New group button in Azure AD Groups.](images/newgroupbutton.png "New Azure AD Group button")
 
 4. On the New Group page, fill in the following options, and select **Create**.
 
