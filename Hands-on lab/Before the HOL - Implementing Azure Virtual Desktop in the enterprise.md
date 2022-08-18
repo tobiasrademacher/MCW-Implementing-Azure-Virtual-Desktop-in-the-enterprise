@@ -104,8 +104,8 @@ This ARM Template will provision the following resources:
     - Create a new **Resource group**
     - Select a **Region**
     - Create an **Admin password**
-    - Create an **AD Domain name**, such as **myavd.com**
-    - Create a **Custom UPN suffix** for AVD, such as **"myavd"**
+    - Create an **Ad Domain Name**, such as **myavd.com**
+    - Create a **Customupnsuffix** for AVD, such as **"myavd"**
 
       >**Note**: Keep this short, no more than five characters, or you can run into errors due to the length of your virtual machine names.
 
