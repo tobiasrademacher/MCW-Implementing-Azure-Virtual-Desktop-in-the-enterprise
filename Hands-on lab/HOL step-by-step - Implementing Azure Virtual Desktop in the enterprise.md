@@ -878,6 +878,7 @@ For more information on how to set up a Bastion host in Azure|https://docs.micro
     ![What your configuration should be for the virtual machine image.](images/win10vmcreate.png "Create virtual machine")
 
     >**Note**: Make a note of the **username** and **password** used to create the VM. This information will be required to access the VM after creation.
+    >
     >**Note**: This guide does not walk through the process of creating a VM in Azure. However, for **Inbound port rules**, be sure to allow **RDP (3389)**, or have a bastion host deployed for remote access.
 
     ![In the "Create a virtual machine" page within the Azure portal for the Windows 10 VM, allow port 3389 as an inbound port.](images/windows10VMcreate.png "The 'Create a virtual machine' page within the Azure portal for the Windows 10 VM")
@@ -1305,7 +1306,7 @@ The name of the Workspace is displayed when the user signs in. Available resourc
 
     ![This image shows that from the Azure Virtual Desktop blade, you will select the host pool and then "add", to add an application group.](images/newappgroup.png "Manage Application groups")
 
-4. In the Basics tab, name the application group 
+4. In the Basics tab, name the application group. 
 
     ![This image shows that from this blade, you will enter a name for the application group.](images/appgroupname.png "New application group")
 
@@ -1746,11 +1747,11 @@ In this task, you will enable the scaling of your pool based on the number of co
 
 1. Navigate to the Azure Portal and go to Azure Virtual Desktop.
 
-2. Select **Scaling plans** under **Manage**, then select **Create scaling plan**
+2. Select **Scaling plans** under **Manage**, then select **Create scaling plan**.
 
     ![The Scaling plans in Azure virtual desktop with the button highlighted to Create a scaling plan.](images/createscalingplan.png "Create a new AVD scaling plans")
 
-3. Select the resource group and location for Azure Virtual Desktop. Then give your scaling plan a friend name and select **Next: Schedules >**
+3. Select the resource group and location for Azure Virtual Desktop. Then give your scaling plan a friendly name and select **Next: Schedules >**.
 
     ![The basic settings for the scaling plan are highlighted.](images/scalingplanbasics.png "AVD Scaling Plan Basics")
 
@@ -1804,7 +1805,7 @@ In this task, you will take an **MSIX package** created from the [MSIX packaging
 
     >**Note:** Normally, in production, you would create an additional share for MSIX files and place the files there. You would need to make sure the share or container the MSIX files are in you follow the same steps you use for the FSLogix storage account and apply the appropriate permissions to them (users typically only need Read access) and make sure there is enough room to store them. We are placing it on the same share for this exercise for expediency and easier setup. It is not uncommon to have a central MSIX storage with permissions to each MSIX file based on groups assigned to the appropriate application and the MSIX repository used by multiple pools or deployments but ensure network connectivity and speed are kept consistent.
 
-5. In a new tab in your browser, navigate to (URL of the .VHD file) and download AVD-MSIX.vhd
+5. In a new tab in your browser, navigate to (URL of the .VHD file) and download AVD-MSIX.vhd.
 
 6. Back in your storage account, upload the .VHD file to the MSIX folder.
 
@@ -1842,7 +1843,7 @@ In this task, you will take an **MSIX package** created from the [MSIX packaging
 
 14. On the wizard's next step, select **Place all certificates in the following store**. Then select **Browser** and **Trusted Root Certification Authorities**. Select **Next**.
 
-    ![Chosed to place all certificates in the following source, then browse to trusted root certification authorities.](images/trustedrootcertificate.png "Place the certificate in Trusted Root Certification Authorities")
+    ![Choose to place all certificates in the following source, then browse to trusted root certification authorities.](images/trustedrootcertificate.png "Place the certificate in Trusted Root Certification Authorities")
 
 15. Select **Finish**, and you'll see a dialog that the import was completed successfully.
 
@@ -1858,7 +1859,7 @@ In this task, you will take an **MSIX package** created from the [MSIX packaging
 
 18. Select **Host Pools**, your remote app pool, **MSIX packages**, and then **+ Add**.
 
-    !["In Azure Virtual Desktop, Host pools is highlighted, then the remote app pool. Followed by MSIX package and then the + Add button.](images/navigatetomsix.png "The links to click to navigate and add a new MSIX package")
+    ![In Azure Virtual Desktop, Host pools is highlighted, then the remote app pool. Followed by MSIX package and then the + Add button.](images/navigatetomsix.png "The links to click to navigate and add a new MSIX package")
 
 19. In the MSIX image path, paste the file share path to your MSIX file. It should be in the format below. After pasting it in, wait a few seconds, and the rest of the dialog boxes should appear.
 
@@ -1876,7 +1877,7 @@ In this task, you will take an **MSIX package** created from the [MSIX packaging
 
 22. In **Azure Virtual Desktop**, select **Application groups** under Manage, then select your **remoteapps** group.
 
-23. Within your **remoteapps** group, select **Applications** and **+Add**
+23. Within your **remoteapps** group, select **Applications** and **+Add**.
 
     ![Select +Add to add a new remote app to your group.](images/addnewmsixapp.png "Add a new remote app")
 
@@ -1888,13 +1889,13 @@ In this task, you will take an **MSIX package** created from the [MSIX packaging
 
 26. You should have Firefox and Notepad++ added as available applications now.
 
-    !["Firefox and Notepad++ are highlighted in the list of available applications. They have an application type of MSIX.](images/msixapplicationsadded.png "Firefox and Notepad++ added to the list of applications")
+    ![Firefox and Notepad++ are highlighted in the list of available applications. They have an application type of MSIX.](images/msixapplicationsadded.png "Firefox and Notepad++ added to the list of applications")
 
 27. Go to the [AVD Web Client](https://rdweb.wvd.microsoft.com/arm/webclient) (or AVD client if installed locally) and login as one of your end users.
 
 28. Select the new application icon to launch the application (refresh the page if the new application does not show up).
 
-    !["The notepad++ application published from the MSIX package is running in the browser.](images/notepadplusplus.png "Notepad++ running as a published app")
+    ![The notepad++ application published from the MSIX package is running in the browser.](images/notepadplusplus.png "Notepad++ running as a published app")
 
 This application is now running on the host pool, although it is not installed on the host system. This allows the application to be updated by changing which MSIX package the application points to and the next time a user logs into the application.
 
@@ -1912,9 +1913,9 @@ In this task, you will enable Microsoft Defender for Endpoint service and deploy
 
     ![In this image, you are searching and navigating to Microsoft Defender for Cloud.](images/findAsc.png "Microsoft Defender for Cloud")
 
-3. Select **Upgrade* on the **Getting started** page.
+3. Select **Upgrade** on the **Getting started** page.
 
-    !["The skip link is highlighted next to the Upgrade button. This bypasses the trial upgrade.](images/skipupgrade.png "Skip the 30 day trial upgrade")
+    ![The skip link is highlighted next to the Upgrade button. This bypasses the trial upgrade.](images/skipupgrade.png "Skip the 30 day trial upgrade")
 
 4. Go to the **Workload protections** under the Cloud Security section.
 
