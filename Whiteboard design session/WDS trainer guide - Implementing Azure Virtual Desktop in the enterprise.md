@@ -38,9 +38,6 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
     - [Customer needs](#customer-needs)
     - [Customer objections](#customer-objections)
     - [Infographic for common scenarios](#infographic-for-common-scenarios)
-      - [Security Scenarios](#security-scenarios)
-      - [Network Scenarios](#network-scenarios)
-      - [Azure Virtual Desktop standard architecture](#azure-virtual-desktop-standard-architecture)
   - [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution)
   - [Step 3: Present the solution](#step-3-present-the-solution)
   - [Wrap-up](#wrap-up)
@@ -77,7 +74,7 @@ An amazing trainer:
 
 - Ties it all together for the participant.
 
-- Provides insight and experience into the learning process.
+- Provides insight and experience to the learning process.
 
 - Effectively leads the whiteboard design session discussion.
 
@@ -367,7 +364,7 @@ Directions:
 
 2. One group is the Microsoft team and the other is the customer.
 
-3. The Microsoft team presents its proposed solution to the customer.
+3. The Microsoft team presents their proposed solution to the customer.
 
 4. The customer makes one of the objections from the list of objections.
 
