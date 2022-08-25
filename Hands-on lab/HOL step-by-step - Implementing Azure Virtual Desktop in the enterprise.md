@@ -622,7 +622,7 @@ To simplify administration, create four new security groups in Active Directory 
 
 2. Under the local domain, select **Builtin** and select **Create a new group in the current container**.
 
-    ![This image shows how to open the window on the domain controller VM server manager and go to the Active Directory users and computers to create a new security group.](images/adgroups.png "Create new groups")
+    ![This image shows how to open the window on the domain controller VM server manager and go to the Active Directory users and computers, select the Builtin folder, and select to create a new security group.](images/adgroups.png "Create new groups")
 
 3. Create the following Active Directory security groups in an OU that is synchronized with Azure AD:
 
@@ -640,7 +640,7 @@ To simplify administration, create four new security groups in Active Directory 
 
     - **AVD Users**
 
-        ![This image shows how to create a new group object named AVD User. The Builtin folder is highlighted.](images/avduser.png "AVD User")
+        ![This image shows how to create a new group object named AVD User.](images/avduser.png "AVD User")
 
 4. Add the AVD administrative account that you created previously to the group **AZF FSLogix Elevated Contributor**. This account will have permissions to modify file share permissions.
 
@@ -801,7 +801,7 @@ In this task, we will create directories for each of the FSLogix profile types a
 
     ![This image shows how to set the permissions for full control to the creator owner.](images/addfullcontrolcreator.png "Grant full control to creator owner")
 
-8. Select **Add** and add **AVD Users**. Grant the following special permissions to **Only apply these permissions to objects and/or containers within this container**. Select **OK**.
+8. Select **Add** and add **AVD Users**. Grant the following four special permissions and select to **Only apply these permissions to objects and/or containers within this container**. Select **OK**.
 
     - Traverse folder / execute file
 
@@ -1152,13 +1152,25 @@ In this exercise, we will create an Azure Virtual Desktop host pool for personal
 
     ![This image shows where to select host pools under manage and select add to add a new host pool.](images/avdHostPool.png "Azure Virtual Desktop blade")
 
-4. On the Basics page, refer to the following screenshot to fill in the required fields. Change **Validation environment** to **Yes**. Set the host pool type to **Personal** and Assignment type to **Automatic**. Once complete, select **Next: Virtual Machines**.
+4. On the Basics page, change **Validation environment** to **Yes**. Set the host pool type to **Personal** and Assignment type to **Automatic**. Once complete, select **Next: Virtual Machines**.
 
     ![This image shows where you will enter the information for the host pool.](images/createhostpool.png "Create host pool page")
 
-5. Toggle **Add Azure virtual machines** to **Yes** and configure the Virtual Machines settings as shown in the screenshot below. For the virtual machine image, select a minimum of **Windows 10 Enterprise Cloud PC, version 21H2 + Microsoft 365 Apps - Gen 1**.
+5. Toggle **Add Azure virtual machines** to **Yes** and configure the Virtual Machines settings as follows:
 
-    >**Note**: Selecting an image with Microsoft 365 Apps is important. You will need Microsoft 365 to assign apps in this exercise.
+   - Resource Group: The Resource Group you deployed the host pool in
+   - Name prefix: Choose anything; shorter is better
+   - Virtual machine location: Location you deployed your other AVD resources
+   - Available options: No infrastructure redundancy required
+   - Image: select a minimum of **Windows 10 Enterprise Cloud PC, version 21H2 + Microsoft 365 Apps - Gen 1**
+   - Virtual network: The AVD virtual network your other AVD Hosts are connected to.
+   - AD domain join UPN: your adadmin@domain.com users
+   - Password: a complex password your adadmin user will have
+   - Virtual Machine Administrator account.
+     - Username: a user name to be added as a local admin
+     - Password and Confirm password: the password you want to assign to your local admin.
+
+   >**Note**: Selecting an image with Microsoft 365 Apps is important. You will need Microsoft 365 to assign apps in this exercise.
 
     ![This image shows the image you need for your host pool virtual machine.](images/vmwith365.png "Host pool Virtual Machine with image")
 
@@ -1170,7 +1182,6 @@ In this exercise, we will create an Azure Virtual Desktop host pool for personal
 
 7. On the Create a host pool page, select **Create**.
 
-    >**Note**: If you get an error when deploying the VMS
 
 ### Task 2: Create a friendly name for the workspace
 
@@ -1266,7 +1277,20 @@ Before continuing this exercise, check your available regional vCPUs and increas
 
     >**Note**: Selecting this image is very important. You will need Microsoft 365 to assign apps in this exercise.
 
-6. Now, enter the rest of the settings for your host pool, as seen in the screenshot below.
+6. Now, enter the rest of the settings for your host pool.
+
+    - Add Azure virtual machines: Yes
+    - Name prefix: avdmcwpool (or anything else you prefer).
+    - Virtual machine location: The region you've been creating your AVD host VMs.
+    - Availability options: Non infrastructure redundancy required.
+    - Image: Your custom Windows Image. It should be something similar to "avdmcw/avduserimage/1.0.0".
+    - Number of VMs: 2
+    - Virtual Netwokr: The virtual network you created for your host VMs.
+    - AD domain join UPN: adamin@yourdomain.com, replacing yourdomain.com with the domain you chose to use for the lab.
+    - Password: the password you set for you adadmin user.
+    - Username: avdadmin
+    - Password: The password you want to use for your avdadmin user.
+    - Confirm passwrd: Re-enter the password you want to use for your avdadmin user.
 
     ![This image shows the information you will enter for the host pool name and select next for virtual machines.](images/nextworkspace4.png "Create a host pool name")
 
@@ -1338,7 +1362,7 @@ The name of the Workspace is displayed when the user signs in. Available resourc
 
 9. On the assignments tab, select **Add assignments**, search for the **AVD Remote App All Users** created earlier in this guide, and choose **Select**.
 
-    ![This image shows that from the application group blade, you will select to add users or user groups and select the AVD Remote App All users from the blade that opens next.(images/assigngroup.png "Select applications")
+    ![This image shows that from the application group blade, you will select to add users or user groups and select the AVD Remote App All users from the blade that opens next.](images/assigngroup.png "Select applications")
 
 10. Select **Next: Workspace**.
 
@@ -1871,7 +1895,12 @@ In this task, you will take an **MSIX package** created from the [MSIX packaging
 
     ![Fill in the path to the .vhd file, select the Firefox package, set the display name to Firefox, and make the app active.](images/addfirefoxpackage.png "Add the Firefox MSIX package")
 
-21. Repeat steps 19 and 20 to add the NotePad++ package using the same path to the .vhd file and configure the settings for Notepad++, as seen in this screenshot.
+21. Repeat steps 19 and 20 to add the NotePad++ package using the same path to the .vhd file and configure the settings for Notepad++ with the following settings.
+
+    - MSIX image path: the path to the network share containing you .vhd file. The same path from step 19.
+    - MSIX package: Select your NotepadPlusPlus package from the dropdown
+    - Display name: Notepad++
+    - State: Active
 
     ![Fill in the path to the .vhd file, select the Notepadd++ package, set the display name to Notepad++ and make the app active.](images/addnotepadpackage.png "Add the Notepad++ MSIX package")
 
