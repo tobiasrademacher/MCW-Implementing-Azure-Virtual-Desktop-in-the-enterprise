@@ -1267,7 +1267,14 @@ Before continuing this exercise, check your available regional vCPUs and increas
 
     ![This image shows where to select host pools under manage and select add to add a new host pool.](images/avdHostPool.png "Azure Virtual Desktop blade")
 
-4. On the Basics page, refer to the following screenshot to fill in the required fields and change **Validation environment** to **Yes**. Select **Pooled** for host pool type. Once complete, select **Next: Virtual Machine**.
+4. On the Basics page, fill in the fields as follows:
+   - Host pool name: **avdremotepool1**
+   - Validation environment: **Yes**
+   - Host pool type: **Pooled**
+   - Load balancing algorithm: **Breadth-first**
+   - Max session limit: 5
+
+   Once complete, select **Next: Virtual Machine**.
 
     ![This image shows the create a host pool blade, where you will enter in the information for the virtual machines that will host the remote apps and select next for workspace.](images/remoteapppool.png "Create host pool")
 
