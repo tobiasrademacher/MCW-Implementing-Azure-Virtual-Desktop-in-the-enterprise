@@ -28,11 +28,15 @@ In the whiteboard design session, you will work in groups to design an Azure Vir
 
 At the end of the whiteboard design session, you will be better able to design a solution that leverages Microsoft 365 and Azure technologies together to build a secure and robust Azure Virtual Desktop infrastructure.
 
+Continue to the [Whiteboard design session](https://github.com/microsoft/MCW-Implementing-Azure-Virtual-Desktop-in-the-enterprise/tree/main/Whiteboard%20design%20session) documents folder.
+
 ### Hands-on lab
 
 In this hands-on lab, you will implement an Azure Virtual Desktop (AVD) infrastructure and learn how to set up a working AVD environment end-to-end in a typical Enterprise model. At the end of the lab, attendees will have deployed an Azure Active Directory Tenant with Azure AD Connect to an Active Directory Domain Controller running in Azure. You will also deploy the Azure infrastructure for the Azure Virtual Desktop Tenant(s), Host Pool(s), and session host(s). Then you will connect to an AVD session utilizing different supported devices and browsers. You will publish desktops and remote apps. Finally, you will configure user profiles and FSLogics with Azure file shares. Finally, you will configure monitoring and security for the Azure Virtual Desktop infrastructure and understand the steps to manage the gold images.
 
 At the end of this hands-on lab, you will be better able to build a secure and robust Azure Virtual Desktop infrastructure.
+
+Continue to the [Hands-on lab](https://github.com/microsoft/MCW-Implementing-Azure-Virtual-Desktop-in-the-enterprise/tree/main/Hands-on%20lab) documents folder.
 
 ## Azure services and related products
 
@@ -44,7 +48,7 @@ At the end of this hands-on lab, you will be better able to build a secure and r
 
 ## Related references
 
-- [MCW](https://github.com/Microsoft/MCW)
+- [MCW](https://microsoftcloudworkshop.com)
 
 ## Help & Support
 
