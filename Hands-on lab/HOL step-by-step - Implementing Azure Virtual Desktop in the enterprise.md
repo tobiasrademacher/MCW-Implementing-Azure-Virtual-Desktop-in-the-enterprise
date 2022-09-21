@@ -773,15 +773,13 @@ In this task, we will create directories for each of the FSLogix profile types a
 
     ![This is an image of where you will find the network drive you mounted in the previous task.](images/networkdrive.png "Network drive location")
 
-2. Create three new folder directories in the root share.
+2. Create two new folder directories in the root share.
 
     - **Profiles**
 
-    - **ODFC**
-
     - **MSIX**
 
-    ![This image shows that after adding these folders, File Explorer for that shared drive will look like this.](images/newfolders.png "New folders in drive z")
+    ![This image shows that after adding two folders, File Explorer for that shared drive will look like this.](images/newfolders.png "New folders in drive z")
 
 3. Right-click on the **Profiles** directory and select **Properties**.
 
@@ -815,31 +813,29 @@ In this task, we will create directories for each of the FSLogix profile types a
 
 9. Select **OK** on both property windows to apply your changes.
 
-    ![This image shows the list of permission objects just created.](images/permissionscomplete.png "Permissions for Profiles and ODFC folder")
+    ![This image shows the list of permission objects just created.](images/permissionscomplete.png "Permissions for Profiles folder")
 
-10. Repeat steps 3-9 for the **ODFC** directory.
+10. Right-click on the **MSIX** directory and select **Properties**.
 
-11. Right-click on the **MSIX** directory and select **Properties**.
+11. On the properties window, select the **Security** tab and select **Advanced**.
 
-12. On the properties window, select the **Security** tab and select **Advanced**.
-
-13. Select **Disable inheritance** and select **Remove all inherited permissions from this object**.
+12. Select **Disable inheritance** and select **Remove all inherited permissions from this object**.
 
     ![This image is the screen where you would remove the inherited permissions.](images/removeinheritedperm.png "Remove inherited permissions")
 
-14. Select **Add** and add **AZF FSLogix Elevated Contributor**. Grant **Full Control** to **Only apply these permissions to objects and/or containers within this container**. Select **OK**.
+13. Select **Add** and add **AZF FSLogix Elevated Contributor**. Grant **Full Control** to **Only apply these permissions to objects and/or containers within this container**. Select **OK**.
 
     ![This image shows the selections that should be complete before selecting ok.](images/addfullcontrol.png "Add FSLogix Elevated Contributor full control")
 
-15. Select **Add** and add **AVD Users**. Grant **Read & execute** to **Only apply these permissions to objects and/or containers within this container**. Select **OK**.
+14. Select **Add** and add **AVD Users**. Grant **Read & execute** to **Only apply these permissions to objects and/or containers within this container**. Select **OK**.
 
     ![This image shows the custom permissions for the AVD users on the MSIX folder.](images/msixavdusers.png "Add AVD users permissions")
 
-16. Confirm your permissions match the screenshots below.
+15. Confirm your permissions match the screenshots below.
 
     ![This image shows the list of permission objects just created for the MSIX folder.](images/msixpermissions.png "Permissions for MSIX folder")
 
-17. Select **OK** on both property windows to apply your changes.
+16. Select **OK** on both property windows to apply your changes.
 
 Your Azure Files Share is now ready for FSLogix profile containers.
 
