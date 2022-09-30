@@ -1326,7 +1326,7 @@ Before continuing this exercise, check your available regional vCPUs and increas
 
     ![The AVD App Hosts group opened in Azure AD with members selected. The two virtual machines we added to the group on the domain controller are shown.](images/aadavdapphosts.png)
 
-13. Reboot both of the virtual machines
+13. Reboot both of the virtual machines.
 
 ### Task 2: Create a friendly name for the workspace
 
