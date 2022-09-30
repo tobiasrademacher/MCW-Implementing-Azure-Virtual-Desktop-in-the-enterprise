@@ -642,6 +642,10 @@ To simplify administration, create four new security groups in Active Directory 
 
         ![This image shows how to create a new group object named AVD User.](images/avduser.png "AVD User")
 
+    - **AVD App Hosts**
+
+        ![The new group dialog showing the Group name set to AVD App Hosts, a Global Security Group and selecting OK.](images/avdapphosts.png)
+
 4. Add the AVD administrative account that you created previously to the group **AZF FSLogix Elevated Contributor**. This account will have permissions to modify file share permissions.
 
     ![This image shows how to find the AVD admin user that you created previously and right-click to add to a group.](images/chooseadmin.png)
@@ -684,7 +688,7 @@ To simplify administration, create four new security groups in Active Directory 
 
     ![This screenshot shows Storage File Data SMB Share Contributor permission level selected and the Next button highlighted.](images/addsmbsharecontributor.png "Add Storage File DAta SMB Share Contributor permissions")
 
-14. Select **+Select members** and add the AZF FSLogix Contributor group. Select the **Select** button and then select **Review + assign** and **Review + assign** again.
+14. Select **+Select members** and add the **AZF FSLogix Contributor** and **AVD App Hosts** group. Select the **Select** button and then select **Review + assign** and **Review + assign** again.
 
     ![The members tab for adding a role assignment is shown in the screenshot with the steps to select members, select the AZF FSLogix Contributor Security Group, and assign it permissions.](images/addsmbpermissions.png "Add Storage File Data SMB Share Contributor permission to AZF FSLogix Contributor")
 
@@ -744,11 +748,7 @@ The first time you configure NTFS permission, do so using superuser permissions.
 
     ![This image shows how to, in the properties for the drive, select the security folder and select advanced.](images/drivesecurity.png "Network drive security settings")
 
-10. Select **Add** and add each of the AD security groups below with the appropriate permissions. Select check names as each are entered to verify the connection.
-
-    ![This image shows how to select add-in security settings to add new objects.](images/addsecurity.png "Add security principals")
-
-    >**Note**: The images show all the objects that need to be added, but only one can be added at a time. Add one and then repeat the process until all four are added.
+10. Select **Add** and add each of the AD security groups below with the appropriate permissions, you can only add one at a time. Select check names as each are entered to verify the connection.
 
     | AD Group | NTFS Permissions | Applies to |
     |----------|------------------|------------|
@@ -756,10 +756,13 @@ The first time you configure NTFS permission, do so using superuser permissions.
     | **AZF FSLogix Elevated Contributor** | Full control |This folder, subfolders, and files|
     | **AZF FSLogix Reader** | Read & execute |This folder, subfolders, and files|
     | **AVD Users** | Modify (This folder only) |This folder only|
-
-11. Select **OK** to save your changes. Select **Yes** if you receive a **Windows Security** warning about removing inherited permissions.
+    | **AVD App Hosts** | Modify | This folder, subfolders, and files |
 
     ![Choose by selecting a principal to open the select user, computer, service account, or group window. In the "enter the object name" window, enter the FSLogix groups that were created previously. Check names and select ok.](images/addobjects.png "Steps to add principal object permissions")
+
+11. Repeat step 10 once for each AD Group, until all five are added.
+
+12. Select **OK** to save your changes. Select **Yes** if you receive a **Windows Security** warning about removing inherited permissions.
 
     ![This image shows that after adding all four objects as principals, they will be in the list of permission entries.](images/addsecuritycomplete.png "New security permissions added")
 
@@ -776,7 +779,6 @@ In this task, we will create directories for each of the FSLogix profile types a
 2. Create two new folder directories in the root share.
 
     - **Profiles**
-
     - **MSIX**
 
     ![This image shows that after adding two folders, File Explorer for that shared drive will look like this.](images/newfolders.png "New folders in drive z")
@@ -831,7 +833,9 @@ In this task, we will create directories for each of the FSLogix profile types a
 
     ![This image shows the custom permissions for the AVD users on the MSIX folder.](images/msixavdusers.png "Add AVD users permissions")
 
-15. Confirm your permissions match the screenshots below.
+15. Repeat the step above for **AVD App Hosts**.
+
+16. Confirm your permissions match the screenshots below.
 
     ![This image shows the list of permission objects just created for the MSIX folder.](images/msixpermissions.png "Permissions for MSIX folder")
 
@@ -1302,6 +1306,27 @@ Before continuing this exercise, check your available regional vCPUs and increas
     ![Select yes and create a new workspace, and then select review and create when complete.](images/newworkspaceremoteapps.png "Create a new workspace")
 
 8. On the Create a host pool page, select **Create**.
+
+9. Once the virtual machines have been created, use remote desktop to connect back to your domain controller.
+
+10. Open up **Active Directory Users and Computers** and find the **AVD App Hosts** security group we created earlier and switch to the **Members** tab.
+
+    ![Azure Active Directory Users and computers with the **AVD App Hosts** group properties opened and teh **Members** tab selected.](images/avdapphostsgroup.png)
+
+11. Select **Add..**
+
+    - Add **computers** to the **Object Types**.
+    - Add the two virtual machines we just created. Then select **OK**.
+    - Select **OK**
+    - Select **OK**
+
+    ![The AVD App Host group properties, with the members tab selected and both virtual machines added. The OK button is highlighted.](images/addapphostcomputers.png)
+
+12. Wait a few minutes and make sure this change synchronizes to Azure Active Directory.
+
+    ![The AVD App Hosts group opened in Azure AD with members selected. The two virtual machines we added to the group on the domain controller are shown.](images/aadavdapphosts.png)
+
+13. Reboot both of the virtual machines.
 
 ### Task 2: Create a friendly name for the workspace
 
@@ -1826,13 +1851,11 @@ In this task, you will take an **MSIX package** created from the [MSIX packaging
 
     ![This image shows you will open share for AVD File Share on the storage account.](images/avdFileShare.png "AVD File Share")
 
-4. Ensure the **MSIX** directory you created earlier is there; if not, create one using the **+ Add directory** button.
-
-    ![Where to add a directory on the storage account.](images/avdFileShareAdd.png "File Share add directory")
+4. Ensure the **MSIX** directory you created earlier is there; if not, go back to Exercise 3, Tasks 4-6 and follow the steps to create it.
 
     >**Note:** Normally, in production, you would create an additional share for MSIX files and place the files there. You would need to make sure the share or container the MSIX files are in you follow the same steps you use for the FSLogix storage account and apply the appropriate permissions to them (users typically only need Read access) and make sure there is enough room to store them. We are placing it on the same share for this exercise for expediency and easier setup. It is not uncommon to have a central MSIX storage with permissions to each MSIX file based on groups assigned to the appropriate application and the MSIX repository used by multiple pools or deployments but ensure network connectivity and speed are kept consistent.
 
-5. In a new tab in your browser, navigate to (URL of the .VHD file) and download AVD-MSIX.vhd.
+5. In a new tab in your browser, navigate to [https://github.com/microsoft/MCW-Implementing-Azure-Virtual-Desktop-in-the-enterprise/blob/main/Hands-on%20lab/resources/VHD/](https://github.com/microsoft/MCW-Implementing-Azure-Virtual-Desktop-in-the-enterprise/blob/main/Hands-on%20lab/resources/VHD/) and download AVD-MSIX.vhd.
 
 6. Back in your storage account, upload the .VHD file to the MSIX folder.
 
@@ -1878,11 +1901,11 @@ In this task, you will take an **MSIX package** created from the [MSIX packaging
 
     ![Confirmation dialog that the certificate import was completed successfully.](images/succesfulcertimport.png "Succesful certificate import dialog")
 
-16. Log out of the remote desktop session for the first remote app server. Repeat steps 8 - 16 on the second remote app server in the pool to import the certificate there also.
+16. Restart virtual machine. Repeat steps 8 - 16 on the second remote app server in the pool to import the certificate there also.
 
     >**Note**: In a larger image, this certificate import could be done in the Gold Image used for provisioning machines or incorporated into the provisioning of any new app servers in the pool.
 
-17. Once the certificate has been successfully imported into both remote app servers, navigate back to **Azure Virtual Desktop** in the Azure portal.
+17. Once the certificate has been successfully imported into both remote app servers and they have both been rebooted, navigate back to **Azure Virtual Desktop** in the Azure portal.
 
 18. Select **Host Pools**, your remote app pool, **MSIX packages**, and then **+ Add**.
 
