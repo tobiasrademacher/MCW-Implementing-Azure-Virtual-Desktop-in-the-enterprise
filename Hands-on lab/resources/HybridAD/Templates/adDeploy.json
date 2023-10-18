@@ -119,7 +119,7 @@
             "publisher": "[variables('imagePublisher')]",
             "offer": "[variables('imageOffer')]",
             "sku": "[variables('imageSKU')]",
-            "version": "17763.3131.220505"
+            "version": "17784.1645.210409-2223"
           },
           "osDisk": {
             "caching": "ReadWrite",
